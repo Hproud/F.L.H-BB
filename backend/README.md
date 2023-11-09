@@ -1,7 +1,12 @@
 # F.L.H-BB
 ## Database Schema Design
 
-`<insert database schema design here>`
+
+# DB Schema
+
+![db-schema]
+
+[db-schema]: /backend/FLH-BB-schema.png
 
 ## API Documentation
 
