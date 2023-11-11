@@ -18,8 +18,6 @@ app.use(express.json());
 
 const routes= require('./routes')
 
-app.use(routes)
-
 if(!isProduction) {
     app.use(cors());
 };
@@ -28,20 +26,21 @@ app.use (
     helmet.crossOriginResourcePolicy({
         policy: "cross-origin"
     })
-);
+    );
 
-app.use(
-    csurf({
-        cookie: {
-            secure: isProduction,
-            samSite: isProduction && "Lax",
-            httpOnly: true
-        }
-    })
-);
+    app.use(
+        csurf({
+            cookie: {
+                secure: isProduction,
+                samSite: isProduction && "Lax",
+                httpOnly: true
+            }
+        })
+        );
+
+        app.use(routes)
 
 
 
 
-
-module.exports =app;
+module.exports = app;
