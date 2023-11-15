@@ -30,13 +30,21 @@ const safeUser = {
     username: user.username,
 };
 
-await setTokenCookie(res,safeUser);
+await setTokenCookie(res, safeUser);
 
 return res.json({
     user: safeUser
 })
 }
-)
+);
+
+router.delete('/',(_req,res) => {
+
+    res.clearCookie('token');
+
+    return res.json({ message: 'success'})
+});
+
 
 
 module.exports = router;
