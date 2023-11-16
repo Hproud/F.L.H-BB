@@ -24,3 +24,6 @@ const handleValidationErrors = (req, _res, next) => {
 module.exports = {
   handleValidationErrors
 };
+
+
+//this fixed my deployment issue
