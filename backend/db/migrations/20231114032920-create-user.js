@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       firstName: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
 
         validate: {
           allowNull: false
@@ -24,7 +24,7 @@ module.exports = {
 
       },
       lastName: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
 
         validate: {
           allowNull: false
