@@ -1,27 +1,26 @@
-const express = require('express');
-const { validationResult }= require('express-validator');
+// backend/utils/validation.js
+const { validationResult } = require('express-validator');
 
+// middleware for formatting errors from express-validator middleware
+// (to customize, see express-validator's documentation)
+const handleValidationErrors = (req, _res, next) => {
+  const validationErrors = validationResult(req);
 
-const handleValidationErrors = (req, _res, next)=>{
-const validationsErrors = validationResult(req);
-
-if (!validationsErrors.isEmpty()){
+  if (!validationErrors.isEmpty()) {
     const errors = {};
-    validationsErrors.array().forEach(error =>
-        errors[error.path] = error.msg
-    );
+    validationErrors
+      .array()
+      .forEach(error => errors[error.path] = error.msg);
 
-    const err = Error('Bad request');
+    const err = Error("Bad request.");
     err.errors = errors;
-    err.status =400;
-    err.title = 'Bad request.';
-next(err)
+    err.status = 400;
+    err.title = "Bad request.";
+    next(err);
+  }
+  next();
 };
-next();
-};
-
-
 
 module.exports = {
-    handleValidationErrors
+  handleValidationErrors
 };
