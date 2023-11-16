@@ -15,6 +15,21 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      firstName: {
+        type: DataTypes.STRING,
+
+        validate: {
+          allowNull: false
+        }
+
+      },
+      lastName: {
+        type: DataTypes.STRING,
+
+        validate: {
+          allowNull: false
+        }
+      },
       username: {
         type: Sequelize.STRING,
         allowNull: false,
