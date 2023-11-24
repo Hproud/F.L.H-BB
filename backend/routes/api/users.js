@@ -49,7 +49,7 @@ const safeUser = {
 await setTokenCookie(res, safeUser);
 
 return res.json({
-    user:safeUser
+    user:safeUser,
 });
 
 }

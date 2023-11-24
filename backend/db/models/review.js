@@ -11,25 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
 
-      Review.belongsTo(
-        models.User,{
-          foreignKey: 'id',
+
+
+
+      Review.hasMany(
+        models.Image,
+        {
+          foreignKey: 'imageableId',
           onDelete: 'CASCADE',
           hooks:true
-        }
-      ),
-
-      Review.belongsTo(
-        models.Spot, {
-          foreignKey: 'id',
-          onDelete: 'CASCADE',
-          hooks:true
-        }
-      ),
-
-      Review.hasOne(
-        models.Image,{
-          foreignKey: 'imageableId'
         }
       )
 
@@ -45,15 +35,23 @@ module.exports = (sequelize, DataTypes) => {
     },
     stars: {
       type: DataTypes.DECIMAL,
-      defaultValue: 0
+      defaultValue: 0.0
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull:false,
+      refernces: {
+        model: 'User',
+        key: 'id'
+      }
     },
     spotId: {
       type: DataTypes.INTEGER,
-      allowNull:false
+      allowNull:false,
+      refernces: {
+        model: 'Spot',
+        key: 'id'
+      }
     }
   }, {
     sequelize,

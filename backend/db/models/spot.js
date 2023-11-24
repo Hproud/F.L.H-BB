@@ -12,27 +12,16 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Spot.belongsTo(
         models.User,{
-          foreignKey: 'id',
-          onDelete: 'CASCADE',
-          hooks:true
-        }
-      ),
-      Spot.belongsTo(
-        models.Booking,{
-          foreignKey: 'spotId'
+          foreignKey: 'ownerId'
         }
       ),
 
       Spot.hasMany(
-        models.Review,{
-          foreignKey: 'spotId'
-        }
+        models.Review
       ),
 
       Spot.hasMany(
-        models.Image,{
-          foreignKey: 'imageableId'
-        }
+        models.Image
       )
     }
   }
@@ -81,6 +70,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Spot',
+    defaultScope:{
+      attributes: {
+exclude:['ownerId','createdAt','updatedAt']
+   } }
   });
   return Spot;
 };

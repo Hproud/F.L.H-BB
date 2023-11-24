@@ -11,24 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
      Booking.belongsTo(
-      models.User, {
-        foreignKey: 'id',
-        onDelete: 'CASCADE',
-        hooks: true
-      },
+      models.User
+      )
 
 
-Booking.belongsTo(
-  models.Spot,{
-    foreignKey: 'spotId',
-    onDelete: 'CASCADE',
-    hooks: true
-  }
 
-
-)
-
-     )
     }
   }
   Booking.init({
@@ -43,10 +30,18 @@ Booking.belongsTo(
     spotId: {
       type: DataTypes.INTEGER,
       allowNull:false,
+      references:{
+        model: 'Spot',
+        key: 'id'
+      }
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references:{
+        model: 'User',
+        key: 'id'
+      }
     }
   }, {
     sequelize,

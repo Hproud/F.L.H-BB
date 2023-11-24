@@ -11,20 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
 
-      Image.belongsTo(
-        models.Spot,{
-          foreignKey: 'id',
-          onDelete: 'CASCADE',
-          hooks: true
-        }
-      ),
+
 
       Image.belongsTo(
-        models.Review,{
-          foreignKey: 'id',
-          onDelete: 'CASCADE',
-          hooks: true
-        }
+        models.Review
       )
     }
   }
@@ -35,7 +25,8 @@ module.exports = (sequelize, DataTypes) => {
 
     },
     imageableType: DataTypes.STRING,
-    url: DataTypes.STRING
+    url: DataTypes.STRING,
+    
   }, {
     sequelize,
     modelName: 'Image',
