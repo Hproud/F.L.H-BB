@@ -1,5 +1,10 @@
 'use strict';
+const {Booking} =require('../models');
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -12,7 +17,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await queryInterface.bulkCreate('bookings',[
+   await Booking.bulkCreate([
     {
       startDate: '2023-12-5',
       endDate: '2023-12-20',
@@ -47,6 +52,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('bookings',{})
+    options.tableName = 'Bookings';
+const Op = Sequelize.Op;
+    await queryInterface.bulkDelete(options, {
+      spotId: { [Op.in]: [1,3,4,2]}
+    },{});
   }
 };

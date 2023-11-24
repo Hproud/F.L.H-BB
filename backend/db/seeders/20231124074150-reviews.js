@@ -1,4 +1,11 @@
 'use strict';
+const {Review} = require('../models');
+
+
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -12,7 +19,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await queryInterface.bulkCreate([
+   await Review.bulkCreate([
     {
       review: 'this was awesome',
       stars: 5.0,
@@ -41,6 +48,10 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('reviews',{});
+    options.tableName = 'Reviews';
+const Op = Sequelize.Op;
+    await queryInterface.bulkDelete(options, {
+      spotId: { [Op.in]: ['3','4','1']}
+    },{});
   }
 };

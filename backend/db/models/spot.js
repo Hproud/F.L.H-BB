@@ -55,11 +55,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     lat: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DECIMAL,
       allowNull: false,
     },
     lng: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DECIMAL,
       allowNull: false,
     },
     name:{
