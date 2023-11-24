@@ -16,16 +16,37 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       review: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull:false,
+        validate: {
+          len: [{
+            min: 3,
+          }]
+        }
       },
       stars: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        default: 0,
+        validate:{
+          isDecimal: true,
+          len: [2,2]
+        }
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references:{
+          model: 'User',
+          key: 'id'
+        }
       },
       spotId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references:{
+          model: 'Spot',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

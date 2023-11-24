@@ -25,7 +25,7 @@ Booking.belongsTo(
     hooks: true
   }
 
-  
+
 )
 
      )
@@ -33,16 +33,20 @@ Booking.belongsTo(
   }
   Booking.init({
     startDate: {
-      type: DataTypes.DATE
+      type: DataTypes.STRING,
+      allowNull:false,
     },
     endDate: {
-      type: DataTypes.DATE
+      type: DataTypes.STRING,
+      allowNull:false,
     },
     spotId: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      allowNull:false,
     },
     userId: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      allowNull: false,
     }
   }, {
     sequelize,

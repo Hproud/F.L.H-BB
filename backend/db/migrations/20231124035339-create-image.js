@@ -16,13 +16,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       imageableId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       imageableType: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       url: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull:false,
       },
       createdAt: {
         allowNull: false,

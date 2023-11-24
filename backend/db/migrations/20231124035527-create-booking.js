@@ -12,15 +12,37 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        unique: true
       },
       startDate: {
-        type: Sequelize.DATE,
-        allowNull: false
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate:{
+          isDate: true,
+          isAfter: Sequelize.literal('CURRENT_TIMESTAMP')
+          // isToday(value){
+          //   const currDate = Sequelize.literal('CURRENT_TIMESTAMP');
+          //   if(currDate > value){
+          //     throw new Error('Start date can not be in the past.')
+          //   }
+          // },
+
+        }
       },
       endDate: {
-        type: Sequelize.DATE,
-        allowNull:false
+        type: Sequelize.STRING,
+        allowNull:false,
+        validate: {
+          isDate: true,
+          isAfter: this.startDate
+          // isAfterStartDate(value){
+          //   const checkIn = this.startDate;
+          //   if(value < checkIn){
+          //     throw new Error('Please enter a date after your check in date.')
+          //   }
+          // }
+        }
       },
       spotId: {
         type: Sequelize.INTEGER,
