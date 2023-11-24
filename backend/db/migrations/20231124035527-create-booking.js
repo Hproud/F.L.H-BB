@@ -15,24 +15,31 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       startDate: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull: false
       },
       endDate: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull:false
       },
       spotId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull:false
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        default: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        default: Sequelize.literal('CURRENT_TIMESTAMP')
+
       }
     });
   },
