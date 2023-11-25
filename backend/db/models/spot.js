@@ -66,6 +66,18 @@ module.exports = (sequelize, DataTypes) => {
     ownerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    avgRating: {
+      type: DataTypes.FLOAT,
+      defaultValue: 0,
+    },
+    previewImage: {
+      type: DataTypes.STRING,
+      defaultValue:null,
+      references:{
+        model: 'Image',
+        key: 'imageableId'
+      }
     }
   }, {
     sequelize,

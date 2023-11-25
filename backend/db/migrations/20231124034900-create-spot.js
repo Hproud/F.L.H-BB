@@ -1,6 +1,6 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
-
+const {Review} = require('../models');
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
@@ -14,6 +14,10 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
+      },
+      ownerId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       address: {
         type: Sequelize.STRING,
@@ -43,6 +47,7 @@ module.exports = {
       lng: {
         type: Sequelize.DECIMAL,
         allowNull: false,
+
       },
       name: {
         type: Sequelize.STRING,
@@ -55,10 +60,9 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER,
         allowNull: false,
-      },
-      ownerId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
+        validate:{
+          min:1
+        }
       },
       createdAt: {
         allowNull: false,
@@ -71,6 +75,17 @@ module.exports = {
         type: Sequelize.DATE,
         default: Sequelize.literal('CURRENT_TIMESTAMP')
 
+      },
+      avgRating: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0.0,
+        validate: {
+          isDecimal: true,
+        }
+      },
+      previewImage: {
+        type: Sequelize.STRING,
+        defaultValue:null
       }
     });
   },
