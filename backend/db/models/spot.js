@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Spot.belongsTo(
         models.User,{
-          foreignKey: 'ownerId'
+          foreignKey: 'ownerId',
+          as: 'Owner'
         }
       ),
 
@@ -21,11 +22,23 @@ module.exports = (sequelize, DataTypes) => {
       ),
 
       Spot.hasMany(
-        models.Image
-      )
+        models.Image,{
+          foreignKey: 'imageableId',
+          as: 'SpotImages',
+          constraints:false,
+          scope:{
+            imageableType: 'Spot',
+
+          },
+        }
+        )
+      }
     }
-  }
-  Spot.init({
+    Spot.init({
+ownerId:{
+  type: DataTypes.INTEGER,
+  // allowNull: false
+},
     address: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -63,10 +76,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    ownerId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     avgRating: {
       type: DataTypes.FLOAT,
       defaultValue: 0,
@@ -84,8 +93,9 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Spot',
     defaultScope:{
       attributes: {
-exclude:['ownerId','createdAt','updatedAt']
-   } }
+exclude:['createdAt','updatedAt']
+   } },
+
   });
   return Spot;
 };

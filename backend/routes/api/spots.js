@@ -2,16 +2,21 @@ const express = require('express');
 const bcrypt= require('bcryptjs');
 const { check } = require('express-validator');
 const { handleValidationErrors}= require('../../utils/validation')
-const {setTokenCookie, requireAuth} = require('../../utils/auth');
-const {Spot,Review,Image,Booking} = require('../../db/models');
-const spot = require('../../db/models/spot');
-const review = require('../../db/models/review');
+const {setTokenCookie,requireAuth} = require('../../utils/auth');
+const {Spot,Review,Image,Booking,User} = require('../../db/models');
+const { validationResult } = require('express-validator');
+
 
 const router = express.Router();
+// const currUser = req.user.dataValues.id;
 
-const validateSpot =[
+
+const validateSpot = [
    check('address')
-   .exists({checkFalsy: true})
+   .exists({checkFalsy:true})
+   .notEmpty()
+   .isLength({min:3})
+   .isString({checkFalsy:true})
    .withMessage('Street address is required'),
    check('city')
    .exists({checkFalsy: true})
@@ -41,6 +46,7 @@ const validateSpot =[
    .isNumeric({min:0})
    .withMessage('Price per day must be a positive number')
 ];
+//?-----------------------------------------------------------------?//
 
 const getAvg = async (id) =>{
    const allReviews = await Review.findAll({
@@ -70,9 +76,123 @@ if(count > 0){
 };
 
 
+//?===============================================================================?//
+
+
+router.post('/:spotId/images',requireAuth, async (req,res,next) =>{
+   const spotId = Number(req.params.spotId)
+   const {url,preview} = req.body;
+const currUser = req.user.id
+   // console.log(req.user.id,'--------------------------')
+   // res.json('hello');
+   const property = await Spot.findOne({
+      where:{
+         id : spotId
+      }
+   });
+   // console.log(property,'<-----------property-------------');
+
+   // console.log(currUser,'<-----------currUser-------------');
+   // console.log(property.ownerId,'<-----------ownerId-------------');
+
+
+      if(property.ownerId === currUser){
+         const pic = await Image.create({
+   url,
+   preview,
+   imageableId: spotId,
+   imageableType: "Spot"
+      })
+res.json({
+         id:pic.id,
+         url:pic.url,
+         preview: pic.preview
+      }
+      )
+   }
+   else{
+         const err = Error('Forbidden')
+         err.status = 404,
+         err.title ='Forbidden';
+         err.message = 'Forbidden'
+         next(err)
+      }
+
+
+      // console.log(pic)
+
+
+})
+
+//?-----------------------------------------------------------------?//
+
+//?    make sure to come back and test after you do add image one! DONE
+
+router.get('/:spotId',async(req,res,next)=>{
+   let id = Number(req.params.spotId);
+console.log(id,"ghjhgjkhgjghfhgfhgfghjfghfhgj")
+// console.log(req,'this is the requests-------------------------------------------------')
+const location = await Spot.findOne({
+   where:{
+      id: id,
+   },
+   include: [{
+      model: Image,
+      as: 'SpotImages',
+      where:{
+         imageableId: id,
+         imageableType: 'Spot',
+      },
 
 
 
+   }, {
+      model: User,
+      as: 'Owner',
+      attributes: ['firstName','lastName']}]
+});
+if(!location){
+ const err = Error('Spot couldn`t be found');
+ err.status = 404;
+ err.title = "Spot not found"
+ err.message= 'Spot couldn`t be found'
+ next(err)
+}else{
+   res.json(location)
+}
+});
+
+
+//?-----------------------------------------------------------------?//
+
+router.get('/:ownerId',requireAuth,async(req,res,next) => {
+const currUser = req.user.dataValues.id;
+
+const {ownerId} = req.params;
+if(Number(ownerId) === currUser){
+   const properties = await Spot.findAll({
+      where:{
+         ownerId: currUser
+      }
+   })
+
+res.json(properties)
+}else{
+   const err = Error('Forbidden')
+
+   err.title='Forbidden',
+   err.message= 'You can only view properties that you own',
+   err.status=402;
+   next(err)
+}
+
+
+
+
+
+})
+
+//?-----------------------------------------------------------------?//
 router.get('/',async (req,res,next)=>{
  const allSpots = await Spot.findAll();
 
@@ -85,37 +205,61 @@ router.get('/',async (req,res,next)=>{
  res.json(allSpots)
 });
 
-router.post('/',requireAuth,validateSpot,async(req,res,next) =>{
+
+//?--------------------     NOT WORIKING    ------------------------?//
+router.post('/',validateSpot,requireAuth,async(req,res,next) =>{
+   const {address,city,state,country,lat,lng,name,description,price} = req.body
+
+const ownerId = req.user.dataValues.id
 const check = await Spot.findOne({
    where:{
-address: req.body.address
+address: ""
    }
 });
-
+// console.log('=========',req.user.dataValues.id,'==========')
 if(!check){
    const newSpot = await Spot.create({
-      ownerId: req.body.ownerId,
-      address: req.body.address,
-      city: req.body.city,
-      state: req.body.state,
-      country: req.body.country,
-      lat: req.body.lat,
-      lng: req.body.lng,
-      name: req.body.name,
-      description: req.body.description,
-      price: req.body.price
-   });
+      ownerId: ownerId,
+      address,
+      city,
+      state,
+      country ,
+      lat ,
+      lng ,
+      name,
+      description ,
+      price
+   })
 
    res.json(newSpot)
 
-}else{
-   res.status(400)
-   next(err)
- throw new Error('location already exists')
-}
+   }
+   else{
+      res.status(400)
+      // next(err)
+      const err = Error('Location already exists');
+
+      err.message= "Location already exists";
+      err.title='Location already exists';
+      err.status = 400
+next(err)
+   }
 
 })
 
+
+router.delete('/:spotId',requireAuth, async(req,res,next)=>{
+   const id = Number(req.params.spotId);
+const theSpot = await Spot.findOne({
+   where:{
+      id: id
+   }
+})
+// console.log('=======================',theSpot,'=============================')
+await theSpot.destroy();
+
+res.json('Successfully deleted')
+})
 
 
 

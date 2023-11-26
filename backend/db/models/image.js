@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { Sequelize } = require('.');
 module.exports = (sequelize, DataTypes) => {
   class Image extends Model {
     /**
@@ -11,25 +12,47 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
 
-
+      Image.belongsTo(
+        models.Spot,{
+          foreignKey: 'imageableId',
+          as: 'spotImages',
+          constraints:false
+        }
+      )
 
       Image.belongsTo(
-        models.Review
+        models.Review,{
+          foreignKey: 'imageableId',
+          constraints:false
+        }
       )
     }
   }
   Image.init({
-    imageableId: {
-      type: DataTypes.INTEGER,
-      allowNull:false
-
+    imageableType: {
+type: DataTypes.STRING
     },
-    imageableType: DataTypes.STRING,
-    url: DataTypes.STRING,
-    
-  }, {
+    url: {
+      type: DataTypes.STRING,
+      allowNull:false
+    },
+      preview: {
+        type: DataTypes.BOOLEAN,
+        defaultValue:false
+      }
+    }
+
+
+  , {
     sequelize,
     modelName: 'Image',
-  });
+    defaultScope:{
+      attributes:{
+        include:['id','url','preview'],
+        exclude: ['imageableId','imageableType','createdAt','updatedAt']
+      }
+    }
+  }
+  );
   return Image;
 };

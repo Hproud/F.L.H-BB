@@ -13,7 +13,7 @@ module.exports = {
 
     await Spot.bulkCreate([
       {
-        ownerId: 2,
+        ownerId: 1,
         address: '12 tell me lane',
         city: 'Dallas',
         state: 'Texas',
@@ -25,7 +25,7 @@ module.exports = {
         price: 200,
       },
       {
-        ownerId: 1,
+        ownerId: 3,
         address: '30 Money lane',
         city: 'Omaha',
         state: 'Nebraska',
@@ -37,7 +37,7 @@ module.exports = {
         price: 20,
       },
       {
-        ownerId: 3,
+        ownerId: 2,
         address: '12 tell me lane',
         city: 'Dallas',
         state: 'Texas',
@@ -47,31 +47,31 @@ module.exports = {
         name: 'Test spot 1',
         description: 'cozy little tent with a great fire',
         price: 200,
-      },
-      {
-        ownerId: 3,
-        address: '120 tell me lane',
-        city: 'My City',
-        state: 'Ohio',
-        country: 'USA',
-        lat: 25.1872215,
-        lng: -179.1628379,
-        name: 'Test spot 3',
-        description: 'super soft couches',
-        price: 150,
-      },
-      {
-        ownerId: 2,
-        address: '158 test ave',
-        city: 'Dallas',
-        state: 'Texas',
-        country: 'USA',
-        lat: 25.1548615,
-        lng: -2.1797379,
-        name: 'Test spot 4',
-        description: 'the nicest castle you will see',
-        price: 1000,
-      },
+      }
+      // {
+        // ownerId: 3,
+      //   address: '120 tell me lane',
+      //   city: 'My City',
+      //   state: 'Ohio',
+      //   country: 'USA',
+      //   lat: 25.1872215,
+      //   lng: -179.1628379,
+      //   name: 'Test spot 3',
+      //   description: 'super soft couches',
+      //   price: 150,
+      // },
+      // {
+          // ownerId: 1,
+      //   address: '158 test ave',
+      //   city: 'Dallas',
+      //   state: 'Texas',
+      //   country: 'USA',
+      //   lat: 25.1548615,
+      //   lng: -2.1797379,
+      //   name: 'Test spot 4',
+      //   description: 'the nicest castle you will see',
+      //   price: 1000,
+      // },
 
     ])
   },

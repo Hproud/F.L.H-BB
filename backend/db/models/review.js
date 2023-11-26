@@ -18,8 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         models.Image,
         {
           foreignKey: 'imageableId',
-          onDelete: 'CASCADE',
-          hooks:true
+          constraints:false,
+          scope:{
+            imageableType: 'Review'
+          }
         }
       )
 
