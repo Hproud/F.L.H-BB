@@ -12,35 +12,40 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Spot.belongsTo(
         models.User,{
-          foreignKey: 'id',
-          onDelete: 'CASCADE',
-          hooks:true
-        }
-      ),
-      Spot.belongsTo(
-        models.Booking,{
-          foreignKey: 'spotId'
+          foreignKey: 'ownerId',
+          as: 'Owner'
         }
       ),
 
       Spot.hasMany(
-        models.Review,{
-          foreignKey: 'spotId'
-        }
+        models.Review
       ),
 
       Spot.hasMany(
         models.Image,{
-          foreignKey: 'imageableId'
+          foreignKey: 'imageableId',
+          as: 'SpotImages',
+          constraints:false,
+          scope:{
+            imageableType: 'Spot',
+
+          },
         }
-      )
+        )
+      }
     }
-  }
-  Spot.init({
+    Spot.init({
+ownerId:{
+  type: DataTypes.INTEGER,
+  // allowNull: false
+},
     address: {
       type: DataTypes.STRING,
       allowNull: false,
-
+      unique:true,
+      validate:{
+        len:[3,300]
+      }
     },
     city: {
       type: DataTypes.STRING,
@@ -55,12 +60,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     lat: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.FLOAT,
       allowNull: false,
+        min: -90.0000000,
+        max: 90.00000000
+
     },
     lng: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.FLOAT,
       allowNull: false,
+      validate:{
+        min: -180,
+        max: 180
+      }
     },
     name:{
       type: DataTypes.STRING,
@@ -73,14 +85,31 @@ module.exports = (sequelize, DataTypes) => {
     price: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate:{
+        isNumeric: true,
+        min: 0
+      }
     },
-    ownerId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+    avgRating: {
+      type: DataTypes.FLOAT,
+      defaultValue: 0,
+    },
+    previewImage: {
+      type: DataTypes.STRING,
+      defaultValue:null,
+      references:{
+        model: 'Image',
+        key: 'imageableId'
+      }
     }
   }, {
     sequelize,
     modelName: 'Spot',
+    defaultScope:{
+      attributes: {
+exclude:['createdAt','updatedAt']
+   } },
+
   });
   return Spot;
 };

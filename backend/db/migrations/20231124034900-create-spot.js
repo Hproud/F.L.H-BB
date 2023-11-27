@@ -1,6 +1,6 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
-
+const {Review} = require('../models');
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
@@ -15,34 +15,33 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      ownerId:{
+        type: Sequelize.INTEGER,
+        // allowNull:false
+      },
       address: {
         type: Sequelize.STRING,
         allowNull: false,
-
       },
       city: {
         type: Sequelize.STRING,
         allowNull: false,
-
-
       },
       state: {
         type: Sequelize.STRING,
         allowNull: false,
-
       },
       country: {
         type: Sequelize.STRING,
         allowNull: false,
-
       },
       lat: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
       lng: {
-        type: Sequelize.DECIMAL,
-        allowNull: false,
+        type: Sequelize.FLOAT,
+      allowNull: false,
       },
       name: {
         type: Sequelize.STRING,
@@ -55,10 +54,12 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER,
         allowNull: false,
-      },
-      ownerId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
+        avgRating: {
+          type: Sequelize.FLOAT,
+        },
+         previewImage: {
+      type: Sequelize.STRING
+    }
       },
       createdAt: {
         allowNull: false,
@@ -71,6 +72,17 @@ module.exports = {
         type: Sequelize.DATE,
         default: Sequelize.literal('CURRENT_TIMESTAMP')
 
+      },
+      avgRating: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0.0,
+        validate: {
+          isDecimal: true,
+        }
+      },
+      previewImage: {
+        type: Sequelize.STRING,
+        defaultValue:null
       }
     });
   },

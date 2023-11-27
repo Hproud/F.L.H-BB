@@ -17,15 +17,17 @@ module.exports = {
       },
       imageableId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
       },
       imageableType: {
         type: Sequelize.STRING,
-        allowNull: false
       },
       url: {
         type: Sequelize.STRING,
         allowNull:false,
+      },
+      preview:{
+        type: Sequelize.BOOLEAN,
+        default: false
       },
       createdAt: {
         allowNull: false,

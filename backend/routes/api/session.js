@@ -19,6 +19,8 @@ const validateLogin = [
     handleValidationErrors
   ];
 
+
+
 router.post('/', validateLogin, async (req,res,next) => {
     // console.log(req.body)
 const {credential, password} = req.body;
@@ -27,7 +29,7 @@ const user = await User.unscoped().findOne({
         [Op.or]: {
             username: credential,
             email: credential
-        }
+        } 
     }
 });
 
