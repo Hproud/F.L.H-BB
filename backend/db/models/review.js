@@ -37,12 +37,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     stars: {
       type: DataTypes.DECIMAL,
-      defaultValue: 0.0
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull:false,
-      refernces: {
+      references: {
         model: 'User',
         key: 'id'
       }
@@ -50,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     spotId: {
       type: DataTypes.INTEGER,
       allowNull:false,
-      refernces: {
+      references: {
         model: 'Spot',
         key: 'id'
       }

@@ -22,32 +22,26 @@ module.exports = {
       address: {
         type: Sequelize.STRING,
         allowNull: false,
-
       },
       city: {
         type: Sequelize.STRING,
         allowNull: false,
-
-
       },
       state: {
         type: Sequelize.STRING,
         allowNull: false,
-
       },
       country: {
         type: Sequelize.STRING,
         allowNull: false,
-
       },
       lat: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
       lng: {
-        type: Sequelize.DECIMAL,
-        allowNull: false,
-
+        type: Sequelize.FLOAT,
+      allowNull: false,
       },
       name: {
         type: Sequelize.STRING,
@@ -60,9 +54,12 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        validate:{
-          min:1
-        }
+        avgRating: {
+          type: Sequelize.FLOAT,
+        },
+         previewImage: {
+      type: Sequelize.STRING
+    }
       },
       createdAt: {
         allowNull: false,

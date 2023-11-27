@@ -42,7 +42,10 @@ ownerId:{
     address: {
       type: DataTypes.STRING,
       allowNull: false,
-
+      unique:true,
+      validate:{
+        len:[3,300]
+      }
     },
     city: {
       type: DataTypes.STRING,
@@ -57,12 +60,19 @@ ownerId:{
       allowNull: false,
     },
     lat: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.FLOAT,
       allowNull: false,
+        min: -90.0000000,
+        max: 90.00000000
+
     },
     lng: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.FLOAT,
       allowNull: false,
+      validate:{
+        min: -180,
+        max: 180
+      }
     },
     name:{
       type: DataTypes.STRING,
@@ -75,6 +85,10 @@ ownerId:{
     price: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate:{
+        isNumeric: true,
+        min: 0
+      }
     },
     avgRating: {
       type: DataTypes.FLOAT,
