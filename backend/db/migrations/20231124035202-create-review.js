@@ -38,7 +38,7 @@ module.exports = {
       },
       spotId: {
         type: Sequelize.INTEGER,
-        
+        allowNull:false
 
       },
       createdAt: {
