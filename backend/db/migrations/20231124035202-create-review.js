@@ -36,25 +36,21 @@ module.exports = {
       spotId: {
         type: Sequelize.INTEGER,
         allowNull:false
-
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-
       }
     },options);
   },
   async down(queryInterface, Sequelize) {
     options.tableName = "Reviews"
     return queryInterface.dropTable(options);
-
   }
 };
