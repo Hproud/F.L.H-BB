@@ -16,7 +16,7 @@ module.exports = {
       },
       ownerId:{
         type: Sequelize.INTEGER,
-        // allowNull:false
+        allowNull:false
       },
       address: {
         type: Sequelize.STRING,
@@ -63,13 +63,13 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        default: Sequelize.literal('CURRENT_TIMESTAMP')
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        default: Sequelize.literal('CURRENT_TIMESTAMP')
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 
       },
       avgRating: {
@@ -80,20 +80,12 @@ module.exports = {
       previewImage: {
         type: Sequelize.STRING,
         defaultValue:false
-      },createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-      }
-    });
+
+    },options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = 'Spots'
+    options.tableName = "Spots"
     return queryInterface.dropTable(options);
   }
 };
