@@ -1,5 +1,5 @@
 'use strict';
-
+/** @type {import('sequelize-cli').Migration} */
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
@@ -75,9 +75,7 @@ module.exports = {
       avgRating: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
-        validate: {
-          isDecimal: true,
-        }
+
       },
       previewImage: {
         type: Sequelize.STRING,
