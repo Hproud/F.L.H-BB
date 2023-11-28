@@ -42,7 +42,7 @@ router.use('/users',usersRouter);
 
 router.use('/spots',spotsRouter);
 
-router.post('test',(req,res) =>{
+router.post('/test',(req,res) =>{
     res.json({ requestBody: req.body})
 })
 
