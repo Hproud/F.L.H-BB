@@ -1,0 +1,71 @@
+'use strict';
+/** @type {import('sequelize-cli').Migration} */
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+};
+
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('Bookings', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+        unique: true
+      },
+      startDate: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate:{
+          isDate: true,
+          isAfter: Sequelize.literal('CURRENT_TIMESTAMP')
+          // isToday(value){
+          //   const currDate = Sequelize.literal('CURRENT_TIMESTAMP');
+          //   if(currDate > value){
+          //     throw new Error('Start date can not be in the past.')
+          //   }
+          // },
+
+        }
+      },
+      endDate: {
+        type: Sequelize.STRING,
+        allowNull:false,
+        validate: {
+          isDate: true,
+          isAfter: this.startDate
+          // isAfterStartDate(value){
+          //   const checkIn = this.startDate;
+          //   if(value < checkIn){
+          //     throw new Error('Please enter a date after your check in date.')
+          //   }
+          // }
+        }
+      },
+      spotId: {
+        type: Sequelize.INTEGER,
+        allowNull:false
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        default: Sequelize.literal('CURRENT_TIMESTAMP')
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        default: Sequelize.literal('CURRENT_TIMESTAMP')
+
+      }
+    });
+  },
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('Bookings');
+  }
+};
