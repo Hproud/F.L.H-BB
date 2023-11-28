@@ -29,15 +29,15 @@ const user = await User.unscoped().findOne({
         [Op.or]: {
             username: credential,
             email: credential
-        } 
+        }
     }
 });
 
 if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())){
-    const err = new Error('Login failed');
+    const err = new Error("Invalid credentials");
     err.status = 401;
-    err.title = 'Login failed';
-    err.errors = { credential: ' The provided credentials were invalid.'};
+    err.errors = { credential: ' Email or username is required.',
+password: 'Password is required'};
     return next(err);
 }
 const safeUser = {
@@ -74,6 +74,7 @@ async(req,res) =>{
             email: user.email,
             username: user.username,
         };
+
         return res.json({
             user: safeUser
         })

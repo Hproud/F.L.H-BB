@@ -195,7 +195,7 @@ router.get('/:ownerId',requireAuth,async(req,res,next) => {
 })
 
 //?---------------------GET ALL SPOTS--------------------------------?//
-router.get('/',async (req,res,next)=>{
+router.get('/',async (req,res)=>{
    const allSpots = await Spot.findAll();
 
    for(let i = 0; i < allSpots.length;i++){
