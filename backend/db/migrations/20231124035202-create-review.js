@@ -31,18 +31,15 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        references:{
-          model: 'User',
-          key: 'id'
-        }
+        // references:{
+        //   model: 'User',
+        //   key: 'id'
+        // }
       },
       spotId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references:{
-          model: 'Spot',
-          key: 'id'
-        }
+        
       },
       createdAt: {
         allowNull: false,
