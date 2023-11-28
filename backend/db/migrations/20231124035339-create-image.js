@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       imageableType: {
-        type: Sequelize.STRING, 
+        type: Sequelize.STRING,
       },
       url: {
         type: Sequelize.STRING,
@@ -27,21 +27,21 @@ module.exports = {
       },
       preview:{
         type: Sequelize.BOOLEAN,
-        default: false
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        default: Sequelize.literal('CURRENT_TIMESTAMP')
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        default: Sequelize.literal('CURRENT_TIMESTAMP')
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 
       }
-    });
+    },options);
   },
   async down(queryInterface, Sequelize) {
     options.tableName = "Images"
