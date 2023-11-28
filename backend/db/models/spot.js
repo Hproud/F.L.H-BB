@@ -92,12 +92,12 @@ ownerId:{
       }
     },
     avgRating: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.INTEGER,
       defaultValue: 0,
     },
     previewImage: {
       type: DataTypes.STRING,
-      defaultValue:null,
+      defaultValue:false,
       references:{
         model: 'Image',
         key: 'imageableId'
