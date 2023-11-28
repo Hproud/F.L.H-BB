@@ -17,11 +17,7 @@ module.exports = {
       review: {
         type: Sequelize.STRING,
         allowNull:false,
-        validate: {
-          len: [{
-            min: 3,
-          }]
-        }
+       
       },
       stars: {
         type: Sequelize.DECIMAL,
