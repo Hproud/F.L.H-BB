@@ -28,11 +28,11 @@ module.exports = {
         allowNull: false,
         default: 0.0,
       },
-      userId: {
+      spotId: {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      spotId: {
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false
       },
