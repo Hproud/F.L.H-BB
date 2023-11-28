@@ -100,11 +100,13 @@ router.post('/:spotId/images',requireAuth, async (req,res,next) =>{
 
    if(property.ownerId === currUser){
       const pic = await Image.create({
-   url,
-   preview,
+   url:url,
+   preview:preview,
    imageableId: spotId,
-   imageableType: "Spot"
+   imageableType: "Spot",
 })
+const location =property.toJSON()
+
 res.json({
    id:pic.id,
    url:pic.url,
@@ -126,73 +128,78 @@ else{
 
 })
 
-//?------------------GET INFO ABOUT SPECIFIC SPOT-------------------?//
-
-//&    make sure to come back and test after you do add image one! DONE
-
-router.get('/:spotId',async(req,res,next)=>{
-   let id = Number(req.params.spotId);
-   // console.log(id,"ghjhgjkhgjghfhgfhgfghjfghfhgj")
-   // console.log(req,'this is the requests-------------------------------------------------')
-   const location = await Spot.findOne({
-      where:{
-         id: id,
-   },
-   include: [{
-      model: Image,
-      as: 'SpotImages',
-      where:{
-         imageableId: id,
-         imageableType: 'Spot',
-      },
-
-
-
-   }, {
-      model: User,
-      as: 'Owner',
-      attributes: ['firstName','lastName']}]
-   });
-   if(!location){
-      const err = Error('Spot couldn`t be found');
-      err.status = 404;
-      err.title = "Spot not found"
-      err.message= 'Spot couldn`t be found'
-      next(err)
-   }else{
-      res.json(location)
-   }
-});
-
-
 //?-------------FIND ALL PROPERTIES USER OWNS------------------------?//
 
-router.get('/:ownerId',requireAuth,async(req,res,next) => {
+router.get('/current',requireAuth,async(req,res,next) => {
    const currUser = req.user.dataValues.id;
+   // console.log(ownerId,"<--------------owner Id");
 
-   const {ownerId} = req.params;
-   if(Number(ownerId) === currUser){
+
+
       const properties = await Spot.findAll({
          where:{
             ownerId: currUser
       }
    })
 
-   res.json(properties)
+if(!properties){
+   res.json('You do not have any properties listed')
 }else{
-   const err = Error('Forbidden')
-
-   err.title='Forbidden',
-   err.message= 'You can only view properties that you own',
-   err.status=402;
-   next(err)
+    res.json(properties)
 }
 
+   }
+)
+
+//?------------------GET INFO ABOUT SPECIFIC SPOT-------------------?//
+
+//&    make sure to come back and test after you do add image one! DONE
+
+router.get('/:spotId',async(req,res,next)=>{
+   let id =req.params.spotId
+   // console.log(id,"ghjhgjkhgjghfhgfhgfghjfghfhgj")
+   // console.log(req,'this is the requests-------------------------------------------------')
+   const location = await Spot.findOne({
+      where:{
+         id: Number(id)
+   },
+   include:(
+      {
+      model: Image,
+      as: 'SpotImages',
+      where:{
+         imageableId: id,
+         imageableType: 'Spot',
+      }
+   },
+    {
+      model: User,
+      as: 'Owner',
+      attributes: ['firstName','lastName'],
+   }
+)
+   });
+
+
+   if(!location){
+      const err = Error('Spot couldn`t be found');
+      err.status = 404;
+      err.title = 'Spot not found'
+      err.message= 'Spot couldn`t be found'
+      next(err)
+   }else{
+     
+
+      res.json(location)
+   }
+});
 
 
 
 
-})
+
+
+
 
 //?---------------------GET ALL SPOTS--------------------------------?//
 router.get('/',async (req,res)=>{

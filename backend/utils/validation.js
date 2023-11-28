@@ -14,7 +14,7 @@ const handleValidationErrors = (req, _res, next) => {
 
     const err = Error("Bad request.");
     err.errors = errors;
-    err.status = 401;
+    err.status = 400;
     err.title = "Bad request.";
     next(err);
   }
@@ -24,6 +24,3 @@ const handleValidationErrors = (req, _res, next) => {
 module.exports = {
   handleValidationErrors
 };
-
-
-//this fixed my deployment issue
