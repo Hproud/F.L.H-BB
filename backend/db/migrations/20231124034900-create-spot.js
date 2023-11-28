@@ -36,11 +36,11 @@ module.exports = {
         allowNull: false,
       },
       lat: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       lng: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
       allowNull: false,
       },
       name: {
@@ -55,7 +55,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         avgRating: {
-          type: Sequelize.FLOAT,
+          type: Sequelize.INTEGER,
         },
          previewImage: {
       type: Sequelize.STRING
@@ -74,7 +74,7 @@ module.exports = {
 
       },
       avgRating: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.INTEGER,
         defaultValue: 0.0,
         validate: {
           isDecimal: true,
