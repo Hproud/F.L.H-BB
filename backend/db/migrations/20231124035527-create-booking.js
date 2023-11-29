@@ -40,7 +40,7 @@ module.exports = {
       //     model: 'Spot',
       //     key: 'id'
       //   }
-      // },
+      },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
