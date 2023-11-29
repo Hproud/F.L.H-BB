@@ -55,10 +55,7 @@ module.exports = {
         allowNull: false,
         avgRating: {
           type: Sequelize.INTEGER,
-        },
-         previewImage: {
-      type: Sequelize.STRING
-    }
+        }
       },
       createdAt: {
         allowNull: false,
