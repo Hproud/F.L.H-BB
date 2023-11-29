@@ -17,22 +17,22 @@ module.exports = {
       review: {
         type: Sequelize.STRING,
         allowNull:false,
-        validate: {
-          len: [{
-            min: 3,
-          }]
-        }
+        // validate: {
+        //   len: [{
+        //     min: 3,
+        //   }]
+        // }
       },
       stars: {
         type: Sequelize.DECIMAL,
         allowNull: false,
-        default: 0.0,
+        defaultValue: 0.0,
       },
-      spotId: {
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      userId: {
+      spotId: {
         type: Sequelize.INTEGER,
         allowNull: false
       },
