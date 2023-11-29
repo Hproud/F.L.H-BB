@@ -52,7 +52,11 @@ Review.belongsTo(
     },
     spotId: {
       type: DataTypes.INTEGER,
-      allowNull:false
+      allowNull:false,
+      references:{
+        model: Spot,
+        key: 'id'
+      }
     }
   }, {
     sequelize,
