@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 Review.belongsTo(
   models.Spot,{
     foreignKey: 'spotId',
+    as: 'spotId',
     onDelete:'CASCADE',
     hooks:true
   }
@@ -53,11 +54,6 @@ Review.belongsTo(
     spotId: {
       type: DataTypes.INTEGER,
       allowNull:false,
-      references:{
-        model: 'Spot' ,
-        key: 'id',
-        as: 'spotId'
-      }
     }
   }, {
     sequelize,
