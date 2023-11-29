@@ -19,7 +19,9 @@ module.exports = (sequelize, DataTypes) => {
       ),
 
       Spot.hasMany(
-        models.Review
+        models.Review,{
+          foreignKey: 'SpotId'
+        }
       ),
 
       Spot.hasMany(
