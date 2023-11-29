@@ -33,16 +33,6 @@ module.exports = {
       endDate: {
         type: Sequelize.STRING,
         allowNull:false,
-        validate: {
-          isDate: true,
-          isAfter: this.startDate
-          // isAfterStartDate(value){
-          //   const checkIn = this.startDate;
-          //   if(value < checkIn){
-          //     throw new Error('Please enter a date after your check in date.')
-          //   }
-          // }
-        }
       },
       spotId: {
         type: Sequelize.INTEGER,
