@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(
       models.Booking,{
         foreignKey: 'userId',
-        as:'ownerId'
       }
     ),
 
