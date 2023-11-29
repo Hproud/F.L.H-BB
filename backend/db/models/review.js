@@ -56,7 +56,8 @@ Review.belongsTo(
       allowNull:false,
       references:{
         model: 'Spot' ,
-        key: 'id'
+        key: 'id',
+        as: 'spotId'
       }
     }
   }, {
