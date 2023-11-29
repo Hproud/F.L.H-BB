@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 Review.belongsTo(
   models.Spot,{
     foreignKey: 'spotId',
+    as: 'spotId',
     onDelete:'CASCADE',
     hooks:true
   }
