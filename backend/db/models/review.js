@@ -46,11 +46,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     spotId: {
       type: DataTypes.INTEGER,
-      allowNull:false,
-      references:{
-        models: Spot,
-        key: 'id'
-      }
+      allowNull:false
     }
   }, {
     sequelize,
