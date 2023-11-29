@@ -11,7 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
 
-
+Review.belongsTo(
+  models.Spot,{
+    foreignKey: 'id'
+  }
+)
 
 
       Review.hasMany(
@@ -48,11 +52,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     spotId: {
       type: DataTypes.INTEGER,
-      allowNull:false,
-      references: {
-        model: 'Spot',
-        key: 'id'
-      }
+      allowNull:false
     }
   }, {
     sequelize,

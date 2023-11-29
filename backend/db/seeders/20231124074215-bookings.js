@@ -42,7 +42,7 @@ module.exports = {
       spotId: 3,
       userId:3
     },
-  ])
+  ],{validate: true })
   },
 
   async down (queryInterface, Sequelize) {
