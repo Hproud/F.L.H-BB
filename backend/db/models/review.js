@@ -56,7 +56,7 @@ Review.belongsTo(
     }
   }, {
     sequelize,
-    modelName: 'Review',
+    modelName: 'Review',tableName:'Reviews',
   });
   return Review;
 };
