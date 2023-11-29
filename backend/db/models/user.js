@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
 
     User.hasMany(
       models.Spot,{
-        foreignKey: 'ownerId'
+        foreignKey: 'ownerId',
+        as:'owner'
       },
    ),
     User.hasMany(
@@ -46,14 +47,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     allowNull:false,
     // unique:true,
-    validate: {
-      len: [4,30],
-isNotEmail(value){
-if(Validator.isEmail(value)){
-  throw new Error('Cannot be an email')
-}
-}
-    }
+//     validate: {
+//       len: [4,30],
+// isNotEmail(value){
+// if(Validator.isEmail(value)){
+//   throw new Error('Cannot be an email')
+// }
+// }
+
     },
     email: {
       type: DataTypes.STRING,
@@ -64,7 +65,7 @@ if(Validator.isEmail(value)){
     }
     },
     hashedPassword:{
-      type: DataTypes.STRING.BINARY,
+      type: DataTypes.STRING,
     allowNull: false,
     validate:{
       len: [60,60]
