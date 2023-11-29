@@ -13,7 +13,6 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
-        unique: true
       },
       startDate: {
         type: Sequelize.STRING,
@@ -36,19 +35,25 @@ module.exports = {
       },
       spotId: {
         type: Sequelize.INTEGER,
-        allowNull:false
+        allowNull:false,
+        references:{
+          model: 'Spot',
+          key: 'id'
+        }
       },
       userId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+          references:{
+            model: 'User',
+          key: 'id'
+        }
       },
       createdAt: {
-        allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
-        allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
 
