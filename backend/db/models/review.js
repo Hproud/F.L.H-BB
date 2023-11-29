@@ -54,7 +54,7 @@ Review.belongsTo(
       type: DataTypes.INTEGER,
       allowNull:false,
       references:{
-        model: 'Spot',
+        model: 'Spot' ,
         key: 'id'
       }
     }
