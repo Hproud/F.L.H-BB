@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       startDate: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
         allowNull: false,
         // validate:{
         //   isDate: true,
@@ -30,13 +30,13 @@ module.exports = {
         // }
       },
       endDate: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
         allowNull:false,
       },
       spotId: {
         type: Sequelize.INTEGER,
         allowNull:false,
-        
+
       },
       userId: {
         type: Sequelize.INTEGER,
