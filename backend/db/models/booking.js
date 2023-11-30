@@ -26,8 +26,9 @@ Booking.belongsTo(models.User)
       type: DataTypes.DATE,
       allowNull:false,
       validate: {
+        isBefore: this.endDate,
         isDate: {
-          msg: 'Please enter a valid date in this format yyyy/mm/dd'
+          msg: 'Date must be before your end date'
         }
     }},
     endDate: {
@@ -35,9 +36,9 @@ Booking.belongsTo(models.User)
       allowNull:false,
       validate: {
         isDate: {
-          msg: 'Please enter a valid date in this format yyyy/mm/dd'
+          msg: 'Date must be before your start date'
         },
-        isAfter: Booking.startDate
+        isAfter: this.startDate
         // isAfterStartDate(value){
         //   const checkIn = this.startDate;
         //   if(value < checkIn){
