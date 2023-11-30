@@ -17,17 +17,6 @@ module.exports = {
       startDate: {
         type: Sequelize.STRING,
         allowNull: false,
-        // validate:{
-        //   isDate: true,
-        //   isAfter: Sequelize.literal('CURRENT_TIMESTAMP')
-        //   // isToday(value){
-        //   //   const currDate = Sequelize.literal('CURRENT_TIMESTAMP');
-        //   //   if(currDate > value){
-        //   //     throw new Error('Start date can not be in the past.')
-        //   //   }
-        //   // },
-
-        // }
       },
       endDate: {
         type: Sequelize.STRING,
@@ -36,11 +25,6 @@ module.exports = {
       spotId: {
         type: Sequelize.INTEGER,
         allowNull:false,
-        // references:{
-        //   model: 'Spot',
-        //   key: 'id'
-        // }
-
       },
       userId: {
         type: Sequelize.INTEGER,
