@@ -16,7 +16,7 @@ Spot.belongsTo(
   models.Booking,
   {
     foreignKey: 'spotId',
-    as:'spotId'
+    // as:'spotId'
   })
 
       Spot.belongsTo(
