@@ -25,12 +25,20 @@ Booking.belongsTo(models.User)
     startDate: {
       type: DataTypes.DATE,
       allowNull:false,
-    },
+      validate: {
+        isDate: {
+          isDate: true,
+          msg: 'Please enter a valid date in this format yyyy/mm/dd'
+        }
+    }},
     endDate: {
       type: DataTypes.DATE,
       allowNull:false,
       validate: {
-        isDate: true,
+        isDate: {
+          isDate: true,
+          msg: 'Please enter a valid date in this format yyyy/mm/dd'
+        },
         isAfter: Booking.startDate
         // isAfterStartDate(value){
         //   const checkIn = this.startDate;
