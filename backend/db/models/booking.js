@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
 
-Booking.hasOne(models.Spot,{
-});
+// Booking.hasOne(models.Spot,{
+// });
 
 Booking.belongsTo(models.User)
 
@@ -39,7 +39,12 @@ Booking.belongsTo(models.User)
     },
     spotId: {
       type: DataTypes.INTEGER,
-      allowNull:false
+      allowNull:false,
+      references:{
+        model: 'Spot',
+        key: 'id'
+      }
+
 
     },
     userId: {
