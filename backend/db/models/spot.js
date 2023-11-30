@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
      */
 
     static associate(models) {
-// Spot.belongsTo(
-//   models.Booking,{
-//     foreignKey:
-//   })
+Spot.hasMany(
+  models.Booking,{
+    foreignKey: 'spotId'
+  })
 
       Spot.belongsTo(
         models.User,{
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       Spot.hasMany(
         models.Review,{
           foreignKey: 'spotId',
-          // as:'spotId',
+          as:'spotId',
         }
       ),
 
