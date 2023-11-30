@@ -28,7 +28,7 @@ Spot.belongsTo(
       Spot.hasMany(
         models.Review,{
           foreignKey: 'spotId',
-          as:'spotId',
+          // as:'spotId',
         }
       ),
 
