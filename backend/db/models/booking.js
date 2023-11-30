@@ -23,15 +23,15 @@ Booking.belongsTo(models.User)
   }
   Booking.init({
     startDate: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       allowNull:false,
     },
     endDate: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       allowNull:false,
       validate: {
         isDate: true,
-        isAfter: this.startDate
+        isAfter: Booking.startDate
         // isAfterStartDate(value){
         //   const checkIn = this.startDate;
         //   if(value < checkIn){
