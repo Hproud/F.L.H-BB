@@ -30,14 +30,14 @@ Booking.belongsTo(models.User)
       type: DataTypes.STRING,
       allowNull:false,
       validate: {
-        // isDate: true,
-        // isAfter: this.startDate
-        isAfterStartDate(value){
-          const checkIn = this.startDate;
-          if(value < checkIn){
-            throw new Error('Please enter a date after your check in date.')
-          }
-        }
+        isDate: true,
+        isAfter: this.startDate
+        // isAfterStartDate(value){
+        //   const checkIn = this.startDate;
+        //   if(value < checkIn){
+        //     throw new Error('Please enter a date after your check in date.')
+        //   }
+        // }
       }
     },
     spotId: {
