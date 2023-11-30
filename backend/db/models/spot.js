@@ -14,7 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
 Spot.hasMany(
   models.Booking,{
-    foreignKey: 'spotId'
+    foreignKey: 'spotId',
+    onDelete: 'CASCADE',
+    hooks: true
   })
 
       Spot.belongsTo(
