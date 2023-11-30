@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
 
     static associate(models) {
-Spot.belongsTo(
+Spot.hasMany(
   models.Booking)
 
       Spot.belongsTo(
