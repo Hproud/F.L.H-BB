@@ -27,7 +27,6 @@ Booking.belongsTo(models.User)
       allowNull:false,
       validate: {
         isDate: {
-          isDate: true,
           msg: 'Please enter a valid date in this format yyyy/mm/dd'
         }
     }},
@@ -36,7 +35,6 @@ Booking.belongsTo(models.User)
       allowNull:false,
       validate: {
         isDate: {
-          isDate: true,
           msg: 'Please enter a valid date in this format yyyy/mm/dd'
         },
         isAfter: Booking.startDate
