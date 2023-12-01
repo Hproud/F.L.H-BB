@@ -76,7 +76,7 @@ module.exports = {
       },
       previewImage: {
         type: Sequelize.STRING,
-        defaultValue:false
+        defaultValue: null
       },
 
     },options);
