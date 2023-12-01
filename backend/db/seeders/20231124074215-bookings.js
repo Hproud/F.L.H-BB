@@ -1,11 +1,11 @@
 'use strict';
 const {Booking} =require('../models');
+/** @type {import('sequelize-cli').Migration} */
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
 }
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
     /**
@@ -20,13 +20,13 @@ module.exports = {
 try{
    await Booking.bulkCreate([
     {
-      startDate: '2023-12-5',
+      startDate: '2023-12-05',
       endDate: '2023-12-20',
       spotId: 1,
       userId:2
     },
     {
-      startDate: '2024-1-5',
+      startDate: '2024-01-05',
       endDate: '2024-1-6',
       spotId: 3,
       userId:3
@@ -42,7 +42,7 @@ try{
       endDate: '2023-12-18',
       spotId: 3,
       userId:3
-    },
+    }
   ],{validate: true })
 }catch(err){
    console.log("this is my error console: ", err)
@@ -60,7 +60,7 @@ try{
     options.tableName = 'Bookings';
 const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: [1,3,2]}
+      userId: { [Op.in]: [1,3,2]}
     },{});
   }
 };
