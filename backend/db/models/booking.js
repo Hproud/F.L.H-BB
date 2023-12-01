@@ -52,20 +52,20 @@ Booking.belongsTo(models.User)
     spotId: {
       type: DataTypes.INTEGER,
       allowNull:false,
-      references:{
-        model: 'Spot',
-        key: 'id'
-      }
+      // references:{
+      //   model: 'Spot',
+      //   key: 'id'
+      // }
 
 
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references:{
-        model: 'User',
-        key: 'id'
-      }
+      // references:{
+      //   model: 'User',
+      //   key: 'id'
+      // }
     }
   }, {
     sequelize,
