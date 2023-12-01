@@ -19,12 +19,14 @@ module.exports = (sequelize, DataTypes) => {
 //     hooks: true
 //   })
 
-//       Spot.belongsTo(
-//         models.User,{
-//           foreignKey: 'ownerId',
-//           as: 'Owner'
-//         }
-//       ),
+      Spot.belongsTo(
+        models.User,{
+          foreignKey: 'ownerId',
+          as: 'Owner',
+          onDelete: 'CASCADE',
+          hooks: true
+        }
+      ),
 
 
 Spot.belongsToMany(models.User,
@@ -58,6 +60,10 @@ Spot.belongsToMany(models.User,
     Spot.init({
 ownerId:{
   type: DataTypes.INTEGER,
+  references:{
+    model: 'User',
+    key: 'id'
+  }
   // allowNull: false
 },
     address: {
