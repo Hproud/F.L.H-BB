@@ -61,7 +61,7 @@ Spot.belongsToMany(models.User,
 ownerId:{
   type: DataTypes.INTEGER,
   references:{
-    model: 'User',
+    model: 'Users',
     key: 'id'
   }
   // allowNull: false
