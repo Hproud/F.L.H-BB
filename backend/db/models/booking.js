@@ -25,45 +25,47 @@ Booking.belongsTo(models.User)
     startDate: {
       type: DataTypes.DATE,
       allowNull:false,
-      validate: {
-        isBefore: this.endDate,
-        isDate: {
-          msg: 'Date must be before your end date'
+      validate:{
+        isNotInPast(value){
+          const start = new Date(value);
+          const today = new Date();
+          if(today > start){
+            throw new Error('Checkin date cannot be in the past')
+          }
+
         }
-    }},
+      }
+      },
     endDate: {
       type: DataTypes.DATE,
       allowNull:false,
-      validate: {
-        isDate: {
-          msg: 'Date must be before your start date'
-        },
-        isAfter: this.startDate
-        // isAfterStartDate(value){
-        //   const checkIn = this.startDate;
-        //   if(value < checkIn){
-        //     throw new Error('Please enter a date after your check in date.')
-        //   }
-        // }
-      }
+ validate:{
+  ifAfterStart(value){
+    const end = new Date(value);
+    const start = new Date(this.startDate)
+    if(end < start){
+      throw new Error('End date must be after your start date')
+    }
+  }
+ }
     },
     spotId: {
       type: DataTypes.INTEGER,
       allowNull:false,
-      // references:{
-      //   model: 'Spot',
-      //   key: 'id'
-      // }
+      references:{
+        model: 'Spot',
+        key: 'id'
+      }
 
 
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      // references:{
-      //   model: 'User',
-      //   key: 'id'
-      // }
+      references:{
+        model: 'User',
+        key: 'id'
+      }
     }
   }, {
     sequelize,

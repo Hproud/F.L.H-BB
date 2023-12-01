@@ -43,7 +43,8 @@ const validateSpot = [
    .withMessage('Name must be less than 50 characters'),
    check('description')
    .trim()
-   .exists({checkFalsy: true}),
+   .exists({checkFalsy: true})
+   .withMessage('Description is required'),
    check('price')
    .trim()
    .exists({checkFalsy: true})
@@ -89,8 +90,7 @@ return avg
 router.post('/:spotId/images',requireAuth, async (req,res,next) =>{
    const spotId = Number(req.params.spotId)
    const {url,preview} = req.body;
-   const currUser = req.user.id
-
+   const currUser = req.user.dataValues.id
    const property = await Spot.findOne({
       where:{
          id : spotId
@@ -188,7 +188,7 @@ router.get('/:spotId',async(req,res,next)=>{
       err.message= 'Spot couldn`t be found'
       next(err)
    }else{
-     
+
 
       res.json(location)
    }
