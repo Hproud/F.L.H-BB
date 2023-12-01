@@ -46,10 +46,8 @@ Review.belongsTo(
       type: DataTypes.INTEGER,
       allowNull:false,
       references: {
-        model: 'Users',
-        key: 'id',
-        onDelete: 'CASCADE',
-        hooks: true
+        model: 'User',
+        key: 'id'
       }
     },
     spotId: {
