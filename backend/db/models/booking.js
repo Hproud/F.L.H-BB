@@ -12,10 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
 
  Booking.belongsTo(
-  models.Spot,{
-    foriegnKey: 'spotId'
-  }
- )
+  models.Spot )
 
 Booking.belongsTo(models.User)
 
@@ -52,10 +49,10 @@ Booking.belongsTo(models.User)
     spotId: {
       type: DataTypes.INTEGER,
       allowNull:false,
-      // references:{
-      //   model: 'Spot',
-      //   key: 'id'
-      // }
+      references:{
+        model: 'Spot',
+        key: 'id'
+      }
 
 
     },
