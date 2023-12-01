@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     User.belongsToMany(
       models.Spot,{
         through: models.Booking,
-      foreignKey: 'ownerId',
+      foreignKey: 'userId',
         otherKey: 'spotId',
 as: 'Owner'
       }
