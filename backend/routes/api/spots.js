@@ -106,7 +106,12 @@ router.post('/:spotId/images',requireAuth, async (req,res,next) =>{
    imageableType: "Spot",
 })
 const location =property.toJSON()
-
+// console.log(pic.preview);
+if(pic.preview){
+   await property.update({
+      previewImage: url,
+   })
+}
 res.json({
    id:pic.id,
    url:pic.url,
