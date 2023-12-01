@@ -7,7 +7,6 @@ if (process.env.NODE_ENV === 'production') {
     // define your schema in options object
 module.exports = {
   async up(queryInterface, Sequelize) {
-    try{
     await queryInterface.createTable('Spots', {
       id: {
         allowNull: false,
@@ -17,13 +16,7 @@ module.exports = {
       },
       ownerId:{
         type: Sequelize.INTEGER,
-        allowNull:false,
-        references:{
-          model: 'Users',
-          key: 'id',
-          onDelete: 'CASCADE',
-          hooks: true
-        }
+        allowNull:false
       },
       address: {
         type: Sequelize.STRING,
@@ -87,9 +80,6 @@ module.exports = {
       },
 
     },options);
-  }catch(err){
-    console.log("this is my error console: ", err)
- }
   },
   async down(queryInterface, Sequelize) {
     options.tableName = "Spots"
