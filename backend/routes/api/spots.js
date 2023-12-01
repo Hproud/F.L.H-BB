@@ -290,7 +290,7 @@ res.json('Successfully deleted')
 router.put('/:spotId',validateSpot,requireAuth,async(req,res,next)=>{
    const id = req.params.spotId;
    const {address,city,state,country,lat,lng,name,description,price} = req.body;
-
+// console.log(req.body,'req body is right here')
    const location = await Spot.findOne({
       where:{
          id: id
@@ -303,8 +303,8 @@ err.status= 404
       err.message = 'Spot couldn`t be found';
       next(err)
    };
-
-   if(!id === location.owner){
+console.log(location, 'this is location')
+   if(id !== location.owner){
 
    const err = Error('You must own this property to make changes')
    err.status=400;
@@ -355,7 +355,7 @@ err.status= 404
       next(err)
    };
 
-   if(!id === location.owner){
+   if(id !== location.owner){
 
    const err = Error('You must own this property to make changes')
    err.status=400;
