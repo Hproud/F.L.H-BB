@@ -10,9 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
     */
    static associate(models) {
+    //chgd the has many to connect to spot through booking to see if this fixes my terminal error when deploying
     User.hasMany(
-      models.Booking,{
+      models.Spot,{
+        through: models.Booking,
         foreignKey: 'userId',
+        otherKey: 'spotId'
       }
     ),
 
