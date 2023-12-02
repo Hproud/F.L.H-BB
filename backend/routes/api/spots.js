@@ -4,7 +4,7 @@ const { handleValidationErrors}= require('../../utils/validation')
 const {setTokenCookie,requireAuth} = require('../../utils/auth');
 const {Spot,Review,Image,Booking,User} = require('../../db/models');
 // const { validationResult } = require('express-validator');
-const spot = require('../../db/models/spot');
+
 
 
 const router = express.Router();
@@ -369,8 +369,8 @@ err.status= 404
    };
 
 
-console.log(req.user.id,'<-------------------------------------this is ID');
-console.log(location.ownerId,'<-------------------------------------this is ownerID for location')
+// console.log(req.user.id,'<-------------------------------------this is ID');
+// console.log(location.ownerId,'<-------------------------------------this is ownerID for location')
 
 
    if(Number(id) !== location.ownerId){
@@ -409,9 +409,31 @@ console.log(location.ownerId,'<-------------------------------------this is owne
 
 
 
+//?-----------------GET REVIEWS FOR SPOT BY SPOT ID---------------------
 
+router.get('/:spotId/reviews',async (req,res,next) => {
+   const {spotId} = req.params;
 
+   const locationReviews = await Review.findOne({
+      where:{
+         spotId: spotId
+      },
+      include: ([
+         {
+            model: User,
+            attributes: ['id','firstName','lastName']
+         },
+         {
+            model: Image,
+            as: 'ReviewImages',
+            attributes: ['id','url']
+         }
+      ])
+   })
 
+   return res.json(locationReviews)
+
+})
 
 
 

@@ -22,6 +22,7 @@ Review.belongsTo(
         models.Image,
         {
           foreignKey: 'imageableId',
+          as: 'ReviewImages',
           constraints:false,
           scope:{
             imageableType: 'Review'
@@ -29,6 +30,7 @@ Review.belongsTo(
         }
       )
 
+Review.belongsTo(models.User)
 
     }
 
