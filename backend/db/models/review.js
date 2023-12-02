@@ -43,6 +43,7 @@ Review.belongsTo(models.User)
     },
     stars: {
       type: DataTypes.DECIMAL,
+      defaultValue: 1
     },
     userId: {
       type: DataTypes.INTEGER,

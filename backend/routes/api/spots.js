@@ -54,6 +54,21 @@ const validateSpot = [
 ];
 
 
+//?-------------------------------------------------------------------
+
+const validateReview = [
+   check('review')
+   .trim()
+   .exists({checkFalsy:true})
+   .isLength({min: 1})
+   .withMessage('Review text is required'),
+   check('stars')
+   .exists({checkFalsy: true})
+   .isFloat({min:1, max:5})
+   .withMessage('Stars must be an integer from 1 to 5'),
+   handleValidationErrors
+]
+
 //?-----------------------------------------------------------------?//
 
 const getAvg = async (id) =>{
@@ -422,7 +437,8 @@ router.get('/:spotId/reviews',async (req,res,next) => {
 
    if(!place){
       const err = new Error('Spot couldnt be found');
-      err.message= 'Spot couldn`t be found'
+      err.message= 'Spot couldn`t be found',
+      err.status = 404
       next(err)
    }else{
 
@@ -447,8 +463,36 @@ router.get('/:spotId/reviews',async (req,res,next) => {
       return res.json(locationReviews)
    }
 
-})
+});
 
+//?------------------CREATE NEW REVIEW BY SPOT ID----------------------
+
+router.post('/:spotId/reviews',requireAuth,validateReview,async(req,res,next) => {
+const {spotId} = req.params;
+const location = await Spot.findOne({
+   where:{
+      id: spotId
+   }
+});
+
+if(!location){
+   const err = new Error('Spot couldn`t be found');
+   err.status = 404;
+   err.message= 'Spot could`t be found'
+   next(err)
+}else{
+   const {review,stars} = req.body
+   const newReview = await Review.create({
+      review,
+      stars,
+      userId: req.user.id,
+      spotId: Number(spotId)
+   });
+   res.status = 201;
+   res.json(newReview)
+}
+
+})
 
 
 
