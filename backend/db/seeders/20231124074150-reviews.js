@@ -19,6 +19,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+   try{
    await Review.bulkCreate([
     {
       review: 'this was awesome',
@@ -39,8 +40,11 @@ module.exports = {
       spotId: 1,
     },
    ],{validate: true })
+  }catch(err){
+    console.log('this is my error', err)
+  }
   },
-
+  
   async down (queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
