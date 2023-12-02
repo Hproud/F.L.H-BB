@@ -4,7 +4,7 @@ const { handleValidationErrors}= require('../../utils/validation')
 const {setTokenCookie,requireAuth} = require('../../utils/auth');
 const {Spot,Review,Image,Booking,User} = require('../../db/models');
 // const { validationResult } = require('express-validator');
-
+const {Op} = require('sequelize')
 
 
 const router = express.Router();
@@ -73,25 +73,29 @@ const validateReview = [
 
 validateDates = [
    check('startDate')
-   .exists({checkFalsy:true})
-   .custom(async value =>{
+   // .exists({checkFalsy:true})
+   .custom( value =>{
       const start = new Date(value);
           const today = new Date();
           if(start < today){
             throw new Error('startDate cannot be in the past')
+          }else{
+            return true
           }
    }),
    check('endDate')
-   .exists({checkFalsy:true})
-   .custom(value => {
+   // .exists({checkFalsy:true})
+   .custom((value,{req})=>{
       const end = new Date(value);
-      const start = new Date(startDate);
+      const start = new Date(req.body.startDate);
       if(end <= start){
          throw new Error('endDate cannot be on or before startDate')
+      }else{
+         return true
       }
    }),
    handleValidationErrors
-]
+];
 //?--------------------------------------------------------------------
 const getAvg = async (id) =>{
    const allReviews = await Review.findAll({
@@ -491,6 +495,7 @@ router.get('/:spotId/reviews',async (req,res,next) => {
 
 router.post('/:spotId/reviews',requireAuth,validateReview,async(req,res,next) => {
 const {spotId} = req.params;
+const {startDate,endDate} = req.body
 const location = await Spot.findOne({
    where:{
       id: spotId
@@ -577,10 +582,12 @@ console.log(location)
 
 router.post('/:spotId/bookings',requireAuth,validateDates,async(req,res,next) => {
    const {spotId}= req.params;
+   const id = Number(spotId)
 const{startDate,endDate} = req.body
+console.log(req.body)
    const prospect = await Spot.findOne({
       where: {
-         id: spotId
+         id: id
       }
    });
 
@@ -589,10 +596,24 @@ const{startDate,endDate} = req.body
       err.status = 404;
       err.message = 'Spot couldn\'t be found'
    }else{
+      const currBookings = await Booking.findAll({
+         where: {
+            userId: req.user.id,
+            startDate:{ [Op.gt]:
+               ['startDate']
+            },
+            endDate:{ [Op.lt]:
+               ['endDate']
+         }},
+
+      });
+
+      console.log(currBookings)
+
       const newRes = await Booking.create({
 startDate,
 endDate,
-spotId: spotId,
+spotId: id,
 userId: req.user.id
       });
       res.json(newRes)
