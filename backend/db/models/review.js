@@ -47,7 +47,11 @@ Review.belongsTo(models.User)
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull:false
+      allowNull:false,
+      references: {
+        model: 'User',
+        key: 'id'
+      }
     },
     spotId: {
       type: DataTypes.INTEGER,
