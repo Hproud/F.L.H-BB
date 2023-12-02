@@ -413,25 +413,39 @@ err.status= 404
 
 router.get('/:spotId/reviews',async (req,res,next) => {
    const {spotId} = req.params;
+   // console.log(req.user.id)
+   const place = await Spot.findOne({
+      where: {
+         id: spotId
+      }
+   });
 
-   const locationReviews = await Review.findOne({
-      where:{
-         spotId: spotId
-      },
-      include: ([
-         {
-            model: User,
-            attributes: ['id','firstName','lastName']
+   if(!place){
+      const err = new Error('Spot couldnt be found');
+      err.message= 'Spot couldn`t be found'
+      next(err)
+   }else{
+
+      const locationReviews = await Review.findOne({
+         where:{
+            spotId: spotId
          },
-         {
-            model: Image,
-            as: 'ReviewImages',
-            attributes: ['id','url']
-         }
-      ])
-   })
+         include: ([
+            {
+               model: User,
+               attributes: ['id','firstName','lastName']
+            },
+            {
+               model: Image,
+               as: 'ReviewImages',
+               attributes: ['id','url']
+            }
+         ])
+      })
 
-   return res.json(locationReviews)
+
+      return res.json(locationReviews)
+   }
 
 })
 
