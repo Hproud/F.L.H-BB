@@ -40,7 +40,9 @@ Spot.belongsToMany(models.User,
   foreignKey: 'spotId',
   otherKey:'userId'
 })
-
+Spot.hasMany(models.Booking,{
+  foreignKey: 'spotId'
+})
 
       Spot.hasMany(
         models.Review,{

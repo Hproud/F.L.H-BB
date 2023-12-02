@@ -14,7 +14,11 @@ module.exports = (sequelize, DataTypes) => {
 //  Booking.belongsToMany(
 //   models.Spot,{
 //     foreignKey: 'spotId'
-//   })
+//   })\
+
+Booking.belongsTo(models.Spot,{
+  foreignKey: 'spotId'
+})
 
 // Booking.belongsTo(models.User)
 
@@ -51,6 +55,10 @@ module.exports = (sequelize, DataTypes) => {
     spotId: {
       type: DataTypes.INTEGER,
       allowNull:false,
+      // references: {
+      //   model: Spot,
+      //   foreignKey: 'spotId'
+      // }
 
 
     },
