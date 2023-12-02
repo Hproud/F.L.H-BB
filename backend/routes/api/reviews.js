@@ -49,9 +49,74 @@ router.get('/current',requireAuth,async(req,res,next)=> {
 })
 
 
+//? -------------ADD IMAGE TO REVIEW BASED ON REVIEWS ID----------------
+
+router.post('/:reviewId/images',requireAuth, async (req,res,next)=> {
+const {reviewId} = req.params;
+const {url} = req.body
+// console.log(id,'<--------------------------------ID')
+const theReview = await Review.findOne({
+    where:{
+        id: reviewId
+    },
+    include: [{model:Image,
+        where:{
+
+                imageableId: req.user.id,
+                imageableType: 'Review'
+
+        },
+    as: 'ReviewImages'}]
+})
+
+if(!theReview){
+    const err = new Error('Review couldn`t be found');
+    err.status = 404;
+    err.message = 'Review couldn`t be found'
+}else{
+
+// console.log(req.user.id)
+// console.log(theReview)
+if(req.user.id !== theReview.userId){
+    const err = new Error('You can only add pictures to reviews you have written');
+    err.title = 'Forbidden';
+    err.message = 'You can only add pictures to reviews you have written'
+    next(err)
+}else{
+
+    // console.log(theReview.ReviewImages.length,'iiuiuiuiuiuiuiu')
+    if(theReview.ReviewImages.length === 10){
+        const err = new Error('Maximum number of images for this resource was reached');
+        err.status = 403;
+        err.message = 'Maximum number of images for this resource was reached';
+        next(err)
+    }else{
+        const reviewPic = await Image.create({
+            imageableId: req.user.id,
+            imageableType: 'Review',
+            url: url,
+            preview: false
+        })
+await theReview.update({
+    ReviewImages: reviewPic,
+    where:{
+        id: theReview.id
+    }
+}
+)
 
 
+        res.json({
+            id: reviewPic.id,
+            url: reviewPic.url
+        })
+    }
+    }
 
+
+}
+
+})
 
 
 
