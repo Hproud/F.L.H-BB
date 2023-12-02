@@ -4,7 +4,7 @@ const { handleValidationErrors}= require('../../utils/validation')
 const {setTokenCookie,requireAuth} = require('../../utils/auth');
 const {Spot,Review,Image,Booking,User} = require('../../db/models');
 // const { validationResult } = require('express-validator');
-const spot = require('../../db/models/spot');
+
 
 
 const router = express.Router();
@@ -53,6 +53,21 @@ const validateSpot = [
    handleValidationErrors
 ];
 
+
+//?-------------------------------------------------------------------
+
+const validateReview = [
+   check('review')
+   .trim()
+   .exists({checkFalsy:true})
+   .isLength({min: 1})
+   .withMessage('Review text is required'),
+   check('stars')
+   .exists({checkFalsy: true})
+   .isFloat({min:1, max:5})
+   .withMessage('Stars must be an integer from 1 to 5'),
+   handleValidationErrors
+]
 
 //?-----------------------------------------------------------------?//
 
@@ -369,8 +384,8 @@ err.status= 404
    };
 
 
-console.log(req.user.id,'<-------------------------------------this is ID');
-console.log(location.ownerId,'<-------------------------------------this is ownerID for location')
+// console.log(req.user.id,'<-------------------------------------this is ID');
+// console.log(location.ownerId,'<-------------------------------------this is ownerID for location')
 
 
    if(Number(id) !== location.ownerId){
@@ -409,10 +424,75 @@ console.log(location.ownerId,'<-------------------------------------this is owne
 
 
 
+//?-----------------GET REVIEWS FOR SPOT BY SPOT ID---------------------
+
+router.get('/:spotId/reviews',async (req,res,next) => {
+   const {spotId} = req.params;
+   // console.log(req.user.id)
+   const place = await Spot.findOne({
+      where: {
+         id: spotId
+      }
+   });
+
+   if(!place){
+      const err = new Error('Spot couldnt be found');
+      err.message= 'Spot couldn`t be found',
+      err.status = 404
+      next(err)
+   }else{
+
+      const locationReviews = await Review.findOne({
+         where:{
+            spotId: spotId
+         },
+         include: ([
+            {
+               model: User,
+               attributes: ['id','firstName','lastName']
+            },
+            {
+               model: Image,
+               as: 'ReviewImages',
+               attributes: ['id','url']
+            }
+         ])
+      })
 
 
+      return res.json(locationReviews)
+   }
 
+});
 
+//?------------------CREATE NEW REVIEW BY SPOT ID----------------------
+
+router.post('/:spotId/reviews',requireAuth,validateReview,async(req,res,next) => {
+const {spotId} = req.params;
+const location = await Spot.findOne({
+   where:{
+      id: spotId
+   }
+});
+
+if(!location){
+   const err = new Error('Spot couldn`t be found');
+   err.status = 404;
+   err.message= 'Spot could`t be found'
+   next(err)
+}else{
+   const {review,stars} = req.body
+   const newReview = await Review.create({
+      review,
+      stars,
+      userId: req.user.id,
+      spotId: Number(spotId)
+   });
+   res.status = 201;
+   res.json(newReview)
+}
+
+})
 
 
 

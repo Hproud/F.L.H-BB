@@ -70,5 +70,4 @@ return next(err);
 }
 
 
-
 module.exports = { setTokenCookie, restoreUser, requireAuth};

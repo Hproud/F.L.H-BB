@@ -48,8 +48,8 @@ type: DataTypes.STRING
     modelName: 'Image',
     defaultScope:{
       attributes:{
-        include:['id','url','preview'],
-        exclude: ['imageableId','imageableType','createdAt','updatedAt']
+        include:['id','url'],
+        exclude: ['imageableId','imageableType','createdAt','updatedAt','preview']
       }
     }
   }
