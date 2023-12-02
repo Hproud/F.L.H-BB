@@ -9,6 +9,22 @@ const {Spot,Booking,User,Review,Image} = require('../../db/models');
 const router = express.Router()
 
 
+
+//?----------------------Validate review info---------------------------
+
+const validateReview = [
+    check('review')
+    .trim()
+    .exists({checkFalsy:true})
+    .isLength({min: 1})
+    .withMessage('Review text is required'),
+    check('stars')
+    .exists({checkFalsy: true})
+    .isFloat({min:1, max:5})
+    .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+ ]
+
 //?--------------------GET ALL REVIEWS OF CURR USER--------------------
 
 
@@ -70,7 +86,7 @@ const theReview = await Review.findOne({
 })
 
 if(!theReview){
-    const err = new Error('Review couldn`t be found');
+    const err = new Error('Review couldn\'t be found');
     err.status = 404;
     err.message = 'Review couldn`t be found'
 }else{
@@ -118,11 +134,103 @@ await theReview.update({
 
 })
 
+//?---------------------UPDATE REVIEW PUT/PATCH-------------------------
+router.put('/:reviewId',requireAuth,validateReview,async(req,res,next)=>{
+    const {reviewId} = req.params;
+    const {review,stars} = req.body
+    const needsUpdated = await Review.findOne({
+        where:{
+            id: reviewId
+        }
+    });
+
+    if(!needsUpdated){
+        const err = new Error('Review couldn\'t be found');
+        err.status =404;
+        err.message = 'Review couldn\'t be found'
+        next(err)
+    };
+
+     if(req.user.id !== needsUpdated.userId){
+        const err = new Error('Forbidden');
+        err.status = 401;
+        err.message = 'Cannot edit someone else\'s review';
+        next(err)
+    }else{
+         const edited = await needsUpdated.update({
+            review: review,
+            stars: stars,
+        },
+        );
+
+        return res.json(edited)
+    }
+    });
+
+
+
+//^-------------------------------------------------------------------
+router.patch('/:reviewId',requireAuth,validateReview,async(req,res,next)=>{
+    const {reviewId} = req.params;
+    const {review,stars} = req.body
+    const needsUpdated = await Review.findOne({
+        where:{
+            id: reviewId
+        }
+    });
+
+    if(!needsUpdated){
+        const err = new Error('Review couldn\'t be found');
+        err.status =400;
+        err.message = 'Review couldn\'t be found'
+        next(err)
+    };
+
+     if(req.user.id !== needsUpdated.userId){
+        const err = new Error('Forbidden');
+        err.status = 401;
+        err.message = 'Cannot edit someone else\'s review';
+        next(err)
+    }else{
+         const edited = await needsUpdated.update({
+            review: review,
+            stars: stars,
+        },
+        );
+
+        return res.json(edited)
+    }
+    });
+
+router.delete('/:reviewId',requireAuth,async (req,res,next) => {
+    const {reviewId} = req.params;
+    const votedOff = await Review.findOne({
+        where:{
+            id: reviewId
+        }
+    });
+
+    if (!votedOff){
+        const err = new Error('Review couldn\'t be found');
+        err.status = 404;
+        err.message = 'Review couldn\'t be found';
+        next(err)
+    }
+
+if(votedOff.userId !== req.user.id){
+    const err= new Error('Forbidden');
+    err.status = 401;
+    err.message = 'Forbidden';
+    next(err)
+}else{
+    await votedOff.destroy();
+
+    res.json('Successfully deleted')
+}
 
 
 
 
-
-
+})
 
 module.exports = router;
