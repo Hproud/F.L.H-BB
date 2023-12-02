@@ -19,9 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     //   }
     // ),
 
-User.belongsTo(models.Booking,{
-  foreignKey: 'userId'
-})
+// User.belongsTo(models.Booking,{
+//   foreignKey: 'userId'
+// })
 
     User.hasMany(models.Spot,{
       as: 'Owner',
