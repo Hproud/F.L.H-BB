@@ -21,16 +21,14 @@ Booking.belongsTo(models.Spot,{
 })
 
 Booking.belongsTo(models.User,{
-  foreignKey: 'userId',
-  onDelete: 'CASCADE',
-  hooks:true
+  foreignKey: 'userId'
 })
 
     }
   }
   Booking.init({
     startDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull:false,
       validate:{
         isNotInPast(value){
@@ -44,7 +42,7 @@ Booking.belongsTo(models.User,{
       }
       },
     endDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull:false,
  validate:{
   ifAfterStart(value){

@@ -500,20 +500,52 @@ if(!location){
 
 router.get('/:spotId/bookings',requireAuth,async (req,res,next)=>{
    const {spotId} = req.params;
-const location = await Booking.findAll({
-where:{
-   spotId: spotId
-},
-attributes: ['userId'],
+   const checking = await Spot.findOne({
+      where: {
+         id: spotId
+      }
+   });
+   if(!checking){
+      const err = new Error('Spot couldn\'t be found');
+      err.status = 400;
+      err.message = 'Spot couldn\'t be found';
+      next(err)
+   }else{
 
-include:{model: User,}
-})
+      if(req.user.id === checking.ownerId){
+         // const location = await Booking.findAll({
+         // where:{
+         //    Id: spotId
+         // },
+
+         // include:{model: User,
+         // attributes:['id','firstName','lastName']}
+         // })
+         const location = await Spot.findOne({
+            where:{
+               id: spotId
+            },
+            include: [{model: Booking,
+            where: {
+               spotId: spotId
+            },
+         include: {model: User,
+         attributes: ['id','firstName','lastName']}}]
+         })
+         res.json(location.Bookings)
+
+      }else{
+         const location = await Booking.findAll({
+            where:{
+               Id: spotId
+            },
+            attributes:['spotId','startDate','endDate'],
+         });
+         res.json(location)
+      }
 
 
-res.json(location)
-
-
-
+   }
 
 })
 
