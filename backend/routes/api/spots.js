@@ -3,7 +3,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors}= require('../../utils/validation')
 const {setTokenCookie,requireAuth} = require('../../utils/auth');
 const {Spot,Review,Image,Booking,User} = require('../../db/models');
-const { validationResult } = require('express-validator');
+// const { validationResult } = require('express-validator');
 const spot = require('../../db/models/spot');
 
 
@@ -232,13 +232,13 @@ router.post('/',validateSpot,requireAuth,async(req,res,next) =>{
    // console.log(description,'<-------description');
    // console.log(price,'<-------price');
 const ownerId = req.user.id
-const check = await Spot.findOne({
+const checked = await Spot.findOne({
    where:{
 address: address
    }
 });
 // console.log('=========',req.user.dataValues.id,'==========')
-if(!check){
+if(!checked){
    const newSpot = await Spot.create({
       ownerId: ownerId,
       address,
@@ -279,9 +279,16 @@ const theSpot = await Spot.findOne({
    }
 })
 // console.log('=======================',theSpot,'=============================')
-await theSpot.destroy();
+if(theSpot){
+   await theSpot.destroy();
+   res.json('Successfully deleted')
+}else{
+   const err = new Error('Spot not found');
+   err.message = 'Spot not found',
+   err.status = 400
+   next(err)
+}
 
-res.json('Successfully deleted')
 })
 
 //?-------------------------------EDIT A SPOT PUT AND PATCH ROUTES----------------------------//?
@@ -303,37 +310,43 @@ err.status= 404
       err.message = 'Spot couldn`t be found';
       next(err)
    };
-console.log(location, 'this is location')
-   if(id !== location.owner){
+// console.log(location, 'this is location')
+
+
+// console.log(req.user.id,'<-------------------------------------this is ID');
+// console.log(location.ownerId,'<-------------------------------------this is ownerID for location')
+   if(req.user.id !== location.ownerId){
 
    const err = Error('You must own this property to make changes')
    err.status=400;
    err.title='Forbidden';
    err.message='You must own this property to make changes';
    next(err)
-};
-
-    const updated =  await Spot.update(
-      {   address,
-         city,
-         state,
-         country,
-         lat,
-         lng,
-         name,
-         description,
-         price
-      },
-         {
-            where:{
-               id: location.id
-            }
-         }
-      );
+}else{
+   const updated =  await Spot.update(
+     {   address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+     },
+        {
+           where:{
+              id: location.id
+           }
+        }
+     );
 
 
 
    res.json(location)
+
+}
+
 
 });
 
@@ -355,7 +368,13 @@ err.status= 404
       next(err)
    };
 
-   if(id !== location.owner){
+
+console.log(req.user.id,'<-------------------------------------this is ID');
+console.log(location.ownerId,'<-------------------------------------this is ownerID for location')
+
+
+   if(Number(id) !== location.ownerId){
+
 
    const err = Error('You must own this property to make changes')
    err.status=400;
