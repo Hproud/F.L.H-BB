@@ -18,23 +18,25 @@ module.exports = (sequelize, DataTypes) => {
     //     otherKey: 'spotId'
     //   }
     // ),
-
-// User.belongsTo(models.Booking,{
-//   foreignKey: 'userId'
-// })
+User.hasMany(
+  models.Booking,{
+    foreignKey: 'userId',
+    as:'userId'
+  }
+)
 
     User.hasMany(models.Spot,{
       as: 'Owner',
       foreignKey: 'ownerId'
-    });
+    }),
 
-    User.belongsToMany(
-      models.Spot,{
-        through: models.Booking,
-      foreignKey: 'userId',
-        otherKey: 'spotId',
-      }
-   ),
+    // User.belongsToMany(
+    //   models.Spot,{
+    //     through: models.Booking,
+    //   foreignKey: 'userId',
+    //     otherKey: 'spotId',
+  //   //   }
+  //  ),
     User.hasMany(
       models.Review,{
         foreignKey: 'userId'

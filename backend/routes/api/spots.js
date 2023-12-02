@@ -495,6 +495,27 @@ if(!location){
 })
 
 
+//?------------------GET ALL BOOKINGS FOR SPOT BY ID--------------------
+
+
+router.get('/:spotId/bookings',requireAuth,async (req,res,next)=>{
+   const {spotId} = req.params;
+const location = await Booking.findAll({
+where:{
+   spotId: spotId
+},
+attributes: ['userId'],
+
+include:{model: User,}
+})
+
+
+res.json(location)
+
+
+
+
+})
 
 
 

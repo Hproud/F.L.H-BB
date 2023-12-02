@@ -20,7 +20,11 @@ Booking.belongsTo(models.Spot,{
   foreignKey: 'spotId'
 })
 
-// Booking.belongsTo(models.User)
+Booking.belongsTo(models.User,{
+  foreignKey: 'userId',
+  onDelete: 'CASCADE',
+  hooks:true
+})
 
     }
   }

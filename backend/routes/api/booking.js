@@ -10,7 +10,8 @@ const router = express.Router()
 
 
 //?-----------------GET ALL CURRENT USERS BOOKINGS----------------------
-
+//& this route works but is not currently including the booking Id numbers in it?
+//^DEBUG************************************************************************
 router.get('/current',requireAuth,async(req,res,next) => {
     const user = req.user.id;
 
@@ -23,10 +24,8 @@ router.get('/current',requireAuth,async(req,res,next) => {
         attributes:['id','ownerId','address','city','state','lat','lng','name','price','previewImage']
         }
     });
-
-    res.json(myBookings)
+    res.json({myBookings})
 })
-
 
 
 
