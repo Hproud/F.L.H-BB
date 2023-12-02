@@ -30,29 +30,30 @@ Booking.belongsTo(models.User,{
     startDate: {
       type: DataTypes.DATEONLY,
       allowNull:false,
-      validate:{
-        isNotInPast(value){
-          const start = new Date(value);
-          const today = new Date();
-          if(today > start){
-            throw new Error('Checkin date cannot be in the past')
-          }
+      // validate:{
+      //   isNotInPast(value){
+      //     const start = new Date(value);
+      //     const today = new Date();
+      //     if(today > start){
+      //       throw new Error('startDate cannot be in the past')
 
-        }
-      }
+      //     }
+
+      //   }
+      // }
       },
     endDate: {
       type: DataTypes.DATEONLY,
       allowNull:false,
- validate:{
-  ifAfterStart(value){
-    const end = new Date(value);
-    const start = new Date(this.startDate)
-    if(end < start){
-      throw new Error('End date must be after your start date')
-    }
-  }
- }
+//  validate:{
+//   ifAfterStart(value){
+//     const end = new Date(value);
+//     const start = new Date(this.startDate)
+//     if(end < start){
+//       throw new Error('endDate cannot be on or before startDate')
+//     }
+//   }
+//  }
     },
     spotId: {
       type: DataTypes.INTEGER,

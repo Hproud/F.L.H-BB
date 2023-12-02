@@ -71,6 +71,28 @@ const validateReview = [
 
 //?-----------------------------------------------------------------?//
 
+validateDates = [
+   check('startDate')
+   .exists({checkFalsy:true})
+   .custom(async value =>{
+      const start = new Date(value);
+          const today = new Date();
+          if(start < today){
+            throw new Error('startDate cannot be in the past')
+          }
+   }),
+   check('endDate')
+   .exists({checkFalsy:true})
+   .custom(value => {
+      const end = new Date(value);
+      const start = new Date(startDate);
+      if(end <= start){
+         throw new Error('endDate cannot be on or before startDate')
+      }
+   }),
+   handleValidationErrors
+]
+//?--------------------------------------------------------------------
 const getAvg = async (id) =>{
    const allReviews = await Review.findAll({
       where: {
@@ -532,10 +554,11 @@ router.get('/:spotId/bookings',requireAuth,async (req,res,next)=>{
          include: {model: User,
          attributes: ['id','firstName','lastName']}}]
          })
-         res.json(location.Bookings)
+console.log(location)
+         res.json(location.dataValues)
 
       }else{
-         const location = await Booking.findAll({
+         const location = await Spot.findAll({
             where:{
                Id: spotId
             },
@@ -548,6 +571,48 @@ router.get('/:spotId/bookings',requireAuth,async (req,res,next)=>{
    }
 
 })
+
+
+//?--------------------------CREATE A BOOKING FROM THE SPOT ID--------------------------------
+
+router.post('/:spotId/bookings',requireAuth,validateDates,async(req,res,next) => {
+   const {spotId}= req.params;
+const{startDate,endDate} = req.body
+   const prospect = await Spot.findOne({
+      where: {
+         id: spotId
+      }
+   });
+
+   if(!prospect){
+      const err = new Error('Spot couldn\'t be found');
+      err.status = 404;
+      err.message = 'Spot couldn\'t be found'
+   }else{
+      const newRes = await Booking.create({
+startDate,
+endDate,
+spotId: spotId,
+userId: req.user.id
+      });
+      res.json(newRes)
+   }
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
