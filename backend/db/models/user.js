@@ -34,7 +34,7 @@ User.hasMany(
       hooks: true
     }),
 
-<<<<<<< HEAD
+
     User.belongsToMany(
       models.Spot,{
         through: models.Booking,
@@ -42,7 +42,7 @@ User.hasMany(
         otherKey: 'spotId',
       }
    ),
-=======
+
     // User.belongsToMany(
     //   models.Spot,{
     //     through: models.Booking,
@@ -50,7 +50,7 @@ User.hasMany(
     //     otherKey: 'spotId',
   //   //   }
   //  ),
->>>>>>> bookings-feature
+ bookings-feature
     User.hasMany(
       models.Review,{
         foreignKey: 'userId',
