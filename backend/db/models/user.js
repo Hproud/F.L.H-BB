@@ -50,7 +50,7 @@ User.hasMany(
     //     otherKey: 'spotId',
   //   //   }
   //  ),
->>>>>>> bookings-feature
+ bookings-feature
     User.hasMany(
       models.Review,{
         foreignKey: 'userId',
