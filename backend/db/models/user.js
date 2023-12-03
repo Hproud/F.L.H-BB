@@ -18,16 +18,23 @@ module.exports = (sequelize, DataTypes) => {
     //     otherKey: 'spotId'
     //   }
     // ),
-
-// User.belongsTo(models.Booking,{
-//   foreignKey: 'userId'
-// })
+User.hasMany(
+  models.Booking,{
+    foreignKey: 'userId',
+    as:'userId',
+    onDelete:'CASCADE',
+    hooks: true
+  }
+)
 
     User.hasMany(models.Spot,{
       as: 'Owner',
-      foreignKey: 'ownerId'
-    });
+      foreignKey: 'ownerId',
+      onDelete: 'CASCADE',
+      hooks: true
+    }),
 
+<<<<<<< HEAD
     User.belongsToMany(
       models.Spot,{
         through: models.Booking,
@@ -35,9 +42,20 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: 'spotId',
       }
    ),
+=======
+    // User.belongsToMany(
+    //   models.Spot,{
+    //     through: models.Booking,
+    //   foreignKey: 'userId',
+    //     otherKey: 'spotId',
+  //   //   }
+  //  ),
+>>>>>>> bookings-feature
     User.hasMany(
       models.Review,{
-        foreignKey: 'userId'
+        foreignKey: 'userId',
+        onDelete: 'CASCADE',
+        hooks:true
       }
 
     )
