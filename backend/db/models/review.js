@@ -22,7 +22,7 @@ Review.belongsTo(
         models.Image,
         {
           foreignKey: 'imageableId',
-          as: 'ReviewImages',
+          as: 'reviewImages',
           constraints:false,
           scope:{
             imageableType: 'Review'
@@ -30,8 +30,10 @@ Review.belongsTo(
         }
       )
 
-Review.belongsTo(models.User)
-
+Review.belongsTo(models.User,{
+  onDelete: 'CASCADE',
+  hooks: true
+})
     }
 
 
