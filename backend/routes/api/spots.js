@@ -250,99 +250,94 @@ router.get('/:spotId',async(req,res,next)=>{
 //?---------------------GET ALL SPOTS--------------------------------?//
 router.get('/',async (req,res)=>{
 
+   // const allSpots = await Spot.findAll();
+   // // console.log(allSpots)
+   // for(let i = 0; i < allSpots.length;i++){
+   //    id = allSpots[i].id;
+   //    const avg = await getAvg(id);
+   //    allSpots[i].avgRating = avg;
 
-   let query = {
-      where:{}
-   }
+   // }
+
    const pagination = {}
-   let {page,size,minLat,maxLat,minLng,maxLng,minPrice,maxPrice} = req.query;
-
-   console.log(req.query)
-console.log(minLat)
-   if(minLat){
-      query.where.lat = { [Op.gte]: Number(minLat)}
-   }
-
-   if(maxLat){
-      query.where.Lat = {[Op.lte]: maxLat}
-   };
-
-   if(minLng){
-      query.where.Lng = {[Op.gte]: minLng}
-   }
-
-   if(maxLng){
-      query.where.Lng = {[Op.lte]: maxLng}
-   };
-
-   if(minPrice){
-      query.where.Price = {[Op.gte]: minPrice}
-   }
-
-   if(maxPrice){
-      query.where.Price = {[Op.lte]: maxPrice}
-   };
-
-
-newpage = Number(page);
-size = Number(size)
-
+   let {page,size} = req.query
    if(!page){
       page =1
    }
-
-   if( page > 1){
-      page = page
-   }else
-
-   if(page < 10){
-      page = 10
-   };
-
    if(!size){
       size = 1
    }
+   page = parseInt(page);
+   size = parseInt(size);
 
-   if( size >= 1){
-      size = size
+   if(Number.isInteger(page) && page > 10){
+      page = 10
    }
 
-   if(size > 20){
-     size = 20
+   if(Number.isInteger(size) && size > 20){
+      size = 20
    }
 
-      query.limit = size;
-      query.offset = (size * (page -1));
+   if( Number.isInteger(page) && Number.isInteger(size) && page > 1 && page <20 &&  size > 0 && size < 20){
+      pagination.limit = size;
+      pagination.offset = size * (page -1)
+   }else{
+      pagination.limit = size;
+      pagination.offset = (size * (page -1))
+   }
 
-   // const page = query.offset;
-   // size = query.limit;
 
-console.log(query.offset,'this is the where')
+   // let query = {}
 
-   const allSpots = await Spot.findAll({
-      where: query.where,
-      limit: query.limit,
-      offset: size
+   const {minLat,maxLat,minLng,maxLng,minPrice,maxPrice} = req.query;
+   let where = {}
 
-   })
-   // .then(async( record) => {
-   //      for(let i = 0; i < record.length;i++){
-   //    id = record[i].id;
-   //    const avg = await getAvg(id);
-   //    record[i].avgRating = avg;
-   //    return record
-   // }
-   // })
+   // console.log(req.query)
+   // console.log(minLat)
+   if(minLat){
+      where.lat = { [Op.gte]:minLat}
+   }
 
+   if(maxLat){
+      where.lat = {[Op.lte]: maxLat}
+   };
+
+   if(minLng){
+      where.lng = {[Op.gte]: minLng}
+   }
+
+   if(maxLng){
+      where.lng = {[Op.lte]: maxLng}
+   };
+
+   if(minPrice){
+      where.price = {[Op.gte]: minPrice}
+   }
+
+   if(maxPrice){
+      where.price = {[Op.lte]: maxPrice}
+   };
+
+   let result = {};
+
+   result.count = await Spot.count({where});
+   result.rows = await Spot.findAll({where})
+result.page = page || 1;
+result.size = Math.ceil(result.count /size)
+
+   // const filtered = await allSpots.rows.findAll(
+      // )
 
 
 
       res.json({
-         allSpots})
-   // }
+         Spots: result.rows,
+      page: result.page,
+      size: result.size},)
+         // }
 
 
-});
+      });
 
 //?----------------------------ADD SPOT------------------------------?//
 //&--------------------     fixed this bug   ------------------------?//
