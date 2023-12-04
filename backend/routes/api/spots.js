@@ -4,7 +4,7 @@ const { handleValidationErrors}= require('../../utils/validation')
 const {setTokenCookie,requireAuth} = require('../../utils/auth');
 const {Spot,Review,Image,Booking,User} = require('../../db/models');
 // const { validationResult } = require('express-validator');
-const {Op, DATEONLY} = require('sequelize')
+const {Op} = require('sequelize')
 
 
 const router = express.Router();
@@ -249,15 +249,99 @@ router.get('/:spotId',async(req,res,next)=>{
 
 //?---------------------GET ALL SPOTS--------------------------------?//
 router.get('/',async (req,res)=>{
-   const allSpots = await Spot.findAll();
 
-   for(let i = 0; i < allSpots.length;i++){
-      id = allSpots[i].id;
-      const avg = await getAvg(id);
-      allSpots[i].avgRating = avg
+
+   let query = {
+      where:{}
+   }
+   const pagination = {}
+   let {page,size,minLat,maxLat,minLng,maxLng,minPrice,maxPrice} = req.query;
+
+   console.log(req.query)
+console.log(minLat)
+   if(minLat){
+      query.where.lat = { [Op.gte]: Number(minLat)}
    }
 
-   res.json(allSpots)
+   if(maxLat){
+      query.where.Lat = {[Op.lte]: maxLat}
+   };
+
+   if(minLng){
+      query.where.Lng = {[Op.gte]: minLng}
+   }
+
+   if(maxLng){
+      query.where.Lng = {[Op.lte]: maxLng}
+   };
+
+   if(minPrice){
+      query.where.Price = {[Op.gte]: minPrice}
+   }
+
+   if(maxPrice){
+      query.where.Price = {[Op.lte]: maxPrice}
+   };
+
+
+newpage = Number(page);
+size = Number(size)
+
+   if(!page){
+      page =1
+   }
+
+   if( page > 1){
+      page = page
+   }else
+
+   if(page < 10){
+      page = 10
+   };
+
+   if(!size){
+      size = 1
+   }
+
+   if( size >= 1){
+      size = size
+   }
+
+   if(size > 20){
+     size = 20
+   }
+
+      query.limit = size;
+      query.offset = (size * (page -1));
+
+   // const page = query.offset;
+   // size = query.limit;
+
+console.log(query.offset,'this is the where')
+
+   const allSpots = await Spot.findAll({
+      where: query.where,
+      limit: query.limit,
+      offset: size
+
+   })
+   // .then(async( record) => {
+   //      for(let i = 0; i < record.length;i++){
+   //    id = record[i].id;
+   //    const avg = await getAvg(id);
+   //    record[i].avgRating = avg;
+   //    return record
+   // }
+   // })
+
+
+
+
+      res.json({
+         allSpots})
+   // }
+
+
 });
 
 //?----------------------------ADD SPOT------------------------------?//
