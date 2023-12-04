@@ -35,7 +35,7 @@ try{
   url: '/review',
   preview: false
 },{
-  imageableId: 2,
+  imageableId: 5,
   imageableType: 'Review',
   url: '/review/pic1',
   preview: false
@@ -54,6 +54,32 @@ try{
   imageableType: 'Review',
   url: '/review/nice',
   preview:false
+},{
+  imageableId: 6,
+  imageableType: 'Review',
+  url: '/reviewed/approved',
+  preview:true
+},{
+  imageableId: 8,
+  imageableType: 'Review',
+  url: '/testurl/review1',
+  preview:false
+},{
+  imageableId: 9,
+  imageableType: 'Review',
+  url: '/review/3',
+  preview:true
+},
+{
+  imageableId:10 ,
+  imageableType: 'Review',
+  url: '/picture/reviewed/test',
+  preview:true
+},{
+  imageableId: 7,
+  imageableType: 'Review',
+  url: '/review/test1',
+  preview:true
 }
   ],{validate: true })
 }catch(err){

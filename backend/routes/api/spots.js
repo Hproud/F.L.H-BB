@@ -9,6 +9,44 @@ const {Op} = require('sequelize')
 
 const router = express.Router();
 
+//?---------------------------------------------------------------------
+const ValidateQueries = [
+   check('page')
+   .optional({checkFalsy:true})
+   .isFloat({min:1})
+   .withMessage('Page must be greater than or equal to 1'),
+   check('size')
+   .optional({checkFalsy:true})
+   .isFloat({min:1})
+   .withMessage('Size must be greater than or equal to 1'),
+   check('minLat')
+   .optional({checkFalsy:true})
+   .isFloat({min: -90,max: 90})
+   .withMessage('Minimum latitude is invalid'),
+   check('maxLat')
+   .optional({checkFalsy:true})
+   .isFloat({min: -90,max: 90})
+   .withMessage('Maximum latitude is invalid'),
+   check('minLng')
+   .optional({checkFalsy:true})
+   .isFloat({min: -180,max:180})
+   .withMessage('Minimum longitude is invalid'),
+   check('maxLng')
+   .optional({checkFalsy:true})
+   .isFloat({min: -180,max:180})
+   .withMessage('Maximum longitude is invalid'),
+   check('minPrice')
+   .optional({checkFalsy:true})
+   .isFloat({min:0})
+   .withMessage('Minimum price must be greater than or equal to 0'),
+   check('maxPrice')
+   .optional({checkFalsy:true})
+   .isFloat({min:0})
+   .withMessage('Maximum price must be greater than or equal to 0'),
+   handleValidationErrors
+]
+//?---------------------------------------------------------------------
+
 const validateSpot = [
    check('address')
    .trim()
@@ -248,7 +286,7 @@ router.get('/:spotId',async(req,res,next)=>{
 
 
 //?---------------------GET ALL SPOTS--------------------------------?//
-router.get('/',async (req,res)=>{
+router.get('/',ValidateQueries,async (req,res)=>{
 
    // const allSpots = await Spot.findAll();
    // // console.log(allSpots)

@@ -50,10 +50,31 @@ try{
   url: '/test/maybe',
   preview:true
 },{
-  imageableId: 5,
+  imageableId: 6,
   imageableType: 'Spot',
-  url: '/test/nice',
+  url: '/tested/approved',
+  preview:true
+},{
+  imageableId: 8,
+  imageableType: 'Spot',
+  url: '/testurl/1',
   preview:false
+},{
+  imageableId: 9,
+  imageableType: 'Spot',
+  url: '/test/3',
+  preview:true
+},
+{
+  imageableId:10 ,
+  imageableType: 'Spot',
+  url: '/picture/test',
+  preview:true
+},{
+  imageableId: 7,
+  imageableType: 'Spot',
+  url: '/why/test',
+  preview:true
 }
   ],{validate: true })
 }catch(err){
