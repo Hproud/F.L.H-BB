@@ -27,9 +27,7 @@ Spot.hasMany(
       Spot.belongsTo(
         models.User,{
           foreignKey: 'ownerId',
-          as: 'Owner',
-          onDelete: 'CASCADE',
-          hooks: true
+          as: 'Owner'
         }
       ),
 
@@ -41,11 +39,11 @@ Spot.belongsToMany(models.User,
   otherKey:'userId'
 })
 
-Spot.hasMany(models.Booking,{
-  foreignKey: 'spotId',
-  onDelete:'CASCADE',
-  hooks: true
-})
+// Spot.hasMany(models.Booking,{
+//   foreignKey: 'spotId',
+//   onDelete:'CASCADE',
+//   hooks: true
+// })
 
       Spot.hasMany(
         models.Review,{
@@ -74,10 +72,10 @@ Spot.hasMany(models.Booking,{
     Spot.init({
 ownerId:{
   type: DataTypes.INTEGER,
-  references:{
-    model: 'User',
-    key: 'id'
-  }
+  // references:{
+  //   model: 'User',
+  //   key: 'id'
+  // }
   // allowNull: false
 },
     address: {

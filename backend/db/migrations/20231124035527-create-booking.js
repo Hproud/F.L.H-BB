@@ -15,21 +15,27 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       startDate: {
-        type: Sequelize.DATEONLY,
+        type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       endDate: {
-        type: Sequelize.DATEONLY,
+        type: Sequelize.DATE,
         allowNull:false,
       },
       spotId: {
         type: Sequelize.INTEGER,
         allowNull:false,
+        references:{
+          model: 'Spots',
+        }
       },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references:{
+          model: 'Users'
+        }
       },
       createdAt: {
         type: Sequelize.DATE,

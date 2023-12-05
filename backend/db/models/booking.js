@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 //   })\
 
 Booking.belongsTo(models.Spot,{
-  foreignKey: 'spotId',
+  foreignKey: 'spotId'
 })
 
 Booking.belongsTo(models.User,{
@@ -28,7 +28,7 @@ Booking.belongsTo(models.User,{
   }
   Booking.init({
     startDate: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       allowNull:false,
       // validate:{
       //   isNotInPast(value){
@@ -43,7 +43,7 @@ Booking.belongsTo(models.User,{
       // }
       },
     endDate: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       allowNull:false,
 //  validate:{
 //   ifAfterStart(value){
@@ -69,7 +69,7 @@ Booking.belongsTo(models.User,{
       type: DataTypes.INTEGER,
       allowNull: false,
       // references:{
-      //   model: 'User',
+      //   model: 'Users',
       //   key: 'id'
       // }
     }

@@ -483,12 +483,8 @@ next(err)
 
 router.delete('/:spotId',requireAuth, async(req,res,next)=>{
    const id = Number(req.params.spotId);
-const theSpot = await Spot.findOne({
-   where:{
-      id: id
-   }
-})
-// console.log('=======================',theSpot,'=============================')
+const theSpot = await Spot.findByPk(id)
+console.log('=======================',theSpot,'=============================')
 if(theSpot){
    await theSpot.destroy();
    res.json('Successfully deleted')
