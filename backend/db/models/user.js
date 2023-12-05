@@ -32,16 +32,17 @@ User.hasMany(
       foreignKey: 'ownerId',
       onDelete: 'CASCADE',
       hooks: true
-    }),
+    })
+    // ,
 
 
-    User.belongsToMany(
-      models.Spot,{
-        through: models.Booking,
-      foreignKey: 'ownerId',
-        otherKey: 'spotId',
-      }
-   ),
+    // User.belongsToMany(
+    //   models.Spot,{
+    //     through: models.Booking,
+    //   foreignKey: 'ownerId',
+    //     otherKey: 'spotId',
+    //   }
+  //  ),
 
     // User.belongsToMany(
     //   models.Spot,{

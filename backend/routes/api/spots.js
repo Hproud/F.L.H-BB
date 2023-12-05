@@ -176,6 +176,12 @@ router.post('/:spotId/images',requireAuth, async (req,res,next) =>{
       }
    });
 
+if(!property){
+   const err =new Error('Spot couldn\'t be found');
+   err.status = 404;
+   err.message = 'Spot couldn\'t be found';
+   next(err)
+}
 
    if(property.ownerId === currUser){
       const pic = await Image.create({
@@ -229,7 +235,7 @@ router.get('/current',requireAuth,async(req,res,next) => {
 if(!properties){
    res.json('You do not have any properties listed')
 }else{
-    res.json(properties)
+    res.json({Spots: properties})
 }
 
    }
@@ -248,19 +254,20 @@ router.get('/:spotId',async(req,res,next)=>{
          id: Number(id)
    },
    include:(
-      {
+      [{
       model: Image,
       as: 'SpotImages',
       where:{
-         imageableId: id,
+         // imageableId: id,
          imageableType: 'Spot',
-      }
+      },
+      attributes:['id','url','preview']
    },
     {
       model: User,
       as: 'Owner',
       attributes: ['firstName','lastName'],
-   }
+   }]
 )
    });
 
@@ -287,18 +294,10 @@ router.get('/:spotId',async(req,res,next)=>{
 
 //?---------------------GET ALL SPOTS--------------------------------?//
 router.get('/',ValidateQueries,async (req,res)=>{
-
-   // const allSpots = await Spot.findAll();
-   // // console.log(allSpots)
-   // for(let i = 0; i < allSpots.length;i++){
-   //    id = allSpots[i].id;
-   //    const avg = await getAvg(id);
-   //    allSpots[i].avgRating = avg;
-
-   // }
-
-   const pagination = {}
+   const {minLat,maxLat,minLng,maxLng,minPrice,maxPrice} = req.query;
    let {page,size} = req.query
+if(page || size || minLat || maxLat || minLng || maxLng || minPrice || maxPrice){
+   const pagination = {}
    if(!page){
       page =1
    }
@@ -327,7 +326,6 @@ router.get('/',ValidateQueries,async (req,res)=>{
 
    // let query = {}
 
-   const {minLat,maxLat,minLng,maxLng,minPrice,maxPrice} = req.query;
    let where = {}
 
    // console.log(req.query)
@@ -359,21 +357,61 @@ router.get('/',ValidateQueries,async (req,res)=>{
    let result = {};
 
    result.count = await Spot.count({where});
-   result.rows = await Spot.findAll({where})
-result.page = page || 1;
-result.size = Math.ceil(result.count /size)
+   result.rows = await Spot.findAll({where,include:{model:Image}})
+   result.page = page || 1;
+   result.size = Math.ceil(result.count /size)
 
    // const filtered = await allSpots.rows.findAll(
       // )
+      for(let i = 0; i < result.rows.length;i++){
+         id = result.rows[i].id;
+         const avg = await getAvg(id);
+         // result.rows[i].avgRating = avg;
+         await result.rows[i].update({
+            avgRating: avg
+         })
 
 
+         res.json({
+            Spots: result.rows,
+            page: result.page,
+            size: result.size},)
+         }
 
-      res.json({
-         Spots: result.rows,
-      page: result.page,
-      size: result.size},)
-         // }
 
+   }else{
+   const allSpots = await Spot.findAll();
+   // console.log(allSpots)
+   for(let i = 0; i < allSpots.length;i++){
+      id = allSpots[i].id;
+      const avg = await getAvg(id);
+      const image = await Image.findOne({
+         where:{
+imageableId: id,
+imageableType: 'Spot',
+preview:true
+         },
+         attributes: ['url']
+      })
+
+      if(Image.url){
+         await allSpots[i].update({
+            avgRating: avg,
+            previewImage: image.url
+         })
+      }else{
+         await allSpots[i].update({
+            avgRating: avg
+         })
+
+      }
+      // console.log(image)
+      // allSpots[i].avgRating = avg;
+
+   };
+   res.json({Spots: allSpots})
+
+   }
 
       });
 
@@ -410,7 +448,21 @@ if(!checked){
       price
    })
 
-   res.json(newSpot)
+   res.json({
+      id: newSpot.id,
+      ownerId: newSpot.ownerId,
+      address: newSpot.address,
+   city: newSpot.city,
+state: newSpot.city,
+state:newSpot.state,
+country: newSpot.country,
+lat: newSpot.lat,
+lng: newSpot.lng,
+name: newSpot.name,
+description:newSpot.description,
+price: newSpot.price,
+createdAt: newSpot.createdAt,
+updatedAt: newSpot.updatedAt})
 
    }
    else{
@@ -449,7 +501,7 @@ if(theSpot){
 
 })
 
-//?-------------------------------EDIT A SPOT PUT AND PATCH ROUTES----------------------------//?
+//?---------------EDIT A SPOT PUT ROUTES----------------------------//?
 
 
 router.put('/:spotId',validateSpot,requireAuth,async(req,res,next)=>{
@@ -475,10 +527,10 @@ err.status= 404
 // console.log(location.ownerId,'<-------------------------------------this is ownerID for location')
    if(req.user.id !== location.ownerId){
 
-   const err = Error('You must own this property to make changes')
+   const err = Error('Forbidden')
    err.status=400;
    err.title='Forbidden';
-   err.message='You must own this property to make changes';
+   err.message='Forbidden';
    next(err)
 }else{
    const updated =  await Spot.update(
@@ -501,69 +553,27 @@ err.status= 404
 
 
 
-   res.json(location)
+   res.json({
+      id: location.id,
+      ownerId: location.ownerId,
+      address: location.address,
+        city: location.city,
+        state: location.state,
+        country: location.country,
+        lat: location.lat,
+        lng: location.lng,
+        name: location.name,
+        description: location.description,
+        price: location.price,
+        createdAt: location.createdAt,
+        updatedAt: location.updatedAt
+   })
 
 }
 
 
 });
 
-
-router.patch('/:spotId',validateSpot,requireAuth,async(req,res,next)=>{
-   const id = req.params.spotId;
-   const {address,city,state,country,lat,lng,name,description,price} = req.body;
-
-   const location = await Spot.findOne({
-      where:{
-         id: id
-      }
-   });
-
-   if(!location){
-      const err = Error('Spot couldn`t be found');
-err.status= 404
-      err.message = 'Spot couldn`t be found';
-      next(err)
-   };
-
-
-// console.log(req.user.id,'<-------------------------------------this is ID');
-// console.log(location.ownerId,'<-------------------------------------this is ownerID for location')
-
-
-   if(Number(id) !== location.ownerId){
-
-
-   const err = Error('You must own this property to make changes')
-   err.status=400;
-   err.title='Forbidden';
-   err.message='You must own this property to make changes';
-   next(err)
-};
-
-    const updated =  await Spot.update(
-      {   address,
-         city,
-         state,
-         country,
-         lat,
-         lng,
-         name,
-         description,
-         price
-      },
-         {
-            where:{
-               id: location.id
-            }
-         }
-      );
-
-
-
-   res.json(location)
-
-});
 
 
 

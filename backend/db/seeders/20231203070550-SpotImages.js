@@ -58,7 +58,7 @@ try{
   imageableId: 8,
   imageableType: 'Spot',
   url: '/testurl/1',
-  preview:false
+  preview:true
 },{
   imageableId: 9,
   imageableType: 'Spot',

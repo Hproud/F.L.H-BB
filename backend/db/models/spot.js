@@ -146,10 +146,6 @@ ownerId:{
   }, {
     sequelize,
     modelName: 'Spot',
-    defaultScope:{
-      attributes: {
-exclude:['createdAt','updatedAt']
-   } },
 
   });
   return Spot;
