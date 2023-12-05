@@ -14,8 +14,9 @@ module.exports = (sequelize, DataTypes) => {
 Review.belongsTo(
   models.Spot,{
     foreignKey: 'spotId',
-    onDelete:'CASCADE',
-    hooks:true
+    //~ this on delete was breaking the code!
+    // onDelete:'CASCADE',
+    // hooks:true
   }
 )
       Review.hasMany(
@@ -30,10 +31,12 @@ Review.belongsTo(
         }
       )
 
-Review.belongsTo(models.User,{
-  onDelete: 'CASCADE',
-  hooks: true
-})
+Review.belongsTo(models.User,
+  // {
+  // onDelete: 'CASCADE',
+  // hooks: true
+// }
+)
     }
 
 
@@ -51,13 +54,19 @@ Review.belongsTo(models.User,{
       type: DataTypes.INTEGER,
       allowNull:false,
       references: {
-        model: 'User',
-        key: 'id'
+        model: 'Users',
+        onDelete: 'CASCADE',
+        hooks: true
       }
     },
     spotId: {
       type: DataTypes.INTEGER,
       allowNull:false,
+      references:{
+        model: 'Spots',
+        onDelete: 'CASCADE',
+        hooks:true
+      }
     }
   }, {
     sequelize,
