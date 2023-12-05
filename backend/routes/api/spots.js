@@ -367,8 +367,24 @@ if(page || size || minLat || maxLat || minLng || maxLng || minPrice || maxPrice)
          id = result.rows[i].id;
          const avg = await getAvg(id);
          // result.rows[i].avgRating = avg;
+         const image = await Image.findOne({
+            where:{
+   imageableId: id,
+   imageableType: 'Spot',
+   preview:true
+            },
+            attributes: ['url']
+         });
+         // console.log(image)
+
+         if(image.url){
+            await result[i].update({
+               avgRating: avg,
+               previewImage: image.url
+            })}else
          await result.rows[i].update({
-            avgRating: avg
+            avgRating: avg,
+
          })
 
 
@@ -392,9 +408,10 @@ imageableType: 'Spot',
 preview:true
          },
          attributes: ['url']
-      })
+      });
+      // console.log(image)
 
-      if(Image.url){
+      if(image.url){
          await allSpots[i].update({
             avgRating: avg,
             previewImage: image.url
@@ -402,16 +419,16 @@ preview:true
       }else{
          await allSpots[i].update({
             avgRating: avg
-         })
+         });
 
       }
       // console.log(image)
       // allSpots[i].avgRating = avg;
 
    };
+console.log(allSpots)
    res.json({Spots: allSpots})
-
-   }
+}
 
       });
 
@@ -484,10 +501,17 @@ next(err)
 router.delete('/:spotId',requireAuth, async(req,res,next)=>{
    const id = Number(req.params.spotId);
 const theSpot = await Spot.findByPk(id)
-console.log('=======================',theSpot,'=============================')
+
 if(theSpot){
-   await theSpot.destroy();
-   res.json('Successfully deleted')
+   if(req.user.id === theSpot.ownerId){
+      await theSpot.destroy();
+      res.json({message:'Successfully deleted'})
+   }else{
+      const err = new Error('Forbidden');
+      err.status = 403;
+      err.message = 'Forbidden'
+      next(err)
+   }
 }else{
    const err = new Error('Spot not found');
    err.message = 'Spot not found',
@@ -609,7 +633,7 @@ router.get('/:spotId/reviews',async (req,res,next) => {
       })
 
 
-      return res.json(locationReviews)
+      return res.json({Reviews: locationReviews})
    }
 
 });
@@ -631,7 +655,19 @@ if(!location){
    err.message= 'Spot could`t be found'
    next(err)
 }else{
-   const {review,stars} = req.body
+   const reviewCheck = await Review.findAll({
+      where: {
+         spotId: spotId,
+         userId: req.user.id
+      }
+   });
+   if(reviewCheck.length){
+      const err = new Error('User already has a review for this spot');
+      err.status = 500;
+      err.message ='User already has a review for this spot'
+   next(err)
+   }else{
+         const {review,stars} = req.body
    const newReview = await Review.create({
       review,
       stars,
@@ -639,7 +675,17 @@ if(!location){
       spotId: Number(spotId)
    });
    res.status = 201;
-   res.json(newReview)
+   res.json({
+      id: newReview.id,
+      userId: newReview.userId,
+      spotId: newReview.spotId,
+      review: newReview.review,
+      stars: newReview.stars,
+      createdAt: newReview.createdAt,
+      updatedAt: newReview.updatedAt
+   })
+   }
+
 }
 
 })
@@ -660,7 +706,7 @@ router.get('/:spotId/bookings',requireAuth,async (req,res,next)=>{
       err.status = 400;
       err.message = 'Spot couldn\'t be found';
       next(err)
-   }else{
+   }
 
       if(req.user.id === checking.ownerId){
          // const location = await Booking.findAll({
@@ -671,32 +717,39 @@ router.get('/:spotId/bookings',requireAuth,async (req,res,next)=>{
          // include:{model: User,
          // attributes:['id','firstName','lastName']}
          // })
-         const location = await Spot.findOne({
+         const theBooks = await Booking.findAll({
             where:{
-               id: spotId
-            },
-            include: [{model: Booking,
-            where: {
                spotId: spotId
+            },
+            include: [{model: Spot,
+            where: {
+               id: spotId
             },
          include: {model: User,
          attributes: ['id','firstName','lastName']}}]
          })
-console.log(location)
-         res.json(location.dataValues)
+   // console.log(location)
+         res.json(location)
 
       }else{
-         const location = await Spot.findAll({
+         const theBooks = await Booking.findAll({
             where:{
-               Id: spotId
+               spotId: spotId
             },
+
             attributes:['spotId','startDate','endDate'],
          });
-         res.json(location)
-      }
+         // const {startDate,endDate} = theBooks
+         console.log(theBooks.spotId = spotId)
+         console.log(theBooks)
 
+         res.json({Bookings:
+            theBooks
+         })
 
    }
+
+
 
 })
 

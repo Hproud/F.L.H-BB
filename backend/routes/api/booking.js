@@ -50,7 +50,22 @@ router.get('/current',requireAuth,async(req,res,next) => {
         attributes:['id','ownerId','address','city','state','lat','lng','name','price','previewImage']
         }
     });
-    res.json({myBookings})
+    // console.log(myBookings.spot.id,'aklsdjf;klajsdhfkjashdfkjhasdkljfhaksljdfhakjlshdfkjashdfkahsdkfjhaskljdfhlks')
+
+
+    // console.log(myBookings.id)
+
+   res.json({Bookings: {
+        id: myBookings.id,
+        spotId: myBookings.spotId,
+        spot: myBookings.spot,
+    userId: myBookings.userId,
+startDate: myBookings.startDate,
+endDate: myBookings.endDate,
+createdAt: myBookings.createdAt,
+updatedAt: myBookings.updatedAt
+}
+})
 })
 
 //? --------------------------EDIT A BOOKING---------------------------

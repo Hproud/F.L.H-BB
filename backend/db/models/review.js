@@ -23,7 +23,7 @@ Review.belongsTo(
         models.Image,
         {
           foreignKey: 'imageableId',
-          as: 'reviewImages',
+          as: 'ReviewImages',
           constraints:false,
           scope:{
             imageableType: 'Review'
@@ -47,7 +47,7 @@ Review.belongsTo(models.User,
       allowNull:false,
     },
     stars: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.INTEGER,
       defaultValue: 1
     },
     userId: {
