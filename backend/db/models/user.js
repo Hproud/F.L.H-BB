@@ -36,13 +36,13 @@ User.hasMany(
     // ,
 
 
-    // User.belongsToMany(
-    //   models.Spot,{
-    //     through: models.Booking,
-    //   foreignKey: 'ownerId',
-    //     otherKey: 'spotId',
-    //   }
-  //  ),
+    User.belongsToMany(
+      models.Spot,{
+        through: models.Booking,
+      foreignKey: 'ownerId',
+        otherKey: 'spotId',
+      }
+   ),
 
     // User.belongsToMany(
     //   models.Spot,{
