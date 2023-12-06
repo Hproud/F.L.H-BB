@@ -25,6 +25,8 @@ Review.belongsTo(
           foreignKey: 'imageableId',
           as: 'ReviewImages',
           constraints:false,
+          onDelete:'CASCADE',
+          hooks:true,
           scope:{
             imageableType: 'Review'
           }

@@ -17,18 +17,26 @@ router.delete('/:imageId',requireAuth,async (req,res,next)=>{
             id: Number(req.params.imageId),
             imageableType: 'Review'
         },
-        include: {model: Review, as: 'reviewImages'}
+        attributes:['id','imageableId','imageableType']
     })
 
-    if(!imageInQ){
+       if(!imageInQ){
         const err = new Error('Review Image couldn\'t be found');
         err.status = 404;
         err.message = 'Review Image couldn\'t be found';
         next(err)
     };
+const review = await Review.findOne({
+    where: {
+        id: imageInQ.imageableId
+    },
+    // attributes: ['userId']
+});
+// console.log(review.userId)
 
-const owner= Number(imageInQ.reviewImages.userId);
-
+// console.log(imageInQ)
+const owner= review.userId;
+// console.log(owner)
 if(owner !== req.user.id){
     const err = new Error('Forbidden');
     err.message = 'Forbidden';

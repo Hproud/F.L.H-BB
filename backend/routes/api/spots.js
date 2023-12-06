@@ -320,7 +320,7 @@ if(page || size || minLat || maxLat || minLng || maxLng || minPrice || maxPrice)
       pagination.offset = size * (page -1)
    }else{
       pagination.limit = size;
-      pagination.offset = (size * (page -1))
+      pagination.offset = Math.ceil(size * (page -1))
    }
 
 
@@ -357,16 +357,17 @@ if(page || size || minLat || maxLat || minLng || maxLng || minPrice || maxPrice)
    let result = {};
 
    result.count = await Spot.count({where});
-   result.rows = await Spot.findAll({where,include:{model:Image}})
+   result.rows = await Spot.findAll({where,include:{model:Image,as:'SpotImages'},limit: pagination.limit, offset:pagination.offset })
    result.page = page || 1;
-   result.size = Math.ceil(result.count /size)
-
+   result.size = pagination.limit
+   // Math.ceil(result.count /size)
+// console.log(result)
    // const filtered = await allSpots.rows.findAll(
       // )
       for(let i = 0; i < result.rows.length;i++){
          id = result.rows[i].id;
          const avg = await getAvg(id);
-         // result.rows[i].avgRating = avg;
+         result.rows[i].avgRating = avg;
          const image = await Image.findOne({
             where:{
    imageableId: id,
@@ -375,27 +376,15 @@ if(page || size || minLat || maxLat || minLng || maxLng || minPrice || maxPrice)
             },
             attributes: ['url']
          });
-         // console.log(image)
-
-         if(image.url){
-            await result[i].update({
-               avgRating: avg,
-               previewImage: image.url
-            })}else
-         await result.rows[i].update({
-            avgRating: avg,
-
-         })
-
+         console.log(image)
 
          res.json({
             Spots: result.rows,
             page: result.page,
             size: result.size},)
          }
-
-
-   }else{
+      // }
+   }else {
    const allSpots = await Spot.findAll();
    // console.log(allSpots)
    for(let i = 0; i < allSpots.length;i++){
@@ -411,7 +400,7 @@ preview:true
       });
       // console.log(image)
 
-      if(image.url){
+      if(image){
          await allSpots[i].update({
             avgRating: avg,
             previewImage: image.url
@@ -422,8 +411,8 @@ preview:true
          });
 
       }
-      // console.log(image)
-      // allSpots[i].avgRating = avg;
+      console.log(image)
+      allSpots[i].avgRating = avg;
 
    };
 console.log(allSpots)
