@@ -41,11 +41,10 @@ Spot.belongsToMany(models.User,
   otherKey:'userId'
 })
 
-// Spot.hasMany(models.Booking,{
-//   foreignKey: 'spotId',
-//   onDelete:'CASCADE',
-//   hooks: true
-// })
+Spot.hasMany(models.Booking,{
+  foreignKey: 'spotId',
+  
+})
 //&-----------------------------
       Spot.hasMany(
         models.Review,{

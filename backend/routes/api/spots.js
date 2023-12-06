@@ -721,15 +721,31 @@ router.get('/:spotId/bookings',requireAuth,async (req,res,next)=>{
             where:{
                spotId: spotId
             },
-            include: [{model: Spot,
-            where: {
-               id: spotId
-            },
-         include: {model: User,
-         attributes: ['id','firstName','lastName']}}]
+            attributes:['id','spotId','userId','startDate','endDate','createdAt','updatedAt'],
+         include: [{model: User,
+         attributes: ['id','firstName','lastName']},
+         {model: Spot,
+         attributes:['id','ownerId','address','city','state','lat','lng','name','price','previewImage']}]
          })
-   // console.log(location)
-         res.json(location)
+const final = []
+         theBooks.forEach(booking=>{
+booking.toJSON()
+console.log(booking)
+const constructed = {
+   User: booking.User,
+   id: booking.id,
+   spotId: booking.spotId,
+   userId: booking.userId,
+   startDate: booking.startDate,
+   endDate: booking.endDate,
+   createdAt: booking.createdAt,
+updatedAt: booking.updatedAt
+};
+final.push(constructed)
+         })
+
+   // console.log(theBooks.id)
+         res.json({Bookings: final})
 
       }else{
          const theBooks = await Booking.findAll({
@@ -740,11 +756,11 @@ router.get('/:spotId/bookings',requireAuth,async (req,res,next)=>{
             attributes:['spotId','startDate','endDate'],
          });
          // const {startDate,endDate} = theBooks
-         console.log(theBooks.spotId = spotId)
+         // console.log(theBooks.spotId = spotId)
          console.log(theBooks)
 
-         res.json({Bookings:
-            theBooks
+         res.json({Bookings: theBooks
+
          })
 
    }
@@ -755,69 +771,89 @@ router.get('/:spotId/bookings',requireAuth,async (req,res,next)=>{
 
 
 //?--------------------------CREATE A BOOKING FROM THE SPOT ID--------------------------------
-
 router.post('/:spotId/bookings',requireAuth,validateDates,async(req,res,next) => {
    const {spotId}= req.params;
-   const id = Number(spotId)
+   const id = Number(spotId);
+   console.log(id)
 const{startDate,endDate} = req.body
-const begin = new Date(startDate);
-const end = new Date(endDate)
-console.log(req.body)
-   const prospect = await Spot.findOne({
-      where: {
-         id: id
-      }
-   });
+const bookings = await Booking.findAll({where: {spotId:Number(spotId)},
+   attributes: ['id','spotId','userId', 'startDate', 'endDate','createdAt','updatedAt']})
 
-   if(!prospect){
+   if(!bookings){
+
       const err = new Error('Spot couldn\'t be found');
       err.status = 404;
       err.message = 'Spot couldn\'t be found'
+      next(err)
    }else{
-      const currBookings = await Booking.findAll({
-         where:{
-            spotId: spotId
-         }
+
+      const all = []
+      bookings.forEach(current => {
+         const newCurrent = current.toJSON();
+         // console.log(current.id,"this is the current")
+      all.push(current)
       });
 
-      // console.log(currBookings)
-      for(let i=0; i< currBookings.length;i++){
-         const current = currBookings[i];
-         // console.log(new Date(current.startDate),'<------ current');
-         // console.log(new Date(startDate))
-         const reservedStart = new Date(current.startDate);
-         const reservedEnd = new Date(current.endDate);
-if(reservedStart < begin && reservedEnd > begin ){
-   const err = new Error('Sorry, this spot is already booked for the specified dates')
-      err.status = 403
-      err.errors = {
-         startDate: "Start date conflicts with an existing booking",
-         // endDate: "End date conflicts with an existing booking"
-      }
-      next(err)
-   }else
-      if (reservedStart < end && reservedEnd > end){
-         const err = new Error('Sorry, this spot is already booked for the specified dates')
-         err.status = 403
-         err.errors = {
-      endDate: "End date conflicts with an existing booking"
+      if(all.length){
+         for(let i = 0; i < all.length; i++){
+            const stay = await Booking.findOne({
+               where:{
+                  id: all[i].id
+               }
+            })
+            const begin = new Date(startDate);
+            const end = new Date(endDate);
+            // console.log(begin,'<----------------begin');
+            // console.log(end,'<----------------end');
+      if(stay.startDate <= begin && stay.endDate >= begin){
+
+            const err = new Error('Sorry, this spot is already booked for the specified dates');
+         err.status = 403;
+         err.message = 'Sorry, this spot is already booked for the specified dates'
+         err.errors ={
+            startDate: 'Start date conflicts with an existing booking'
          }
          next(err)
-      }
-   //  }else{
-   //    break
-   //  }
-
          }
+if(stay.endDate <= end && stay.endDate >= end){
+         const err = new Error('Sorry, this spot is already booked for the specified dates');
+         err.status = 403;
+         err.message = 'Sorry, this spot is already booked for the specified dates'
+         err.errors ={
+            endDate: 'endDate date conflicts with an existing booking'
+         };
+         next(err)
+      }
       }
 
-      const newRes = await Booking.create({
-startDate,
-endDate,
-spotId: id,
-userId: req.user.id
-      });
-      res.json(newRes)
+
+
+      }
+         const newBooking = await Booking.create({
+            startDate,
+            endDate,
+            spotId:id,
+            userId: req.user.id
+         })
+         const found = await Booking.findOne({
+           where: { startDate: newBooking.startDate,
+            endDate: newBooking.endDate,
+            spotId: newBooking.spotId,
+            userId: newBooking.userId},
+            attributes: ['id','spotId','userId', 'startDate', 'endDate','createdAt','updatedAt']
+         })
+         // console.log()
+         return res.json({
+            id:found.id,
+         spotId:found.spotId,
+      userId:found.userId,
+   startDate: found.startDate,
+endDate: found.endDate,
+createdAt: found.createdAt,
+updatedAt:found.updatedAt})
+
+
+}
 
 
 

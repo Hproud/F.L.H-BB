@@ -77,7 +77,7 @@ Booking.belongsTo(models.User,{
     }
   }, {
     sequelize,
-    modelName: 'Booking',
+    modelName: 'Booking'
   });
   return Booking;
 };
