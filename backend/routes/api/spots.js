@@ -235,7 +235,28 @@ router.get('/current',requireAuth,async(req,res,next) => {
 if(!properties){
    res.json('You do not have any properties listed')
 }else{
-    res.json({Spots: properties})
+   const all =[];
+   for (let i = 0; i < properties.length;i++){
+      const spot = properties[i];
+      all.push({
+         id: spot.id,
+         ownerId: spot.ownerId,
+      address: spot.address,
+      city:spot.city,
+      state:spot.state,
+      country: spot.country,
+      lat:spot.lat,
+      lng:spot.lng,
+      name:spot.name,
+      description:spot.description,
+      price:spot.price,
+      createdAt:spot.createdAt,
+      updatedAt: spot.updatedAt,
+      numReviews: spot.numReviews,
+      avgRating:spot.avgRating,
+   previewImage: spot.previewImage})
+   }
+    res.json({Spots: all})
 }
 
    }
@@ -279,9 +300,49 @@ router.get('/:spotId',async(req,res,next)=>{
       err.message= 'Spot couldn`t be found'
       next(err)
    }else{
-
-
-      res.json(location)
+// const all=[];
+// for(let i=0;i <location.length;i++){
+//    const spot = location[i];
+   const reviews = await Review.findAll({
+      where: {
+         spotId: id
+      }
+   });
+   location.numReviews = reviews.length;
+//    all.push({
+//       id: spot.id,
+//    ownerId: spot.ownerId,
+// address: spot.address,
+// city:spot.city,
+// state:spot.state,
+// country: spot.country,
+// lat:spot.lat,
+// lng:spot.lng,
+// name:spot.name,
+// description:spot.description,
+// price:spot.price,
+// createdAt:spot.createdAt,
+// updatedAt: spot.updatedAt,
+// numReviews: spot.numReviews,
+// avgRating:spot.avgRating,
+// SpotImages: spot.SpotImages})
+// }
+      res.json(  { id: location.id,
+         ownerId: location.ownerId,
+      address: location.address,
+      city:location.city,
+      state:location.state,
+      country: location.country,
+      lat:location.lat,
+      lng:location.lng,
+      name:location.name,
+      description:location.description,
+      price:location.price,
+      createdAt:location.createdAt,
+      updatedAt: location.updatedAt,
+      numReviews: location.numReviews,
+      avgRating:location.avgRating,
+      SpotImages: location.SpotImages})
    }
 });
 
@@ -372,7 +433,9 @@ if(theCount === 0){
 // console.log(result)
    // const filtered = await allSpots.rows.findAll(
       // )
+      const all =[]
       for(let i = 0; i < result.rows.length;i++){
+         const spot = result.rows[i]
          id = result.rows[i].id;
          const avg = await getAvg(id);
          result.rows[i].avgRating = avg;
@@ -385,18 +448,52 @@ if(theCount === 0){
             attributes: ['url']
          });
          // console.log(image)
-
-         res.json({
-            Spots: result.rows,
-            page: result.page,
-            size: result.size},)
-         }
+all.push({
+   id: spot.id,
+ownerId: spot.ownerId,
+address: spot.address,
+city:spot.city,
+state: spot.state,
+country: spot.country,
+lat:spot.lat,
+lng:spot.lng,
+name:spot.name,
+description:spot.description,
+price:spot.price,
+createdAt:spot.createdAt,
+updatedAt: spot.updatedAt,
+avgRating:spot.avgRating,
+previewImage: spot.previewImage})
+      }
+      res.json({
+         // Spots: result.rows,
+         Spots: all,
+         page: result.page,
+         size: result.size},)
       // }
    }else {
    const allSpots = await Spot.findAll();
    // console.log(allSpots)
+   const all = [];
    for(let i = 0; i < allSpots.length;i++){
+      const spot = allSpots[i]
       id = allSpots[i].id;
+      all.push({
+         id: spot.id,
+      ownerId: spot.ownerId,
+   address: spot.address,
+   city:spot.city,
+   state: spot.state,
+   country: spot.country,
+   lat:spot.lat,
+   lng:spot.lng,
+   name:spot.name,
+   description:spot.description,
+   price:spot.price,
+   createdAt:spot.createdAt,
+   updatedAt: spot.updatedAt,
+   avgRating:spot.avgRating,
+   previewImage: spot.previewImage})
       const avg = await getAvg(id);
       const image = await Image.findOne({
          where:{
@@ -424,7 +521,8 @@ preview:true
 
    };
 // console.log(allSpots)
-   res.json({Spots: allSpots})
+   res.json({Spots:
+    all})
 }
 
       });

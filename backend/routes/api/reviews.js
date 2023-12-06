@@ -46,7 +46,7 @@ router.get('/current',requireAuth,async(req,res,next)=> {
         include: (
            [ {
                 model: User,
-                attributes: ['firstName','lastName']
+                attributes: ['id','firstName','lastName']
             },
             {
                 model: Spot,
@@ -61,7 +61,27 @@ router.get('/current',requireAuth,async(req,res,next)=> {
     }
     );
 
- return res.json({Reviews: myReviews})
+
+const all = [];
+for (let i = 0; i < myReviews.length;i++){
+    const review = myReviews[i];
+    all.push({
+        id: review.id,
+        userId: review.userId,
+        spotId: review.spotId,
+        review: review.review,
+        stars: review.stars,
+        createdAt: review.createdAt,
+        updatedAt: review.updatedAt,
+        User: review.User,
+        Spot: review.Spot,
+        ReviewImages: review.ReviewImages
+    })
+}
+
+
+
+ return res.json({Reviews: all})
 })
 
 
