@@ -57,8 +57,8 @@ router.get('/current',requireAuth,async(req,res,next) => {
 
 myBookings.forEach(trip => {
     trip.toJSON();
-    const spots =
-    console.log(trip.Spot.dataValues)
+
+    // console.log(trip.Spot.dataValues)
     const booking = {
         id: trip.id,
         spotId: trip.spotId,
@@ -91,8 +91,8 @@ router.put('/:bookingId',requireAuth,validateDates,async (req,res,next) => {
         },
         attributes:['id','spotId','userId','startDate','endDate','createdAt','updatedAt']
     });
-console.log(reservation.dataValues,'<----------------reservation');
-console.log(req.user.id)
+// console.log(reservation.dataValues,'<----------------reservation');
+// console.log(req.user.id)
     if(!reservation){
         const err = new Error('Booking couldn\'t be found');
         err.status = 404;

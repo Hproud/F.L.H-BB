@@ -302,7 +302,7 @@ if(page || size || minLat || maxLat || minLng || maxLng || minPrice || maxPrice)
       page =1
    }
    if(!size){
-      size = 1
+      size = 10
    }
    page = parseInt(page);
    size = parseInt(size);
@@ -357,10 +357,18 @@ if(page || size || minLat || maxLat || minLng || maxLng || minPrice || maxPrice)
    let result = {};
 
    result.count = await Spot.count({where});
+   if(!result.count){
+      res.json('No results')
+   }
    result.rows = await Spot.findAll({where,include:{model:Image,as:'SpotImages'},limit: pagination.limit, offset:pagination.offset })
+   const theCount = result.rows
+if(theCount === 0){
+   res.json(result.count)
+}
+// console.log(theCount.length)
    result.page = page || 1;
-   result.size = pagination.limit
-   // Math.ceil(result.count /size)
+   result.size =theCount.length
+
 // console.log(result)
    // const filtered = await allSpots.rows.findAll(
       // )
@@ -376,7 +384,7 @@ if(page || size || minLat || maxLat || minLng || maxLng || minPrice || maxPrice)
             },
             attributes: ['url']
          });
-         console.log(image)
+         // console.log(image)
 
          res.json({
             Spots: result.rows,
@@ -411,11 +419,11 @@ preview:true
          });
 
       }
-      console.log(image)
+      // console.log(image)
       allSpots[i].avgRating = avg;
 
    };
-console.log(allSpots)
+// console.log(allSpots)
    res.json({Spots: allSpots})
 }
 
@@ -719,7 +727,7 @@ router.get('/:spotId/bookings',requireAuth,async (req,res,next)=>{
 const final = []
          theBooks.forEach(booking=>{
 booking.toJSON()
-console.log(booking)
+// console.log(booking)
 const constructed = {
    User: booking.User,
    id: booking.id,
@@ -746,7 +754,7 @@ final.push(constructed)
          });
          // const {startDate,endDate} = theBooks
          // console.log(theBooks.spotId = spotId)
-         console.log(theBooks)
+         // console.log(theBooks)
 
          res.json({Bookings: theBooks
 
@@ -763,7 +771,7 @@ final.push(constructed)
 router.post('/:spotId/bookings',requireAuth,validateDates,async(req,res,next) => {
    const {spotId}= req.params;
    const id = Number(spotId);
-   console.log(id)
+   // console.log(id)
 const{startDate,endDate} = req.body
 const bookings = await Booking.findAll({where: {spotId:Number(spotId)},
    attributes: ['id','spotId','userId', 'startDate', 'endDate','createdAt','updatedAt']})
