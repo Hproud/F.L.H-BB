@@ -144,7 +144,7 @@ url: reviewPic.url
 
 )
 
-//?---------------------UPDATE REVIEW PUT/PATCH-------------------------
+//?---------------------UPDATE REVIEW PUT-------------------------
 router.put('/:reviewId',requireAuth,validateReview,async(req,res,next)=>{
     const {reviewId} = req.params;
     const {review,stars} = req.body
@@ -173,7 +173,14 @@ router.put('/:reviewId',requireAuth,validateReview,async(req,res,next)=>{
         },
         );
 
-        return res.json(edited)
+        return res.json({id: edited.id,
+        userId: edited.userId,
+    spotId: edited.spotId,
+review: edited.review,
+stars: edited.stars,
+createdAt: edited.createdAt,
+updatedAt: edited.updatedAt
+})
     }
     });
 

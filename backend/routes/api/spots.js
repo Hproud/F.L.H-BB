@@ -710,7 +710,7 @@ router.get('/:spotId/reviews',async (req,res,next) => {
       next(err)
    }else{
 
-      const locationReviews = await Review.findOne({
+      const locationReviews = await Review.findAll({
          where:{
             spotId: spotId
          },
@@ -870,11 +870,16 @@ router.post('/:spotId/bookings',requireAuth,validateDates,async(req,res,next) =>
    const {spotId}= req.params;
    const id = Number(spotId);
    // console.log(id)
-const{startDate,endDate} = req.body
+const{startDate,endDate} = req.body;
+const location = await Spot.findOne({
+   where:{
+      id: spotId
+   }
+})
 const bookings = await Booking.findAll({where: {spotId:Number(spotId)},
    attributes: ['id','spotId','userId', 'startDate', 'endDate','createdAt','updatedAt']})
 
-   if(!bookings){
+   if(!location){
 
       const err = new Error('Spot couldn\'t be found');
       err.status = 404;
