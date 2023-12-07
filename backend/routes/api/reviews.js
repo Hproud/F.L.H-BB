@@ -90,7 +90,7 @@ for (let i = 0; i < myReviews.length;i++){
 router.post('/:reviewId/images',requireAuth, async (req,res,next)=> {
 const {reviewId} = req.params;
 const {url} = req.body
-// console.log(id,'<--------------------------------ID')
+console.log(reviewId,'<--------------------------------ID')
 const theReview = await Review.findOne({
     where:{
         id: reviewId

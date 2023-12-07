@@ -158,10 +158,55 @@ const getAvg = async (id) =>{
    }else{
       avg = 0
    };
-// console.log(avg,'this is the avg we get from our func')
-return avg
+   // console.log(avg,'this is the avg we get from our func')
+   return avg
 };
 
+
+//?-------------FIND ALL PROPERTIES USER OWNS------------------------?//
+
+router.get('/current',requireAuth,async(req,res,next) => {
+   const currUser = req.user.id;
+   // console.log(ownerId,"<--------------owner Id");
+
+
+
+
+      const properties = await Spot.findAll({
+         where:{
+            ownerId: currUser
+      }
+   })
+
+if(!properties){
+   res.json('You do not have any properties listed')
+}else{
+   const all =[];
+   for (let i = 0; i < properties.length;i++){
+      const spot = properties[i];
+      all.push({
+         id: spot.id,
+         ownerId: spot.ownerId,
+      address: spot.address,
+      city:spot.city,
+      state:spot.state,
+      country: spot.country,
+      lat:spot.lat,
+      lng:spot.lng,
+      name:spot.name,
+      description:spot.description,
+      price:spot.price,
+      createdAt:spot.createdAt,
+      updatedAt: spot.updatedAt,
+      numReviews: spot.numReviews,
+      avgRating:spot.avgRating,
+   previewImage: spot.previewImage})
+   }
+    res.json({Spots: all})
+}
+
+   }
+)
 
 //?================ADD IMAGES TO SPOT================================?//
 
@@ -217,50 +262,6 @@ else{
 
 
 })
-
-//?-------------FIND ALL PROPERTIES USER OWNS------------------------?//
-
-router.get('/current',requireAuth,async(req,res,next) => {
-   const currUser = req.user.dataValues.id;
-   // console.log(ownerId,"<--------------owner Id");
-
-
-
-      const properties = await Spot.findAll({
-         where:{
-            ownerId: currUser
-      }
-   })
-
-if(!properties){
-   res.json('You do not have any properties listed')
-}else{
-   const all =[];
-   for (let i = 0; i < properties.length;i++){
-      const spot = properties[i];
-      all.push({
-         id: spot.id,
-         ownerId: spot.ownerId,
-      address: spot.address,
-      city:spot.city,
-      state:spot.state,
-      country: spot.country,
-      lat:spot.lat,
-      lng:spot.lng,
-      name:spot.name,
-      description:spot.description,
-      price:spot.price,
-      createdAt:spot.createdAt,
-      updatedAt: spot.updatedAt,
-      numReviews: spot.numReviews,
-      avgRating:spot.avgRating,
-   previewImage: spot.previewImage})
-   }
-    res.json({Spots: all})
-}
-
-   }
-)
 
 //?------------------GET INFO ABOUT SPECIFIC SPOT-------------------?//
 
@@ -495,7 +496,7 @@ previewImage: spot.previewImage})
    avgRating:spot.avgRating,
    previewImage: spot.previewImage})
       const avg = await getAvg(id);
-      const image = await Image.findOne({
+      const image1 = await Image.findOne({
          where:{
 imageableId: id,
 imageableType: 'Spot',
@@ -504,11 +505,10 @@ preview:true
          attributes: ['url']
       });
       // console.log(image)
-
-      if(image){
+      if(image1){
          await allSpots[i].update({
             avgRating: avg,
-            previewImage: image.url
+            previewImage: image1.url
          })
       }else{
          await allSpots[i].update({
@@ -529,7 +529,7 @@ preview:true
 
 //?----------------------------ADD SPOT------------------------------?//
 //&--------------------     fixed this bug   ------------------------?//
-router.post('/',validateSpot,requireAuth,async(req,res,next) =>{
+router.post('/',requireAuth,validateSpot,async(req,res,next) =>{
    const {address,city,state,country,lat,lng,name,description,price} = req.body
    // console.log(address,'<-------address');
    // console.log(city,'<-------city');
@@ -539,7 +539,10 @@ router.post('/',validateSpot,requireAuth,async(req,res,next) =>{
    // console.log(name,'<-------name');
    // console.log(description,'<-------description');
    // console.log(price,'<-------price');
-const ownerId = req.user.id
+const ownerId = req.user.id;
+if(!ownerId){
+
+}
 const checked = await Spot.findOne({
    where:{
 address: address
@@ -619,7 +622,7 @@ if(theSpot){
 //?---------------EDIT A SPOT PUT ROUTES----------------------------//?
 
 
-router.put('/:spotId',validateSpot,requireAuth,async(req,res,next)=>{
+router.put('/:spotId',requireAuth,validateSpot,async(req,res,next)=>{
    const id = req.params.spotId;
    const {address,city,state,country,lat,lng,name,description,price} = req.body;
 // console.log(req.body,'req body is right here')
