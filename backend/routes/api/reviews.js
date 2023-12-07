@@ -93,17 +93,17 @@ const {url} = req.body
 console.log(reviewId,'<--------------------------------ID')
 const theReview = await Review.findOne({
     where:{
-        id: reviewId
+        id: Number(reviewId)
     },
-    include: [{model:Image,
-        where:{
-                imageableId: reviewId,
-                imageableType: 'Review'
+    // include: [{model:Image,
+    //     where:{
+    //             imageableId: Number(reviewId),
+    //             imageableType: 'Review'
 
-        },
-    as: 'ReviewImages'}]
+    //     },
+    // as: 'ReviewImages'}]
 });
-// console.log(theReview)
+console.log(theReview)
 if(!theReview){
     const err = new Error('Review couldn\'t be found');
     err.status = 404;
@@ -112,15 +112,26 @@ if(!theReview){
 }
 
 console.log(req.user.id)
-console.log(theReview.userId)
+// console.log(theReview.userId,'<----------------')
+const imagesForMe = await Image.findAll({
+    where: {
+        imageableId: Number(reviewId)
+    }
+});
+const all = [];
+for (let i = 0; i < imagesForMe.length;i++) {
+    const pic = imagesForMe[i];
+    all.push(pic)
+};
+
 if(req.user.id !== theReview.userId){
     const err = new Error('Forbidden');
     err.status = 403;
     err.message = 'Forbidden'
     next(err)
 }else{
-    console.log(theReview.ReviewImages.length)
-if(theReview.ReviewImages.length === 10){
+    // console.log(theReview.ReviewImages.length)
+if(all.length === 10){
     const err = new Error('Maximum number of images for this resource was reached');
     err.status = 403;
     err.message = 'Maximum number of images for this resource was reached';
