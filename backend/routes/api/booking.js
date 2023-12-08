@@ -127,18 +127,18 @@ const allBookings = await Booking.findAll({
 const all = []
 allBookings.forEach(current => {
    const newCurrent = current.toJSON();
+   if (newCurrent.id !== reservation.id){
+    all.push(current)
+   }
    // console.log(current.id,"this is the current")
-all.push(current)
+
 });
 
 if(all.length){
    for(let i = 0; i < all.length; i++){
-      const stay = await Booking.findOne({
-         where:{
-            id: all[i].id
-         }
-      })
-      const begin = new Date(startDate);
+      const stay = all[i]
+      if(stay.id !== Number(bookingId)){
+     const begin = new Date(startDate);
       const end = new Date(endDate);
       // console.log(begin,'<----------------begin');
       // console.log(end,'<----------------end');
@@ -152,7 +152,7 @@ if(stay.startDate <= begin && stay.endDate >= begin){
    }
    next(err)
    }
-if(stay.endDate <= end && stay.endDate >= end){
+if(stay.startDate <= end && stay.endDate >= end){
    const err = new Error('Sorry, this spot is already booked for the specified dates');
    err.status = 403;
    err.message = 'Sorry, this spot is already booked for the specified dates'
@@ -161,13 +161,73 @@ if(stay.endDate <= end && stay.endDate >= end){
    };
    next(err)
 }
+
+      }
+
 }
 
 
 
+};
+
+
+
+const user = [];
+const userBooking = await Booking.findAll({
+    where: {
+        userId: reservation.userId
+    },
+    attributes:['id','spotId','userId','startDate','endDate','createdAt','updatedAt']
+});
+
+// console.log(userBooking,"---------------")
+userBooking.forEach(record =>{
+    const booking = record.toJSON();
+        user.push(booking)
+
+});
+
+// console.log(user,"------------user-----------")
+
+if(user.length){
+    for(let i = 0; i < user.length; i++){
+        const stay = user[i]
+if(user[i].id !== reservation.id){
+console.log(stay.id," this  is  the  stay  id");
+console.log(reservation.id,"res id ++++++++++++++++++++++++++++")
+
+    // console.log(req.params.bookingId,"booking being edited===============")
+const begin = new Date(startDate);
+const end = new Date(endDate);
+console.log(begin,'<----------------begin');
+console.log(end,'<----------------end');
+console.log(stay.startDate,"=============bking start");
+console.log(stay.endDate,"=============bking end")
+
+if(stay.startDate <= begin && stay.endDate >= begin){
+
+const err = new Error('Sorry, this spot is already booked for the specified dates');
+err.status = 403;
+err.message = 'Sorry, this spot is already booked for the specified dates'
+err.errors ={
+startDate: 'Start date conflicts with an existing booking'
+}
+next(err)
+}
+if(stay.startDate <= end && stay.endDate >= end){
+const err = new Error('Sorry, this spot is already booked for the specified dates');
+err.status = 403;
+err.message = 'Sorry, this spot is already booked for the specified dates'
+err.errors ={
+endDate: 'endDate date conflicts with an existing booking'
+};
+next(err)
 }
 
+}
+  }
 
+}
 
 
 
