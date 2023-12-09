@@ -57,7 +57,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
       model: Spot,
       attributes: [
         "id",
-        "userId",
+        "ownerId",
         "address",
         "city",
         "state",
@@ -164,8 +164,8 @@ console.log(currBooking);
           if (stay.id !== currBooking.id) {
             // console.log(stay.id,'this is stay',currBooking.id,'this is curr bking','HIT')
             //                              //TODO-----sets the date attribute to the values pulled in query
-            console.log(startDate,"start date");
-            console.log(startDate,"endDate");
+            // console.log(startDate,"start date");
+            // console.log(startDate,"endDate");
             const begin = new Date(startDate);
             const end = new Date(endDate);
             //             // console.log(begin,'<----------------begin');
@@ -183,7 +183,7 @@ console.log(currBooking);
               const err = new Error(
                 "Sorry, this spot is already booked for the specified dates"
               );
-              err.status = 403;
+              err.status = 400;
               err.message =
                 "Sorry, this spot is already booked for the specified dates";
               err.errors = {
@@ -197,7 +197,7 @@ console.log(currBooking);
               const err = new Error(
                 "Sorry, this spot is already booked for the specified dates"
               );
-              err.status = 403;
+              err.status = 400;
               err.message =
                 "Sorry, this spot is already booked for the specified dates";
               err.errors = {
@@ -213,7 +213,7 @@ console.log(currBooking);
               const err = new Error(
                 "Sorry, this spot is already booked for the specified dates"
               );
-              err.status = 403;
+              err.status = 400;
               err.message =
                 "Sorry, this spot is already booked for the specified dates";
               err.errors = {
@@ -273,21 +273,35 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
 
   const reservation = await Booking.findOne({
     where: {
-      id: bookingId,
-    },
+      id: Number(bookingId),
+    }, attributes: [
+      "id",
+      "spotId",
+      "userId",
+      "startDate",
+      "endDate",
+      "createdAt",
+      "updatedAt",
+    ],
   });
+  // reservation.map(data => data.toJSON)
+  console.log(reservation);
   if (!reservation) {
     const err = new Error("Booking couldn't be found");
     err.status = 404;
     err.message = "Booking couldn't be found";
     next(err);
-  } else {
+  };
+
+
     if (reservation.userId !== req.user.id) {
       const err = new Error("Forbidden");
       err.status = 403;
       next(err);
     }
-    // console.log(new Date(reservation.startDate))
+
+    // console.log('im here!!!!!')
+  //   // console.log(new Date(reservation.startDate))
     const start = new Date(reservation.startDate);
     const today = new Date();
     if (start < today) {
@@ -295,11 +309,16 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
       err.status = 403;
       err.message = "Bookings that have been started can't be deleted";
       next(err);
-    } else {
-      await reservation.destroy();
-      res.json("Successfully deleted");
     }
-  }
+  // else {
+      await Booking.destroy({
+        where:{
+          id: Number(bookingId)
+        }
+      });
+      res.json("Successfully deleted");
+    //
+  // }
 });
 
 module.exports = router;

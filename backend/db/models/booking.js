@@ -60,10 +60,12 @@ Booking.belongsTo(models.User,{
     spotId: {
       type: DataTypes.INTEGER,
       allowNull:false,
-      // references: {
-      //   model: Spot,
-      //   foreignKey: 'spotId'
-      // }
+//       references: {
+//         model: 'Spots',
+//         foreignKey: 'spotId',
+// onDelete:'CASCADE',
+// hooks: true
+//       }
 
 
     },

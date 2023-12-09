@@ -43,7 +43,7 @@ Spot.belongsToMany(models.User,
 
 Spot.hasMany(models.Booking,{
   foreignKey: 'spotId',
-  
+
 })
 //&-----------------------------
       Spot.hasMany(
