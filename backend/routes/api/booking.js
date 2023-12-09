@@ -226,83 +226,6 @@ console.log(currBooking);
           //& end of the for loop checking all bookings;
         }
 
-        //         //TODO this pulls all users bookings
-        // const userBookings = await Booking.findAll({
-        //   where: {
-        //     userId: currBooking.userId,
-        //   },
-        // });
-
-        // //                                         //TODO put it into JSON
-        // const user = [];
-        // userBookings.forEach((booking) => {
-        //   const newBooking = booking.toJSON();
-        //   user.push(newBooking);
-        // });
-
-        // if (user.length) {
-        //   //TODO if bookings found loop through them and check like above
-
-        //   for (let i = 0; i < user.length; i++) {
-        //     const stay = user[i];
-        //     if (stay.id !== currBooking.id) {
-        //       //TODO-----sets the date attribute to the values pulled in query
-        //       const begin = new Date(startDate);
-        //       const end = new Date(endDate);
-        //       console.log((begin < stay.startDate && stay.endDate < end) ||
-        //       (stay.startDate < begin && end < stay.endDate))
-        //       if (
-        //         (begin < stay.startDate && stay.endDate < end) ||
-        //         (stay.startDate < begin && end < stay.endDate)
-        //       ) {
-        //         console.log('error for user')
-        //         const err = new Error(
-        //           "Sorry, this spot is already booked for the specified dates"
-        //         );
-        //         err.status = 403;
-        //         err.message =
-        //           "Sorry, this spot is already booked for the specified dates";
-        //         err.errors = {
-        //           startDate: "Start date conflicts with an existing booking",
-        //           endDate: "endDate date conflicts with an existing booking",
-        //         };
-        //         return next(err);
-        //       }
-        //       //                    //TODO  this is checking if current booking start date lands in proposed new booking start date
-        //       if (stay.startDate <= begin && stay.endDate >= begin) {
-        //         const err = new Error(
-        //           "Sorry, this spot is already booked for the specified dates"
-        //         );
-        //         err.status = 403;
-        //         err.message =
-        //           "Sorry, this spot is already booked for the specified dates";
-        //         err.errors = {
-        //           startDate: "Start date conflicts with an existing booking",
-        //         };
-        //         return next(err);
-        //       } //& end of startDate check
-
-        //       //          //TODO this checks the new booking end date against current booking end date.
-
-        //       //    //~ make sure you are checking the proposed end date against the end date as well as the START date
-        //       if (stay.startDate <= end && stay.endDate >= end) {
-        //         const err = new Error(
-        //           "Sorry, this spot is already booked for the specified dates"
-        //         );
-        //         err.status = 403;
-        //         err.message =
-        //           "Sorry, this spot is already booked for the specified dates";
-        //         err.errors = {
-        //           endDate: "endDate date conflicts with an existing booking",
-        //         };
-        //         return next(err);
-        //       } //& end of endDate check
-        //     }
-        //     //& end of the for loop checking user bookings;
-        //   }
-        //   //& end of bookings checks for user
-        // }
-        //
       }
       // console.log(reservation.dataValues,' this is before the update')
 
@@ -327,17 +250,11 @@ console.log(currBooking);
 
       return res.json({
         id: updated.id,
-
         spotId: updated.spotId,
-
         userId: updated.userId,
-
         startDate: updated.startDate,
-
         endDate: updated.endDate,
-
         createdAt: updated.createdAt,
-
         updatedAt: updated.updatedAt,
       });
     } else {
