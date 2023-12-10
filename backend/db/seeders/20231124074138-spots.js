@@ -23,7 +23,6 @@ module.exports = {
         name: 'Test spot 1',
         description: 'cozy little tent with a great fire',
         price: 200,
-        previewImage: '/mytest/1'
       },
       {
         ownerId: 3,
@@ -36,7 +35,6 @@ module.exports = {
         name:  'Test spot 2',
         description: 'Under the ocean swimming with fish',
         price: 20,
-        previewImage: '/mytest/2'
       },
       {
         ownerId: 2,
@@ -49,7 +47,6 @@ module.exports = {
         name: 'Test spot 3',
         description: 'cozy little tent with a great fire',
         price: 200,
-        previewImage: '/mytest/3'
       },
       {
         ownerId: 3,
@@ -62,7 +59,6 @@ module.exports = {
         name: 'Test spot 4',
         description: 'super soft couches',
         price: 150,
-        previewImage: '/mytest/4'
       },
       {
           ownerId: 1,
@@ -75,7 +71,6 @@ module.exports = {
         name: 'Test spot 5',
         description: 'the nicest castle you will see',
         price: 1000,
-        previewImage: '/mytest/5'
       }, {
         ownerId: 4,
         address: '22 Blinking St',
@@ -87,7 +82,6 @@ module.exports = {
         name: 'Test spot 6',
         description: 'Great place for kids!',
         price: 80,
-        previewImage: '/mytest/6'
       },
       {
         ownerId: 1,
@@ -100,7 +94,6 @@ module.exports = {
         name:  'Test spot 7',
         description: 'we have lots of places to BBQ',
         price: 5,
-        previewImage: '/mytest/7'
       },
       {
         ownerId: 3,
@@ -113,7 +106,6 @@ module.exports = {
         name: 'Test spot 8',
         description: 'Great views and lots to do around the location!',
         price: 350,
-        previewImage: '/mytest/8'
       },
       {
         ownerId: 5,
@@ -126,7 +118,6 @@ module.exports = {
         name: 'Test spot 9',
         description: 'We pride ourselves on giving you privacy',
         price: 404,
-        previewImage: '/mytest/9'
       },
       {
           ownerId: 3,
@@ -139,7 +130,6 @@ module.exports = {
         name: 'Test spot 10',
         description: 'We have absolute fine dining',
         price: 2000,
-        previewImage: '/mytest/10'
       },
 
 

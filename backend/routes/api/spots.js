@@ -304,9 +304,8 @@ router.get("/:spotId", async (req, res, next) => {
       where: {
         spotId: Number(spotId),
       },
-      attributes: ['review','stars','userId','spotId','createdAt','updatedAt']
     });
-
+    
     location.numReviews = reviews.length;
 
     res.json({
