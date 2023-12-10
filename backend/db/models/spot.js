@@ -34,7 +34,6 @@ Spot.hasMany(
           // hooks:true
         }
       ),
-
 Spot.belongsToMany(models.User,
 {
   through: models.Booking,
@@ -147,7 +146,6 @@ ownerId:{
   }, {
     sequelize,
     modelName: 'Spot',
-
   });
   return Spot;
 };
