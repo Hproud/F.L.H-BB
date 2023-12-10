@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
 Spot.hasMany(
   models.Review, {
     foreignKey: 'spotId',
-  // onDelete:'CASCADE',
-  // hooks: true
+  onDelete:'CASCADE',
+  hooks: true
   }
 
 )
@@ -40,13 +40,12 @@ Spot.belongsToMany(models.User,
   through: models.Booking,
   foreignKey: 'spotId',
   otherKey:'userId',
-
 })
 
 Spot.hasMany(models.Booking,{
   foreignKey: 'spotId',
-  // onDelete:'CASCADE',
-  // hooks:true
+  onDelete:'CASCADE',
+  hooks:true
 
 })
 //&-----------------------------
@@ -54,8 +53,8 @@ Spot.hasMany(models.Booking,{
         models.Review,{
           foreignKey: 'spotId',
           // as:'spotId',
-          // onDelete:'CASCADE',
-          // hooks:true
+          onDelete:'CASCADE',
+          hooks:true
         }
       ),
 //&----------------------------------

@@ -30,7 +30,6 @@ Review.belongsTo(
       )
 
 Review.belongsTo(models.User,
-{foreignKey: 'userId'}
 )
     }
 
@@ -50,8 +49,8 @@ Review.belongsTo(models.User,
       allowNull:false,
       references: {
         model: 'User',
-      //   onDelete: 'CASCADE',
-      //   hooks: true
+        onDelete: 'CASCADE',
+        hooks: true
       }
     },
     spotId: {
@@ -59,6 +58,7 @@ Review.belongsTo(models.User,
       allowNull:false,
       references:{
         model: 'Spots',
+        onDelete:'CASCADE'
       }
     }
   }, {
