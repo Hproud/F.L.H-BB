@@ -62,3 +62,5 @@ if(imageInQ.spotImages.ownerId !== req.user.id){
 }
 })
 module.exports = router;
+
+//
