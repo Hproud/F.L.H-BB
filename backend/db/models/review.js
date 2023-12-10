@@ -42,7 +42,7 @@ Review.belongsTo(models.User,
       allowNull:false,
     },
     stars: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.INTEGER,
       defaultValue: 1
     },
     userId: {
