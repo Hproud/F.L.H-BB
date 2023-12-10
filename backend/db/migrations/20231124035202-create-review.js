@@ -18,9 +18,9 @@ module.exports = {
         allowNull:false,
       },
       stars: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 0.0,
+        defaultValue: 0,
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -28,8 +28,7 @@ module.exports = {
         references:{
           model: 'Users',
           key: 'id',
-          onDelete:'CASCADE',
-          hooks:true
+
         }
       },
       spotId: {
@@ -37,7 +36,6 @@ module.exports = {
         allowNull: false,
         references:{
           model: 'Spots',
-          key: 'id',
           onDelete: 'CASCADE',
           hooks:true
         }
