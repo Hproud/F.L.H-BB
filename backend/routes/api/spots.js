@@ -379,7 +379,7 @@ router.get("/", ValidateQueries, async (req, res) => {
       pagination.offset = size * (page - 1);
     } else {
       pagination.limit = size;
-      pagination.offset = size * (page - 1);
+      pagination.offset = Math.ceil(size * (page - 1));
     }
 
     // let query = {}
@@ -440,7 +440,7 @@ router.get("/", ValidateQueries, async (req, res) => {
       const spot = result.rows[i];
       id = result.rows[i].id;
       const avg = await getAvg(id);
-      result.rows[i].avgRating = avg; //^^^^ added math floor
+      result.rows[i].avgRating = Math.floor(avg); //^^^^ added math floor
       const image = await Image.findOne({
         where: {
           imageableId: id,
@@ -511,16 +511,16 @@ router.get("/", ValidateQueries, async (req, res) => {
       // console.log(image)
       if (image1) {
         await allSpots[i].update({
-          avgRating: Math.avg,  //^^ this is math floor
+          avgRating: Math.floor(avg),  //^^ this is math floor
           previewImage: image1.url,
         });
       } else {
         await allSpots[i].update({
-          avgRating: avg, //^^ this is added math floor
+          avgRating: Math.floor(avg), //^^ this is added math floor
         });
       }
       // console.log(image)
-      allSpots[i].avgRating = avg;  //^^ this math floor
+      allSpots[i].avgRating = Math.floor(avg);  //^^ this math floor
     }
     // console.log(allSpots)
     res.json({ Spots: all });
