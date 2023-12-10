@@ -20,16 +20,19 @@ module.exports = (sequelize, DataTypes) => {
 //   })
 Spot.hasMany(
   models.Review, {
-    foreignKey: 'spotId'
+    foreignKey: 'spotId',
+  onDelete:'CASCADE',
+  hooks: true
   }
+
 )
 
       Spot.belongsTo(
         models.User,{
           foreignKey: 'ownerId',
           as: 'Owner',
-          onDelete: 'CASCADE',
-          hooks: true
+          // onDelete: 'CASCADE',
+          // hooks:true
         }
       ),
 
@@ -38,24 +41,26 @@ Spot.belongsToMany(models.User,
 {
   through: models.Booking,
   foreignKey: 'spotId',
-  otherKey:'userId'
+  otherKey:'userId',
+
 })
 
 Spot.hasMany(models.Booking,{
   foreignKey: 'spotId',
   onDelete:'CASCADE',
-  hooks: true
-})
+  hooks:true
 
+})
+//&-----------------------------
       Spot.hasMany(
         models.Review,{
           foreignKey: 'spotId',
-          as:'spotId',
+          // as:'spotId',
           onDelete:'CASCADE',
           hooks:true
         }
       ),
-
+//&----------------------------------
       Spot.hasMany(
         models.Image,{
           foreignKey: 'imageableId',
@@ -74,10 +79,10 @@ Spot.hasMany(models.Booking,{
     Spot.init({
 ownerId:{
   type: DataTypes.INTEGER,
-  references:{
-    model: 'User',
-    key: 'id'
-  }
+  // references:{
+  //   model: 'User',
+  //   key: 'id'
+  // }
   // allowNull: false
 },
     address: {
@@ -146,10 +151,6 @@ ownerId:{
   }, {
     sequelize,
     modelName: 'Spot',
-    defaultScope:{
-      attributes: {
-exclude:['createdAt','updatedAt']
-   } },
 
   });
   return Spot;

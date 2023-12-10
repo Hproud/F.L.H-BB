@@ -16,14 +16,19 @@ module.exports = (sequelize, DataTypes) => {
         models.Spot,{
           foreignKey: 'imageableId',
           as: 'spotImages',
-          constraints:false
+          constraints:false,
+          // onDelete: 'CASCADE',
+          // hooks:true
         }
       )
 
       Image.belongsTo(
         models.Review,{
           foreignKey: 'imageableId',
-          constraints:false
+          as: 'ReviewImages',
+          constraints:false,
+          // onDelete: 'CASCADE',
+          // hooks:true
         }
       )
     }

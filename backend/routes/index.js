@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const apiRouter = require('./api');
-
 const sessionRouter = require('./api/session.js');
 const usersRouter = require('./api/users.js')
  const { restoreUser } = require('../utils/auth.js');

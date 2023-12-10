@@ -46,7 +46,7 @@ router.get('/current',requireAuth,async(req,res,next)=> {
         include: (
            [ {
                 model: User,
-                attributes: ['firstName','lastName']
+                attributes: ['id','firstName','lastName']
             },
             {
                 model: Spot,
@@ -61,7 +61,27 @@ router.get('/current',requireAuth,async(req,res,next)=> {
     }
     );
 
- return res.json(myReviews)
+
+const all = [];
+for (let i = 0; i < myReviews.length;i++){
+    const review = myReviews[i];
+    all.push({
+        id: review.id,
+        userId: review.userId,
+        spotId: review.spotId,
+        review: review.review,
+        stars: review.stars,
+        createdAt: review.createdAt,
+        updatedAt: review.updatedAt,
+        User: review.User,
+        Spot: review.Spot,
+        ReviewImages: review.ReviewImages
+    })
+}
+
+
+
+ return res.json({Reviews: all})
 })
 
 
@@ -70,71 +90,72 @@ router.get('/current',requireAuth,async(req,res,next)=> {
 router.post('/:reviewId/images',requireAuth, async (req,res,next)=> {
 const {reviewId} = req.params;
 const {url} = req.body
-// console.log(id,'<--------------------------------ID')
+// console.log(reviewId,'<--------------------------------ID')
 const theReview = await Review.findOne({
     where:{
-        id: reviewId
+        id: Number(reviewId)
     },
-    include: [{model:Image,
-        where:{
+    // include: [{model:Image,
+    //     where:{
+    //             imageableId: Number(reviewId),
+    //             imageableType: 'Review'
 
-                imageableId: req.user.id,
-                imageableType: 'Review'
-
-        },
-    as: 'ReviewImages'}]
-})
-
+    //     },
+    // as: 'ReviewImages'}]
+});
+console.log(theReview)
 if(!theReview){
     const err = new Error('Review couldn\'t be found');
     err.status = 404;
     err.message = 'Review couldn`t be found'
-}else{
+    next(err)
+}
 
-// console.log(req.user.id)
-// console.log(theReview)
+console.log(req.user.id)
+// console.log(theReview.userId,'<----------------')
+const imagesForMe = await Image.findAll({
+    where: {
+        imageableId: Number(reviewId)
+    }
+});
+const all = [];
+for (let i = 0; i < imagesForMe.length;i++) {
+    const pic = imagesForMe[i];
+    all.push(pic)
+};
+
 if(req.user.id !== theReview.userId){
-    const err = new Error('You can only add pictures to reviews you have written');
-    err.title = 'Forbidden';
-    err.message = 'You can only add pictures to reviews you have written'
+    const err = new Error('Forbidden');
+    err.status = 403;
+    err.message = 'Forbidden'
     next(err)
 }else{
-
-    // console.log(theReview.ReviewImages.length,'iiuiuiuiuiuiuiu')
-    if(theReview.ReviewImages.length === 10){
-        const err = new Error('Maximum number of images for this resource was reached');
-        err.status = 403;
-        err.message = 'Maximum number of images for this resource was reached';
-        next(err)
-    }else{
-        const reviewPic = await Image.create({
-            imageableId: req.user.id,
-            imageableType: 'Review',
-            url: url,
-            preview: false
-        })
+    // console.log(theReview.ReviewImages.length)
+if(all.length === 10){
+    const err = new Error('Maximum number of images for this resource was reached');
+    err.status = 403;
+    err.message = 'Maximum number of images for this resource was reached';
+    next(err)
+}else{
+    const reviewPic = await Image.create({
+        imageableId: theReview.id,
+        imageableType: 'Review',
+        url: url,
+        preview: false
+    })
 await theReview.update({
-    ReviewImages: reviewPic,
-    where:{
-        id: theReview.id
-    }
+ReviewImages: reviewPic}
+)
+res.json({
+id: reviewPic.id,
+url: reviewPic.url
+});
 }
+}}
+
 )
 
-
-        res.json({
-            id: reviewPic.id,
-            url: reviewPic.url
-        })
-    }
-    }
-
-
-}
-
-})
-
-//?---------------------UPDATE REVIEW PUT/PATCH-------------------------
+//?---------------------UPDATE REVIEW PUT-------------------------
 router.put('/:reviewId',requireAuth,validateReview,async(req,res,next)=>{
     const {reviewId} = req.params;
     const {review,stars} = req.body
@@ -153,8 +174,8 @@ router.put('/:reviewId',requireAuth,validateReview,async(req,res,next)=>{
 
      if(req.user.id !== needsUpdated.userId){
         const err = new Error('Forbidden');
-        err.status = 401;
-        err.message = 'Cannot edit someone else\'s review';
+        err.status = 403;
+        err.message = 'Fobidden';
         next(err)
     }else{
          const edited = await needsUpdated.update({
@@ -163,44 +184,20 @@ router.put('/:reviewId',requireAuth,validateReview,async(req,res,next)=>{
         },
         );
 
-        return res.json(edited)
+        return res.json({id: edited.id,
+        userId: edited.userId,
+    spotId: edited.spotId,
+review: edited.review,
+stars: edited.stars,
+createdAt: edited.createdAt,
+updatedAt: edited.updatedAt
+})
     }
     });
 
 
 
-//^-------------------------------------------------------------------
-router.patch('/:reviewId',requireAuth,validateReview,async(req,res,next)=>{
-    const {reviewId} = req.params;
-    const {review,stars} = req.body
-    const needsUpdated = await Review.findOne({
-        where:{
-            id: reviewId
-        }
-    });
-
-    if(!needsUpdated){
-        const err = new Error('Review couldn\'t be found');
-        err.status =400;
-        err.message = 'Review couldn\'t be found'
-        next(err)
-    };
-
-     if(req.user.id !== needsUpdated.userId){
-        const err = new Error('Forbidden');
-        err.status = 401;
-        err.message = 'Cannot edit someone else\'s review';
-        next(err)
-    }else{
-         const edited = await needsUpdated.update({
-            review: review,
-            stars: stars,
-        },
-        );
-
-        return res.json(edited)
-    }
-    });
+//?------------------DELETE A REVIEW--------------------------
 
 router.delete('/:reviewId',requireAuth,async (req,res,next) => {
     const {reviewId} = req.params;
@@ -219,7 +216,7 @@ router.delete('/:reviewId',requireAuth,async (req,res,next) => {
 
 if(votedOff.userId !== req.user.id){
     const err= new Error('Forbidden');
-    err.status = 401;
+    err.status = 403;
     err.message = 'Forbidden';
     next(err)
 }else{

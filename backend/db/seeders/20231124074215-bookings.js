@@ -40,9 +40,21 @@ try{
     {
       startDate: '2023-12-15',
       endDate: '2023-12-18',
-      spotId: 3,
+      spotId: 9,
       userId:3
-    }
+    },
+    {
+      startDate: '2023-12-05',
+      endDate: '2023-12-20',
+      spotId: 8,
+      userId:4
+    },
+    {
+      startDate: '2023-09-05',
+      endDate: '2023-11-20',
+      spotId: 3,
+      userId:6
+    },
   ],{validate: true })
 }catch(err){
    console.log("this is my error console: ", err)

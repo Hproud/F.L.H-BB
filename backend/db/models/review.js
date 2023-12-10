@@ -14,8 +14,6 @@ module.exports = (sequelize, DataTypes) => {
 Review.belongsTo(
   models.Spot,{
     foreignKey: 'spotId',
-    onDelete:'CASCADE',
-    hooks:true
   }
 )
       Review.hasMany(
@@ -24,14 +22,17 @@ Review.belongsTo(
           foreignKey: 'imageableId',
           as: 'ReviewImages',
           constraints:false,
+          onDelete:'CASCADE',
+          hooks:true,
           scope:{
             imageableType: 'Review'
           }
         }
       )
 
-Review.belongsTo(models.User)
+Review.belongsTo(models.User,
 
+)
     }
 
 
@@ -42,20 +43,26 @@ Review.belongsTo(models.User)
       allowNull:false,
     },
     stars: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.INTEGER,
       defaultValue: 1
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull:false,
       references: {
-        model: 'User',
-        key: 'id'
+        model: 'Users',
+        onDelete: 'CASCADE',
+        hooks: true
       }
     },
     spotId: {
       type: DataTypes.INTEGER,
       allowNull:false,
+      references:{
+        model: 'Spots',
+        onDelete: 'CASCADE',
+        hooks:true
+      }
     }
   }, {
     sequelize,
