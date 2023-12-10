@@ -252,7 +252,7 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
 
 router.get("/:spotId", async (req, res, next) => {
   const { spotId } = req.params;
-  console.log(spotId, "ghjhgjkhgjghfhgfhgfghjfghfhgj");
+  // console.log(spotId, "ghjhgjkhgjghfhgfhgfghjfghfhgj");
   // console.log(req,'this is the requests-------------------------------------------------')
   const location = await Spot.findOne({
     where: {
@@ -278,7 +278,7 @@ router.get("/:spotId", async (req, res, next) => {
     err.message = "Spot couldn`t be found";
     return next(err);
   } else {
-    console.log(location);
+    // console.log(location);
     const pics = await Image.findAll({
       where: {
         imageableId: Number(spotId),
@@ -290,7 +290,7 @@ router.get("/:spotId", async (req, res, next) => {
 
     pics.map((each) => each.toJSON());
     //   console.log(pics,"this is pics-----------------------------")
-    console.log("this is the ownerId", location, "----------------");
+    // console.log("this is the ownerId", location, "----------------");
     const owners = await User.findOne({
       where: {
         id: location.ownerId,
@@ -299,38 +299,13 @@ router.get("/:spotId", async (req, res, next) => {
       attributes: ["id", "firstName", "lastName"],
     });
 
-    console.log(
-      owners.firstName,
-      "<---------------------------------------------owner-----"
-    );
-
-    // const all=[];
-    // for(let i=0;i <location.length;i++){
-    //    const spot = location[i];
     const reviews = await Review.findAll({
       where: {
         spotId: Number(spotId),
       },
     });
     location.numReviews = reviews.length;
-    //    all.push({
-    //       id: spot.id,
-    //    ownerId: spot.ownerId,
-    // address: spot.address,
-    // city:spot.city,
-    // state:spot.state,
-    // country: spot.country,
-    // lat:spot.lat,
-    // lng:spot.lng,
-    // name:spot.name,
-    // description:spot.description,
-    // price:spot.price,
-    // createdAt:spot.createdAt,
-    // updatedAt: spot.updatedAt,
-    // numReviews: spot.numReviews,
-    // avgRating:spot.avgRating,
-    // SpotImages: spot.SpotImages})
-    // }
+
     res.json({
       id: location.id,
       ownerId: location.ownerId,
