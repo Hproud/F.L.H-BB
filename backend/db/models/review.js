@@ -49,6 +49,7 @@ Review.belongsTo(models.User,
       allowNull:false,
       references: {
         model: 'User',
+        key:'userId',    //^ added 1003 12/10
         onDelete: 'CASCADE',
         hooks: true
       }
