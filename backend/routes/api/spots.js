@@ -149,7 +149,7 @@ const getAvg = async (id) => {
   });
   // console.log(sum,"sum after for each");
   if (count > 0) {
-    avg = sum / count;
+    avg = Math.ceil(sum / count);  //^ just added?
   } else {
     avg = 0;
   }
@@ -440,7 +440,7 @@ router.get("/", ValidateQueries, async (req, res) => {
       const spot = result.rows[i];
       id = result.rows[i].id;
       const avg = await getAvg(id);
-      result.rows[i].avgRating = avg;
+      result.rows[i].avgRating = Math.floor(avg); //^^^^ added math floor
       const image = await Image.findOne({
         where: {
           imageableId: id,
@@ -511,19 +511,16 @@ router.get("/", ValidateQueries, async (req, res) => {
       // console.log(image)
       if (image1) {
         await allSpots[i].update({
-          avgRating: avg,
+          avgRating: Math.floor(avg),  //^^ this is math floor
           previewImage: image1.url,
         });
       } else {
-        await Spot.update({
-          avgRating: avg,
-          where:{
-            id: spot.id
-          }
+        await allSpots[i].update({
+          avgRating: Math.floor(avg), //^^ this is added math floor
         });
       }
       // console.log(image)
-      allSpots[i].avgRating = avg;
+      allSpots[i].avgRating = Math.floor(avg);  //^^ this math floor
     }
     // console.log(allSpots)
     res.json({ Spots: all });
