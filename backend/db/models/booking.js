@@ -54,12 +54,12 @@ Booking.belongsTo(models.User,{
     spotId: {
       type: DataTypes.INTEGER,
       allowNull:false,
-//       references: {
-//         model: 'Spots',
-//         foreignKey: 'spotId',
+      references: {     //^ added back 12/10/1012 render works but is saying SpotId does not exist
+        model: 'Spots',
+        foreignKey: 'spotId',
 // onDelete:'CASCADE',
 // hooks: true
-//       }
+      }
     },
     userId: {
       type: DataTypes.INTEGER,
