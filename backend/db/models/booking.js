@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-
 //  Booking.belongsToMany(
 //   models.Spot,{
 //     foreignKey: 'spotId'
@@ -18,13 +17,12 @@ module.exports = (sequelize, DataTypes) => {
 
 Booking.belongsTo(models.Spot,{
   foreignKey: 'spotId',
-  
+
 })
 
 Booking.belongsTo(models.User,{
   foreignKey: 'userId'
 })
-
     }
   }
   Booking.init({
@@ -37,9 +35,7 @@ Booking.belongsTo(models.User,{
       //     const today = new Date();
       //     if(today > start){
       //       throw new Error('startDate cannot be in the past')
-
       //     }
-
       //   }
       // }
       },

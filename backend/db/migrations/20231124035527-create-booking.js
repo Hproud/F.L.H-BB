@@ -4,7 +4,6 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 };
-
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Bookings', {
@@ -35,11 +34,11 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        // references:{
-        //   model: 'Users',
-        //   onDelete: 'CASCADE',
-        //   hooks: true
-        // }
+        references:{
+          model: 'Users',
+          onDelete: 'CASCADE',
+          hooks: true
+        }
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -48,7 +47,6 @@ module.exports = {
       updatedAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-
       }
     },options);
   },
