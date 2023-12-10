@@ -73,7 +73,11 @@ for (let i = 0; i < myReviews.length;i++){
         stars: review.stars,
         createdAt: review.createdAt,
         updatedAt: review.updatedAt,
-        User: review.User,
+        User: {
+            id: req.user.id,
+            firstName: req.user.firstName,
+            lastName: req.user.lastName
+        },
         Spot: review.Spot,
         ReviewImages: review.ReviewImages
     })
