@@ -252,8 +252,7 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
 
 router.get("/:spotId", async (req, res, next) => {
   const { spotId } = req.params;
-  // console.log(spotId, "ghjhgjkhgjghfhgfhgfghjfghfhgj");
-  // console.log(req,'this is the requests-------------------------------------------------')
+
   const location = await Spot.findOne({
     where: {
       id: Number(spotId),
@@ -271,6 +270,7 @@ router.get("/:spotId", async (req, res, next) => {
       "previewImage",
     ],
   });
+
   if (!location) {
     const err = Error("Spot couldn`t be found");
     err.status = 404;
@@ -278,7 +278,8 @@ router.get("/:spotId", async (req, res, next) => {
     err.message = "Spot couldn`t be found";
     return next(err);
   } else {
-    // console.log(location);
+
+
     const pics = await Image.findAll({
       where: {
         imageableId: Number(spotId),
@@ -288,9 +289,9 @@ router.get("/:spotId", async (req, res, next) => {
       attributes: ["id", "url", "preview"],
     });
 
+
     pics.map((each) => each.toJSON());
-    //   console.log(pics,"this is pics-----------------------------")
-    // console.log("this is the ownerId", location, "----------------");
+
     const owners = await User.findOne({
       where: {
         id: location.ownerId,
@@ -304,6 +305,7 @@ router.get("/:spotId", async (req, res, next) => {
         spotId: Number(spotId),
       },
     });
+    
     location.numReviews = reviews.length;
 
     res.json({
