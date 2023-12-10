@@ -18,9 +18,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull:false,
         references:{
-          model: 'Users',
-          onDelete: 'CASCADE',
-          hooks:true
+          model: 'Users'
         }
       },
       address: {
