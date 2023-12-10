@@ -285,7 +285,7 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
     ],
   });
   // reservation.map(data => data.toJSON)
-  console.log(reservation);
+  // console.log(reservation);
   if (!reservation) {
     const err = new Error("Booking couldn't be found");
     err.status = 404;

@@ -26,11 +26,11 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references:{
-          model: 'Users',
-          onDelete:'CASCADE',
-          hooks: true
-        }
+        // references:{
+        //   model: 'Users',
+        //   onDelete:'CASCADE',
+        //   hooks: true
+        // }
       },
       spotId: {
         type: Sequelize.INTEGER,

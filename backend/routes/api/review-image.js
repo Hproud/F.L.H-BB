@@ -27,19 +27,16 @@ router.delete('/:imageId',requireAuth,async (req,res,next)=>{
         next(err)
     };
 
-//  if(req.user.id === imageInQ.userId){
         const review = await Review.findOne({
             where: {
                 id: imageInQ.imageableId
             },
-            // attributes: ['userId']
+
         });
-        // console.log(review.userId)
+
 
         console.log(review.userId)
-        // const owner= review.userId;
-    // }
-// console.log(owner)
+     
 if(review.userId !== req.user.id){
     const err = new Error('Forbidden');
     err.message = 'Forbidden';
