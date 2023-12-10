@@ -61,8 +61,6 @@ Booking.belongsTo(models.User,{
 // onDelete:'CASCADE',
 // hooks: true
 //       }
-
-//
     },
     userId: {
       type: DataTypes.INTEGER,

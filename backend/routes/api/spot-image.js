@@ -4,10 +4,7 @@ const { handleValidationErrors}= require('../../utils/validation')
 const {setTokenCookie,requireAuth} = require('../../utils/auth');
 const {Spot,Booking,User,Review,Image} = require('../../db/models');
 // const { validationResult } = require('express-validator');
-
-
 const router = express.Router()
-
 //?----------------------DELETE A SPOT IMAGE----------------------------
 router.delete('/:imageId',requireAuth,async (req,res,next)=>{
     // const {imageId} = req.params
@@ -20,12 +17,7 @@ router.delete('/:imageId',requireAuth,async (req,res,next)=>{
         include:{
             model: Spot,
         as: 'spotImages',
-
-
 }});
-
-
-
 
 
 
@@ -33,6 +25,8 @@ router.delete('/:imageId',requireAuth,async (req,res,next)=>{
 
     if(!imageInQ){
         const err = new Error('Spot Image couldn\'t be found');
+
+
         err.status = 404;
         err.message = 'Spot Image couldn\'t be found';
         next(err)
@@ -43,6 +37,10 @@ const owner= Number(imageInQ.spotImages.ownerId)
 if(imageInQ.spotImages.ownerId !== req.user.id){
     const err = new Error('Forbidden');
     err.message = 'Forbidden';
+
+
+
+
     err.status = 403;
     next(err)
 }else{
@@ -60,11 +58,10 @@ if(imageInQ.spotImages.ownerId !== req.user.id){
         console.log(place,'this is final')
     };
     imageInQ.destroy();
-
     res.json('Successfully deleted')
 }
-
-
 })
-
 module.exports = router;
+
+//
+//
