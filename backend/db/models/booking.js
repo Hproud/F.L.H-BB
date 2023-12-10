@@ -62,7 +62,7 @@ Booking.belongsTo(models.User,{
 // hooks: true
 //       }
 
-
+//
     },
     userId: {
       type: DataTypes.INTEGER,
