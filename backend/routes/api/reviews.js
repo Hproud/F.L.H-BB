@@ -4,8 +4,14 @@ const { handleValidationErrors}= require('../../utils/validation')
 const {setTokenCookie,requireAuth} = require('../../utils/auth');
 const {Spot,Booking,User,Review,Image} = require('../../db/models');
 // const { validationResult } = require('express-validator');
+
+
 const router = express.Router()
+
+
+
 //?----------------------Validate review info---------------------------
+
 const validateReview = [
     check('review')
     .trim()
@@ -18,9 +24,18 @@ const validateReview = [
     .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
  ]
+
 //?--------------------GET ALL REVIEWS OF CURR USER--------------------
+
+
+
+
 //& does not work when including the images model? takes away spot and owner info is not including correctly either
 //^to fix this we just needed to add brackets arount all the objects in the include clause.
+
+
+
+
 router.get('/current',requireAuth,async(req,res,next)=> {
     const id = req.user.id;
 // console.log(id,'<------------------------id')
@@ -45,6 +60,8 @@ router.get('/current',requireAuth,async(req,res,next)=> {
         )
     }
     );
+
+
 const all = [];
 for (let i = 0; i < myReviews.length;i++){
     const review = myReviews[i];
@@ -56,13 +73,21 @@ for (let i = 0; i < myReviews.length;i++){
         stars: review.stars,
         createdAt: review.createdAt,
         updatedAt: review.updatedAt,
-        User: review.User,
+        User: {
+            id: req.user.id,
+            firstName: req.user.firstName,
+            lastName: req.user.lastName
+        },
         Spot: review.Spot,
         ReviewImages: review.ReviewImages
     })
 }
+
+
+
  return res.json({Reviews: all})
 })
+
 
 //? -------------ADD IMAGE TO REVIEW BASED ON REVIEWS ID----------------
 
@@ -78,17 +103,19 @@ const theReview = await Review.findOne({
     //     where:{
     //             imageableId: Number(reviewId),
     //             imageableType: 'Review'
+
     //     },
     // as: 'ReviewImages'}]
 });
-console.log(theReview)
+// console.log(theReview)
 if(!theReview){
     const err = new Error('Review couldn\'t be found');
     err.status = 404;
     err.message = 'Review couldn`t be found'
     next(err)
 }
-console.log(req.user.id)
+
+// console.log(req.user.id)
 // console.log(theReview.userId,'<----------------')
 const imagesForMe = await Image.findAll({
     where: {
@@ -100,6 +127,7 @@ for (let i = 0; i < imagesForMe.length;i++) {
     const pic = imagesForMe[i];
     all.push(pic)
 };
+
 if(req.user.id !== theReview.userId){
     const err = new Error('Forbidden');
     err.status = 403;
@@ -128,7 +156,9 @@ url: reviewPic.url
 });
 }
 }}
+
 )
+
 //?---------------------UPDATE REVIEW PUT-------------------------
 router.put('/:reviewId',requireAuth,validateReview,async(req,res,next)=>{
     const {reviewId} = req.params;
@@ -138,12 +168,14 @@ router.put('/:reviewId',requireAuth,validateReview,async(req,res,next)=>{
             id: reviewId
         }
     });
+
     if(!needsUpdated){
         const err = new Error('Review couldn\'t be found');
         err.status =404;
         err.message = 'Review couldn\'t be found'
         next(err)
     };
+
      if(req.user.id !== needsUpdated.userId){
         const err = new Error('Forbidden');
         err.status = 403;
@@ -155,6 +187,7 @@ router.put('/:reviewId',requireAuth,validateReview,async(req,res,next)=>{
             stars: stars,
         },
         );
+
         return res.json({id: edited.id,
         userId: edited.userId,
     spotId: edited.spotId,
@@ -165,7 +198,11 @@ updatedAt: edited.updatedAt
 })
     }
     });
+
+
+
 //?------------------DELETE A REVIEW--------------------------
+
 router.delete('/:reviewId',requireAuth,async (req,res,next) => {
     const {reviewId} = req.params;
     const votedOff = await Review.findOne({
@@ -173,12 +210,14 @@ router.delete('/:reviewId',requireAuth,async (req,res,next) => {
             id: reviewId
         }
     });
+
     if (!votedOff){
         const err = new Error('Review couldn\'t be found');
         err.status = 404;
         err.message = 'Review couldn\'t be found';
         next(err)
     }
+
 if(votedOff.userId !== req.user.id){
     const err= new Error('Forbidden');
     err.status = 403;
@@ -186,7 +225,13 @@ if(votedOff.userId !== req.user.id){
     next(err)
 }else{
     await votedOff.destroy();
+
     res.json('Successfully deleted')
 }
+
+
+
+
 })
+
 module.exports = router;
