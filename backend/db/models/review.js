@@ -59,8 +59,6 @@ Review.belongsTo(models.User,
       allowNull:false,
       references:{
         model: 'Spots',
-
-
       }
     }
   }, {
