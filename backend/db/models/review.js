@@ -42,17 +42,17 @@ Review.belongsTo(models.User,
       allowNull:false,
     },
     stars: {
-      type: DataTypes.DECIMAL(2,1), //^aded dec
+      type: DataTypes.FLOAT,
       defaultValue: 1
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull:false,
-      // references: {
-      //   model: 'User',
+      references: {
+        model: 'User',
       //   onDelete: 'CASCADE',
       //   hooks: true
-      // }
+      }
     },
     spotId: {
       type: DataTypes.INTEGER,
