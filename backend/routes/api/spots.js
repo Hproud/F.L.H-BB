@@ -515,11 +515,8 @@ router.get("/", ValidateQueries, async (req, res) => {
           previewImage: image1.url,
         });
       } else {
-        await Spot.update({
+        await allSpots[i].update({
           avgRating: avg,
-          where:{
-            id: spot.id
-          }
         });
       }
       // console.log(image)
