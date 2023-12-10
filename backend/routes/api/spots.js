@@ -149,7 +149,7 @@ const getAvg = async (id) => {
   });
   // console.log(sum,"sum after for each");
   if (count > 0) {
-    avg = sum / count;
+    avg = Math.ceil(sum / count);  //^ just added?
   } else {
     avg = 0;
   }
