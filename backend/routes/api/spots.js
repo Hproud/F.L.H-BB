@@ -716,10 +716,9 @@ router.post(
   validateReview,
   async (req, res, next) => {
     const { spotId } = req.params;
-    const { startDate, endDate } = req.body;
     const location = await Spot.findOne({
       where: {
-        id: spotId,
+        id: Number(spotId),
       },
     });
 
@@ -731,7 +730,7 @@ router.post(
     } else {
       const reviewCheck = await Review.findAll({
         where: {
-          spotId: spotId,
+          spotId: Number(spotId),
           userId: req.user.id,
         },
       });
@@ -741,10 +740,10 @@ router.post(
         err.message = "User already has a review for this spot";
         next(err);
       } else {
-        const { review, stars } = req.body;
+        // const { review, stars } = req.body;
         const newReview = await Review.create({
-          review,
-          stars,
+          review: req.body.review,
+          stars: req.body.stars,
           userId: req.user.id,
           spotId: Number(spotId),
         });

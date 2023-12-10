@@ -107,7 +107,7 @@ const theReview = await Review.findOne({
     //     },
     // as: 'ReviewImages'}]
 });
-console.log(theReview)
+// console.log(theReview)
 if(!theReview){
     const err = new Error('Review couldn\'t be found');
     err.status = 404;
@@ -115,7 +115,7 @@ if(!theReview){
     next(err)
 }
 
-console.log(req.user.id)
+// console.log(req.user.id)
 // console.log(theReview.userId,'<----------------')
 const imagesForMe = await Image.findAll({
     where: {
