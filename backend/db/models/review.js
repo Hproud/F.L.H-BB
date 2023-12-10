@@ -48,17 +48,18 @@ Review.belongsTo(models.User,
     userId: {
       type: DataTypes.INTEGER,
       allowNull:false,
-      references: {
-        model: 'User',
+      // references: {
+      //   model: 'User',
       //   onDelete: 'CASCADE',
       //   hooks: true
-      }
+      // }
     },
     spotId: {
       type: DataTypes.INTEGER,
       allowNull:false,
       references:{
         model: 'Spots',
+
 
       }
     }
