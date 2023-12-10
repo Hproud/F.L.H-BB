@@ -87,7 +87,7 @@ for (let i = 0; i < myReviews.length;i++){
 
 //? -------------ADD IMAGE TO REVIEW BASED ON REVIEWS ID----------------
 
-router.post('/:reviewId/images', async (req,res,next)=> {
+router.post('/:reviewId/images',requireAuth, async (req,res,next)=> {
 const {reviewId} = req.params;
 const {url} = req.body
 // console.log(reviewId,'<--------------------------------ID')

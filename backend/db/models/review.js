@@ -14,9 +14,6 @@ module.exports = (sequelize, DataTypes) => {
 Review.belongsTo(
   models.Spot,{
     foreignKey: 'spotId',
-    //~ this on delete was breaking the code!
-    // onDelete:'CASCADE',
-    // hooks:true
   }
 )
       Review.hasMany(
@@ -34,10 +31,7 @@ Review.belongsTo(
       )
 
 Review.belongsTo(models.User,
-  // {
-  // onDelete: 'CASCADE',
-  // hooks: true
-// }
+
 )
     }
 

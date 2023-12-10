@@ -29,7 +29,7 @@ router.delete('/:imageId',requireAuth,async (req,res,next)=>{
 
 
 
-console.log(imageInQ.id,"=================================================================")
+// console.log(imageInQ.id,"=================================================================")
 
     if(!imageInQ){
         const err = new Error('Spot Image couldn\'t be found');
@@ -39,7 +39,7 @@ console.log(imageInQ.id,"=======================================================
     };
 
 const owner= Number(imageInQ.spotImages.ownerId)
-console.log(imageInQ.spotImages.ownerId,"<---------------------owner")
+// console.log(imageInQ.spotImages.ownerId,"<---------------------owner")
 if(imageInQ.spotImages.ownerId !== req.user.id){
     const err = new Error('Forbidden');
     err.message = 'Forbidden';
