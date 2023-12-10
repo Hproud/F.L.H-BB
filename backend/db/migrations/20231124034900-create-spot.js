@@ -18,7 +18,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull:false,
         references:{
-          model: 'Users'
+          model: 'Users',
+          onDelete: 'CASCADE',
+          hooks:true
         }
       },
       address: {
@@ -64,24 +66,20 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-
       },
       avgRating: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
-
       },
       previewImage: {
         type: Sequelize.STRING,
         defaultValue: null
       },
-
     },options);
   },
   async down(queryInterface, Sequelize) {

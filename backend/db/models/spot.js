@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-
     static associate(models) {
 // Spot.hasMany(
 //   models.Booking,{
@@ -35,7 +34,6 @@ Spot.hasMany(
           // hooks:true
         }
       ),
-
 
 Spot.belongsToMany(models.User,
 {
@@ -68,7 +66,6 @@ Spot.hasMany(models.Booking,{
           constraints:false,
           scope:{
             imageableType: 'Spot',
-
           },
           onDelete: 'CASCADE',
           hooks:true
@@ -110,7 +107,6 @@ ownerId:{
       allowNull: false,
         min: -90.0000000,
         max: 90.00000000
-
     },
     lng: {
       type: DataTypes.FLOAT,

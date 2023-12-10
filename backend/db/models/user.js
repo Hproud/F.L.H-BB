@@ -10,7 +10,22 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
     */
    static associate(models) {
-    
+    //chgd the has many to connect to spot through booking to see if this fixes my terminal error when deploying
+    // User.belongsToMany(
+    //   models.Spot,{
+    //     through: models.Booking,
+    //     foreignKey: 'userId',
+    //     otherKey: 'spotId'
+    //   }
+    // ),
+// User.hasMany(
+//   models.Booking,{
+//     foreignKey: 'userId',
+//     // as:'userId',
+//     onDelete:'CASCADE',
+//     hooks: true
+//   }
+// )
 
     User.hasMany(models.Spot,{
       as: 'Owner',
@@ -29,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       }
    ),
 
+
     // User.belongsToMany(
     //   models.Spot,{
     //     through: models.Booking,
@@ -36,23 +52,15 @@ module.exports = (sequelize, DataTypes) => {
     //     otherKey: 'spotId',
   //   //   }
   //  ),
-
     User.hasMany(
       models.Review,{
         foreignKey: 'userId',
         onDelete: 'CASCADE',
         hooks:true
       }
-
     )
-
-
     }
-
   }
-
-
-
   User.init({
     firstName: {
     type: DataTypes.STRING,
@@ -73,7 +81,6 @@ module.exports = (sequelize, DataTypes) => {
 //   throw new Error('Cannot be an email')
 // }
 // }
-
     },
     email: {
       type: DataTypes.STRING,
