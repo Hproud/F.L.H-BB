@@ -19,8 +19,8 @@ module.exports = {
         allowNull:false,
         references:{
           model: 'Users',
-          // onDelete: 'CASCADE',
-          // hooks:true
+          onDelete: 'CASCADE',
+          hooks:true
         }
       },
       address: {
