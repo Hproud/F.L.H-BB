@@ -30,6 +30,8 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Spot,{
       as: 'Owner',
       foreignKey: 'ownerId',
+      onDelete:'CASCADE',
+      hooks:true
     })
     // ,
 
@@ -99,7 +101,7 @@ module.exports = (sequelize, DataTypes) => {
   },
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: "User",
     defaultScope: {
       attributes: {
         exclude: ['hashedPassword','email','createdAt','updatedAt']
