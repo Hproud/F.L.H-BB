@@ -50,8 +50,8 @@ Review.belongsTo(models.User,
       references: {
         model: 'User',
         key:'userId',    //^ added 1003 12/10
-        onDelete: 'CASCADE',
-        hooks: true
+        // onDelete: 'CASCADE',
+        // hooks: true //^ deleted 1801 12/10
       }
     },
     spotId: {
