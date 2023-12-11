@@ -15,13 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 //     foreignKey: 'spotId'
 //   })\
 
-Booking.belongsTo(models.Spot,{
-                                       //^ removed foreign key from here 12/10 1007
-})
 
-Booking.belongsTo(models.User,{
-  foreignKey: 'userId'
-})
     }
   }
   Booking.init({

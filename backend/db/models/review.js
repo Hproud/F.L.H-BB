@@ -30,6 +30,7 @@ Review.belongsTo(
       )
 
 Review.belongsTo(models.User,
+ { foreignKey: 'userId'}
 )
     }
 
@@ -47,20 +48,20 @@ Review.belongsTo(models.User,
     userId: {
       type: DataTypes.INTEGER,
       allowNull:false,
-      references: {
-        model: 'User',
-        key:'userId',    //^ added 1003 12/10
-        onDelete: 'CASCADE',
-        hooks: true
-      }
+      // references: {
+      //   model: 'User',
+      //   key:'id',    //^ added 1003 12/10
+      //   onDelete: 'CASCADE',
+      //   hooks: true
+      // }
     },
     spotId: {
       type: DataTypes.INTEGER,
       allowNull:false,
-      references:{
-        model: 'Spot',
-        onDelete:'CASCADE'
-      }
+      // references:{
+      //   model: 'Spot',
+      //   onDelete:'CASCADE'
+      // }
     }
   }, {
     sequelize,
