@@ -10,10 +10,14 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-//  Booking.belongsToMany(
-//   models.Spot,{
-//     foreignKey: 'spotId'
-//   })\
+ Booking.belongsToMany(
+  models.Spot,{
+    foreignKey: 'spotId'
+  })
+
+  Booking.belongsTo(models.User,{
+    foreignKey: 'userId'
+  })
 
 
     }
@@ -48,12 +52,12 @@ module.exports = (sequelize, DataTypes) => {
     spotId: {
       type: DataTypes.INTEGER,
       allowNull:false,
-      references: {     //^ added back 12/10/1012 render works but is saying SpotId does not exist
-        model: 'Spots',
-        foreignKey: 'spotId',
-// onDelete:'CASCADE',
-// hooks: true
-      }
+//       references: {     //^ added back 12/10/1012 render works but is saying SpotId does not exist
+//         model: 'Spots',
+//         foreignKey: 'spotId',
+// // onDelete:'CASCADE',
+// // hooks: true
+//       }
     },
     userId: {
       type: DataTypes.INTEGER,
