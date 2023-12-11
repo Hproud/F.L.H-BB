@@ -38,7 +38,7 @@ module.exports = {
         allowNull: false,
         references:{
           model: 'Spots',
-          onDelete: 'CASCADE',
+          onDelete: 'CASCADE', //& DO NOT DELETE THIS
           hooks:true
         }
       },

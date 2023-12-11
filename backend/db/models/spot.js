@@ -35,9 +35,8 @@ Spot.hasMany(models.Booking,{
       Spot.hasMany(
         models.Review,{
           foreignKey: 'spotId',
-          // as:'spotId',
-          onDelete:'CASCADE',
-          hooks:true
+          // onDelete:'CASCADE',
+          // hooks:true
         }
       ),
 
