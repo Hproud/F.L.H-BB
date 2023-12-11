@@ -21,21 +21,21 @@ User.hasMany(   //^ commented in at 1812 12/10
 )
 
     User.hasMany(models.Spot,{
-      as: 'Owner',
+      // as: 'Owner',
       foreignKey: 'ownerId',
       onDelete:'CASCADE',
       hooks:true
     })
     // ,
-  //   User.belongsToMany(
-  //     models.Spot,{
-  //       through: models.Booking,
-  //     foreignKey: 'userId',
-  //       otherKey: 'spotId',
-  //       // onDelete: 'CASCADE',
-  //       // hooks: true
-  //     }
-  //  ),
+    User.belongsToMany(
+      models.Spot,{
+        through: models.Booking,
+      foreignKey: 'userId',
+        otherKey: 'spotId',
+        // onDelete: 'CASCADE',
+        // hooks: true
+      }
+   ),
 
     User.hasMany(
       models.Review,{

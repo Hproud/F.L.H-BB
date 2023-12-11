@@ -25,19 +25,19 @@ Spot.hasMany(
       Spot.belongsTo(
         models.User,{
           foreignKey: 'ownerId',
-          as: 'Owner',
+          // as: 'Owner',
           onDelete: 'CASCADE',
           hooks:true
         }
       ),
 
-// Spot.belongsToMany(models.User,{
-//   through: models.Booking,
-//   foreignKey: 'spotId',
-//   otherKey:'userId',
-//   onDelete: 'CASCADE',
-//   hooks: true
-// })
+Spot.belongsToMany(models.User,{
+  through: models.Booking,
+  foreignKey: 'spotId',
+  otherKey:'userId',
+  onDelete: 'CASCADE',
+  hooks: true
+})
 
 Spot.hasMany(models.Booking,{
   foreignKey: 'spotId',
