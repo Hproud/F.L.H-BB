@@ -38,8 +38,8 @@ module.exports = {
         allowNull: false,
         references:{
           model: 'Spots',
-          // onDelete: 'CASCADE',
-          // hooks:true
+          onDelete: 'CASCADE',
+          hooks:true
         }
       },
       createdAt: {
