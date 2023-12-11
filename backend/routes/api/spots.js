@@ -877,7 +877,7 @@ router.post(
         ],
       });
 
-
+const all = [];
 
       bookings.forEach((current) => {
         const newCurrent = current.toJSON();
