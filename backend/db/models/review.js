@@ -48,7 +48,7 @@ Review.belongsTo(models.User,
       type: DataTypes.INTEGER,
       allowNull:false,
       references: {
-        model: 'Users',
+        model: 'User',
         key:'userId',    //^ added 1003 12/10
         onDelete: 'CASCADE',
         hooks: true
@@ -58,7 +58,7 @@ Review.belongsTo(models.User,
       type: DataTypes.INTEGER,
       allowNull:false,
       references:{
-        model: 'Spots',
+        model: 'Spot',
         onDelete:'CASCADE'
       }
     }
