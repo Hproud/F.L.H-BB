@@ -27,15 +27,15 @@ User.hasMany(   //^ commented in at 1812 12/10
       hooks:true
     })
     // ,
-    User.belongsToMany(
-      models.Spot,{
-        through: models.Booking,
-      foreignKey: 'userId',
-        otherKey: 'spotId',
-        // onDelete: 'CASCADE',
-        // hooks: true
-      }
-   ),
+  //   User.belongsToMany(
+  //     models.Spot,{
+  //       through: models.Booking,
+  //     foreignKey: 'userId',
+  //       otherKey: 'spotId',
+  //       // onDelete: 'CASCADE',
+  //       // hooks: true
+  //     }
+  //  ),
 
     User.hasMany(
       models.Review,{
@@ -84,7 +84,7 @@ User.hasMany(   //^ commented in at 1812 12/10
   },
   }, {
     sequelize,
-    modelName: "User",
+    modelName: "User",tableName:'Users',
     defaultScope: {
       attributes: {
         exclude: ['hashedPassword','email','createdAt','updatedAt']
