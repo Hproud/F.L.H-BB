@@ -10,8 +10,8 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-
-    await Spot.bulkCreate([
+try
+{    await Spot.bulkCreate([
       {
         ownerId: 1,
         address: '13 cowboy lane',
@@ -144,7 +144,7 @@ module.exports = {
 
 
     ],{validate: true })
-  },
+  }catch{console.log('this is my error', err)}},
 
   async down (queryInterface, Sequelize) {
     /**
