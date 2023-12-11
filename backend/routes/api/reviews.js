@@ -28,14 +28,6 @@ const validateReview = [
 //?--------------------GET ALL REVIEWS OF CURR USER--------------------
 
 
-
-
-//& does not work when including the images model? takes away spot and owner info is not including correctly either
-//^to fix this we just needed to add brackets arount all the objects in the include clause.
-
-
-
-
 router.get('/current',requireAuth,async(req,res,next)=> {
     const id = req.user.id;
 // console.log(id,'<------------------------id')
@@ -89,25 +81,23 @@ for (let i = 0; i < myReviews.length;i++){
 })
 
 
+
+
+
+
+
 //? -------------ADD IMAGE TO REVIEW BASED ON REVIEWS ID----------------
 
 router.post('/:reviewId/images',requireAuth, async (req,res,next)=> {
 const {reviewId} = req.params;
 const {url} = req.body
-// console.log(reviewId,'<--------------------------------ID')
+
 const theReview = await Review.findOne({
     where:{
         id: Number(reviewId)
-    },
-    // include: [{model:Image,
-    //     where:{
-    //             imageableId: Number(reviewId),
-    //             imageableType: 'Review'
-
-    //     },
-    // as: 'ReviewImages'}]
+    }
 });
-// console.log(theReview)
+
 if(!theReview){
     const err = new Error('Review couldn\'t be found');
     err.status = 404;
@@ -115,8 +105,7 @@ if(!theReview){
     next(err)
 }
 
-// console.log(req.user.id)
-// console.log(theReview.userId,'<----------------')
+
 const imagesForMe = await Image.findAll({
     where: {
         imageableId: Number(reviewId)
@@ -134,7 +123,7 @@ if(req.user.id !== theReview.userId){
     err.message = 'Forbidden'
     next(err)
 }else{
-    // console.log(theReview.ReviewImages.length)
+    
 if(all.length === 10){
     const err = new Error('Maximum number of images for this resource was reached');
     err.status = 403;
