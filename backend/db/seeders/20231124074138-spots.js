@@ -144,7 +144,7 @@ try
 
 
     ],{validate: true })
-  }catch{console.log('this is my error', err)}},
+  }catch(err){console.log('this is my error', err)}},
 
   async down (queryInterface, Sequelize) {
     /**
