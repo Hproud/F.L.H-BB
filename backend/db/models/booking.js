@@ -13,11 +13,15 @@ module.exports = (sequelize, DataTypes) => {
 //  Booking.belongsToMany(
 //   models.Spot,{
 //     foreignKey: 'spotId'
-//   })
+//   });
 
-//   Booking.belongsTo(models.User,{
-//     foreignKey: 'userId'
-//   })
+Booking.belongsTo(models.Spot,
+ { foreignKey: 'spotId'}
+  )
+
+  Booking.belongsTo(models.User,{
+    foreignKey: 'userId'
+  })
 
 
     }
@@ -54,18 +58,18 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
 //       references: {     //^ added back 12/10/1012 render works but is saying SpotId does not exist
 //         model: 'Spots',
-//         foreignKey: 'spotId',
-// // onDelete:'CASCADE',
-// // hooks: true
+//         foreignKey: 'id',
+// onDelete:'CASCADE',
+// hooks: true
 //       }
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      // references:{
-      //   model: 'Users',
-      //   key: 'id'
-      // }
+      references:{
+        model: 'Users',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
