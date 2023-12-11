@@ -554,8 +554,7 @@ router.post("/", requireAuth, validateSpot, async (req, res, next) => {
       description,
       price,
     });
-
-    res.json({
+return res.status(201).json({
       id: newSpot.id,
       ownerId: newSpot.ownerId,
       address: newSpot.address,
@@ -735,8 +734,8 @@ router.post(
           userId: req.user.id,
           spotId: Number(spotId),
         });
-        res.status = 200;
-        res.json({
+        // res.status = 200;
+        res.status(201).json({
           id: newReview.id,
           userId: newReview.userId,
           spotId: newReview.spotId,
