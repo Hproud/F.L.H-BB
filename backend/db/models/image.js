@@ -16,8 +16,6 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'imageableId',
           as: 'spotImages',
           constraints:false,
-          // onDelete: 'CASCADE',
-          // hooks:true
         }
       )
 
@@ -26,8 +24,6 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'imageableId',
           as: 'ReviewImages',
           constraints:false,
-          // onDelete: 'CASCADE',
-          // hooks:true
         }
       )
     }

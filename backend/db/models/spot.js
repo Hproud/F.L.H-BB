@@ -11,32 +11,19 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-Spot.belongsTo(models.User,{
-  foreignKey: 'userId'
-})                                 //^ added 1817 12/10
 
-Spot.hasMany(
-  models.Review, {
-    foreignKey: 'spotId',
-  onDelete:'CASCADE',
-  hooks: true
-  }
-)
+
       Spot.belongsTo(
         models.User,{
           foreignKey: 'ownerId',
-          // as: 'Owner',
-          onDelete: 'CASCADE',
-          hooks:true
+          as: 'Owner'
         }
       ),
 
 Spot.belongsToMany(models.User,{
   through: models.Booking,
   foreignKey: 'spotId',
-  otherKey:'userId',
-  onDelete: 'CASCADE',
-  hooks: true
+  otherKey:'userId'
 })
 
 Spot.hasMany(models.Booking,{
@@ -44,7 +31,7 @@ Spot.hasMany(models.Booking,{
   onDelete:'CASCADE',
   hooks:true
 })
-//&-----------------------------
+
       Spot.hasMany(
         models.Review,{
           foreignKey: 'spotId',
@@ -53,7 +40,7 @@ Spot.hasMany(models.Booking,{
           hooks:true
         }
       ),
-//&----------------------------------
+
       Spot.hasMany(
         models.Image,{
           foreignKey: 'imageableId',

@@ -22,7 +22,6 @@ const validateLogin = [
 
 
 router.post('/', validateLogin, async (req,res,next) => {
-    // console.log(req.body)
 const {credential, password} = req.body;
 if(!credential || ! password){
     const err = new Error('Bad Request');

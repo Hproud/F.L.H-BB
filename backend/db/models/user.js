@@ -11,29 +11,25 @@ module.exports = (sequelize, DataTypes) => {
     */
    static associate(models) {
 
-User.hasMany(   //^ commented in at 1812 12/10
-  models.Booking,{
-    foreignKey: 'userId',
-    // as:'userId',
-    onDelete:'CASCADE',
-    hooks: true
-  }
-)
 
+User.hasMany(models.Booking,{
+  foreignKey: 'userId',
+  onDelete:'CASCADE',
+  as: 'userId',
+  hooks: true
+})
     User.hasMany(models.Spot,{
-      // as: 'Owner',
+      as: 'Owner',
       foreignKey: 'ownerId',
       onDelete:'CASCADE',
       hooks:true
     })
-    // ,
+    
     User.belongsToMany(
       models.Spot,{
         through: models.Booking,
       foreignKey: 'userId',
         otherKey: 'spotId',
-        // onDelete: 'CASCADE',
-        // hooks: true
       }
    ),
 
@@ -58,14 +54,7 @@ User.hasMany(   //^ commented in at 1812 12/10
     username: {
       type: DataTypes.STRING,
     allowNull:false,
-    // unique:true,
-//     validate: {
-//       len: [4,30],
-// isNotEmail(value){
-// if(Validator.isEmail(value)){
-//   throw new Error('Cannot be an email')
-// }
-// }
+
     },
     email: {
       type: DataTypes.STRING,

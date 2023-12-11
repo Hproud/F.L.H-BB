@@ -3,7 +3,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors}= require('../../utils/validation')
 const {setTokenCookie,requireAuth} = require('../../utils/auth');
 const {Spot,Booking,User,Review,Image} = require('../../db/models');
-// const { validationResult } = require('express-validator');
+
 
 
 const router = express.Router()
@@ -11,7 +11,7 @@ const router = express.Router()
 //?----------------------DELETE REVIEW IMAGE BY ID--------------
 
 router.delete('/:imageId',requireAuth,async (req,res,next)=>{
-    // console.log(req.params.imageId,"this is the id")
+
     const imageInQ = await Image.findOne({
         where: {
             id: Number(req.params.imageId),
@@ -35,7 +35,7 @@ router.delete('/:imageId',requireAuth,async (req,res,next)=>{
         });
 
 
-        // console.log(review.userId)
+     
 
 if(review.userId !== req.user.id){
     const err = new Error('Forbidden');

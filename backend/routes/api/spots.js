@@ -106,7 +106,6 @@ const validateReview = [
 
 validateDates = [
   check("startDate")
-    // .exists({checkFalsy:true})
     .custom((value) => {
       const start = new Date(value);
       const today = new Date();
@@ -117,7 +116,6 @@ validateDates = [
       }
     }),
   check("endDate")
-    // .exists({checkFalsy:true})
     .custom((value, { req }) => {
       const end = new Date(value);
       const start = new Date(req.body.startDate);
@@ -129,6 +127,13 @@ validateDates = [
     }),
   handleValidationErrors,
 ];
+
+
+
+
+
+
+
 //?--------------------------------------------------------------------
 const getAvg = async (id) => {
   const allReviews = await Review.findAll({
@@ -139,21 +144,21 @@ const getAvg = async (id) => {
   });
   let avg;
   const count = allReviews.length;
-  //  console.log(count,'this is the count')
+
   let sum = 0;
-  // console.log(sum,"sum before for each");
+
   allReviews.forEach((record) => {
     const rate = record.dataValues.stars;
-    // console.log(rate,' this is the rate from the foreach');
+
     sum += rate;
   });
-  // console.log(sum,"sum after for each");
+
   if (count > 0) {
-    avg = Math.ceil(sum / count);  //^ just added?
+    avg = Math.ceil(sum / count);
   } else {
     avg = 0;
   }
-  // console.log(avg,'this is the avg we get from our func')
+
   return avg;
 };
 
@@ -161,7 +166,7 @@ const getAvg = async (id) => {
 
 router.get("/current", requireAuth, async (req, res, next) => {
   const currUser = req.user.id;
-  // console.log(ownerId,"<--------------owner Id");
+
 
   const properties = await Spot.findAll({
     where: {
@@ -225,7 +230,7 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
       imageableType: "Spot",
     });
     const location = property.toJSON();
-    // console.log(pic.preview);
+
     if (pic.preview) {
       await property.update({
         previewImage: url,
@@ -243,12 +248,9 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
     next(err);
   }
 
-  // console.log(pic)
 });
 
 //?------------------GET INFO ABOUT SPECIFIC SPOT-------------------?//
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//&    make sure to come back and test after you do add image one! DONE
 
 router.get("/:spotId", async (req, res, next) => {
   const { spotId } = req.params;
@@ -379,15 +381,14 @@ router.get("/", ValidateQueries, async (req, res) => {
       pagination.offset = size * (page - 1);
     } else {
       pagination.limit = size;
-      pagination.offset = Math.ceil(size * (page - 1));
+      pagination.offset = size * (page - 1);
     }
 
-    // let query = {}
+
 
     let where = {};
 
-    // console.log(req.query)
-    // console.log(minLat)
+
     if (minLat) {
       where.lat = { [Op.gte]: minLat };
     }
@@ -428,19 +429,17 @@ router.get("/", ValidateQueries, async (req, res) => {
     if (theCount === 0) {
       res.json(result.count);
     }
-    // console.log(theCount.length)
+
     result.page = page || 1;
     result.size = theCount.length;
 
-    // console.log(result)
-    // const filtered = await allSpots.rows.findAll(
-    // )
+
     const all = [];
     for (let i = 0; i < result.rows.length; i++) {
       const spot = result.rows[i];
       id = result.rows[i].id;
       const avg = await getAvg(id);
-      result.rows[i].avgRating = Math.floor(avg); //^^^^ added math floor
+      result.rows[i].avgRating = avg;
       const image = await Image.findOne({
         where: {
           imageableId: id,
@@ -449,7 +448,7 @@ router.get("/", ValidateQueries, async (req, res) => {
         },
         attributes: ["url"],
       });
-      // console.log(image)
+
       all.push({
         id: spot.id,
         ownerId: spot.ownerId,
@@ -469,15 +468,15 @@ router.get("/", ValidateQueries, async (req, res) => {
       });
     }
     res.json({
-      // Spots: result.rows,
+
       Spots: all,
       page: result.page,
       size: result.size,
     });
-    // }
+
   } else {
     const allSpots = await Spot.findAll();
-    // console.log(allSpots)
+
     const all = [];
     for (let i = 0; i < allSpots.length; i++) {
       const spot = allSpots[i];
@@ -508,21 +507,21 @@ router.get("/", ValidateQueries, async (req, res) => {
         },
         attributes: ["url"],
       });
-      // console.log(image)
+
       if (image1) {
         await allSpots[i].update({
-          avgRating: Math.floor(avg),  //^^ this is math floor
+          avgRating: avg,
           previewImage: image1.url,
         });
       } else {
         await allSpots[i].update({
-          avgRating: Math.floor(avg), //^^ this is added math floor
+          avgRating: avg
         });
       }
-      // console.log(image)
-      allSpots[i].avgRating = Math.floor(avg);  //^^ this math floor
+
+      allSpots[i].avgRating = avg
     }
-    // console.log(allSpots)
+
     res.json({ Spots: all });
   }
 });
@@ -532,14 +531,7 @@ router.get("/", ValidateQueries, async (req, res) => {
 router.post("/", requireAuth, validateSpot, async (req, res, next) => {
   const { address, city, state, country, lat, lng, name, description, price } =
     req.body;
-  // console.log(address,'<-------address');
-  // console.log(city,'<-------city');
-  // console.log(country,'<-------country');
-  // console.log(lat,'<-------latitude');
-  // console.log(lng,'<-------longitude');
-  // console.log(name,'<-------name');
-  // console.log(description,'<-------description');
-  // console.log(price,'<-------price');
+
   const ownerId = req.user.id;
   if (!ownerId) {
   }
@@ -548,7 +540,7 @@ router.post("/", requireAuth, validateSpot, async (req, res, next) => {
       address: address,
     },
   });
-  // console.log('=========',req.user.dataValues.id,'==========')
+
   if (!checked) {
     const newSpot = await Spot.create({
       ownerId: ownerId,
@@ -580,8 +572,7 @@ router.post("/", requireAuth, validateSpot, async (req, res, next) => {
       updatedAt: newSpot.updatedAt,
     });
   } else {
-   //  res.status(400);
-    // next(err)
+
     const err = Error("Location already exists");
 
     err.message = "Location already exists";
@@ -620,7 +611,7 @@ router.put("/:spotId", requireAuth, validateSpot, async (req, res, next) => {
   const id = req.params.spotId;
   const { address, city, state, country, lat, lng, name, description, price } =
     req.body;
-  // console.log(req.body,'req body is right here')
+
   const location = await Spot.findOne({
     where: {
       id: id,
@@ -633,10 +624,7 @@ router.put("/:spotId", requireAuth, validateSpot, async (req, res, next) => {
     err.message = "Spot couldn`t be found";
     next(err);
   }
-  // console.log(location, 'this is location')
 
-  // console.log(req.user.id,'<-------------------------------------this is ID');
-  // console.log(location.ownerId,'<-------------------------------------this is ownerID for location')
   if (req.user.id !== location.ownerId) {
     const err = Error("Forbidden");
     err.status = 403;
@@ -675,7 +663,7 @@ router.put("/:spotId", requireAuth, validateSpot, async (req, res, next) => {
 
 router.get("/:spotId/reviews", async (req, res, next) => {
   const { spotId } = req.params;
-  // console.log(req.user.id)
+
   const place = await Spot.findOne({
     where: {
       id: spotId,
@@ -740,7 +728,7 @@ router.post(
         err.message = "User already has a review for this spot";
         next(err);
       } else {
-        // const { review, stars } = req.body;
+
         const newReview = await Review.create({
           review: req.body.review,
           stars: req.body.stars,
@@ -767,32 +755,23 @@ router.post(
 router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
   const { spotId } = req.params;
 
-  //& check for location
+
   const checking = await Spot.findOne({
     where: {
       id: spotId,
     },
   });
 
-  //& err if not found
   if (!checking) {
     const err = new Error("Spot couldn't be found");
     err.status = 404;
     err.message = "Spot couldn't be found";
     next(err);
   } else {
-    //& check if curr user is the owner of property
-   //  console.log(req.user.id);
-   //  console.log(checking.ownerId, "<==============owner");
+
+
     if (req.user.id === checking.ownerId) {
-      //& get all the bookings for that location
-      // const location = await Booking.findAll({
-      // where:{
-      //    spotId: spotId
-      // },
-      // include:{model: User,
-      // attributes:['id','firstName','lastName']}
-      // })
+
 
       const theBooks = await Booking.findAll({
         where: {
@@ -829,7 +808,7 @@ router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
       const final = [];
       theBooks.forEach((booking) => {
         const curr = booking.toJSON();
-        // console.log(booking)
+
         const constructed = {
           User: curr.User,
           id: curr.id,
@@ -843,7 +822,7 @@ router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
         final.push(constructed);
       });
 
-      // console.log(theBooks.id)
+
       res.json({ Bookings: final });
     } else {
       const theBooks = await Booking.findAll({
@@ -853,9 +832,7 @@ router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
 
         attributes: ["spotId", "startDate", "endDate"],
       });
-      // const {startDate,endDate} = theBooks
-      // console.log(theBooks.spotId = spotId)
-      // console.log(theBooks)
+
 
       res.json({ Bookings: theBooks });
     }
@@ -870,23 +847,23 @@ router.post(
   async (req, res, next) => {
     const { spotId } = req.params;
     const id = Number(spotId);
-    //    // console.log(id)
+
     let { startDate, endDate } = req.body;
 
-    // //TODO this checks if the spot is valid
+
     const location = await Spot.findOne({
       where: {
         id: spotId,
       },
     });
-    //& if there is no location throw the not found err
+
     if (!location) {
       const err = new Error("Spot couldn't be found");
       err.status = 404;
       err.message = "Spot couldn't be found";
       next(err);
     } else if (req.user.id !== location.ownerId) {
-      //                                //TODO this is pulling all curr bookings for the location
+
       const bookings = await Booking.findAll({
         where: { spotId: location.id },
         attributes: [
@@ -900,28 +877,22 @@ router.post(
         ],
       });
 
-      //           // console.log(bookings,"bookings----------");
 
-      //           //TODO this turns bookings into a JSON obj and pushed it to all
-      const all = [];
+
       bookings.forEach((current) => {
         const newCurrent = current.toJSON();
         // console.log(current.id,"this is the current")
         all.push(newCurrent);
       });
-      //                     //!----------------------
-      //                     //TODO if all has data loop through looking for bookings in particular? why tho? you do this with the bookings, each booking is all[i]
-      //                      //!----------------------
+
       if (all.length) {
         for (let i = 0; i < all.length; i++) {
           const stay = all[i];
 
-          //                              //TODO-----sets the date attribute to the values pulled in query
+
           const begin = new Date(startDate);
           const end = new Date(endDate);
-          //             // console.log(begin,'<----------------begin');
-          //             // console.log(end,'<----------------end');
-          //             // console.log(stay.startDate,"-------stay start")
+
 
           if (
             (begin < stay.startDate && stay.endDate < end) ||
@@ -938,8 +909,7 @@ router.post(
               endDate: "endDate date conflicts with an existing booking",
             };
             return next(err);
-          } //^checks the in between bookings
-          //             //TODO  this is checking if current booking start date lands in proposed new booking start date
+          }
           if (stay.startDate <= begin && stay.endDate >= begin) {
             const err = new Error(
               "Sorry, this spot is already booked for the specified dates"
@@ -952,10 +922,7 @@ router.post(
             };
             return next(err);
           }
-          //& end of startDate check
 
-          //                                     //TODO this checks the new booking end date against current booking end date.
-          //                                     //~ make sure you are checking the proposed end date against the end date as well as the START date
           if (stay.startDate <= end && stay.endDate >= end) {
             const err = new Error(
               "Sorry, this spot is already booked for the specified dates"
@@ -968,18 +935,16 @@ router.post(
             };
             return next(err);
           }
-          //& end of endDate check
-        }
-        //& end of the for loop checking all bookings;
 
-        //         //TODO this pulls all users bookings
+        }
+
         const userBookings = await Booking.findAll({
           where: {
             userId: location.ownerId,
           },
         });
 
-        //                                         //TODO put it into JSON
+
         const user = [];
         userBookings.forEach((booking) => {
           const newBooking = booking.toJSON();
@@ -987,12 +952,11 @@ router.post(
         });
 
         if (user.length) {
-          //TODO if bookings found loop through them and check like above
 
           for (let i = 0; i < user.length; i++) {
             const stay = user[i];
 
-            //                                 //TODO-----sets the date attribute to the values pulled in query
+
             const begin = new Date(startDate);
             const end = new Date(endDate);
 
@@ -1012,7 +976,7 @@ router.post(
               };
               return next(err);
             }
-            //                    //TODO  this is checking if current booking start date lands in proposed new booking start date
+
             if (stay.startDate <= begin && stay.endDate >= begin) {
               const err = new Error(
                 "Sorry, this spot is already booked for the specified dates"
@@ -1024,11 +988,9 @@ router.post(
                 startDate: "Start date conflicts with an existing booking",
               };
               return next(err);
-            } //& end of startDate check
+            }
 
-            //          //TODO this checks the new booking end date against current booking end date.
 
-            //    //~ make sure you are checking the proposed end date against the end date as well as the START date
             if (stay.startDate <= end && stay.endDate >= end) {
               const err = new Error(
                 "Sorry, this spot is already booked for the specified dates"
@@ -1040,11 +1002,9 @@ router.post(
                 endDate: "endDate date conflicts with an existing booking",
               };
               return next(err);
-            } //& end of endDate check
+            }
           }
-          //& end of the for loop checking user bookings;
         }
-        //& end of bookings checks for user
       }
       const newBooking = await Booking.create({
         startDate,
@@ -1069,7 +1029,6 @@ router.post(
           "updatedAt",
         ],
       });
-      //       // console.log()
 
       return res.json({
         id: found.id,

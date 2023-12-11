@@ -67,15 +67,7 @@ if(isEmail){
 
 }else{
 
-    //? if(people){
-    //?     const err = new Error('User already exists');
-    //?     err.status = 500
-    //?     err.errors = {
-    //?         email: 'User with that email already exists',
-    //?         username: 'User with that username already exists'
-    //?     }
-    //?     next(err)
-    //? }else{
+
        const user = await User.create({firstName,lastName,email,username,hashedPassword});
 
              const safeUser = {
@@ -91,7 +83,7 @@ if(isEmail){
             return res.json({
                 user:safeUser,
             })
-        // ?};
+        
 }
 
 

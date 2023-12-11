@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
 Review.belongsTo(
   models.Spot,{
-    foreignKey: 'spotId',
+    foreignKey: 'spotId'
   }
 )
       Review.hasMany(
@@ -48,20 +48,10 @@ Review.belongsTo(models.User,
     userId: {
       type: DataTypes.INTEGER,
       allowNull:false,
-      // references: {
-      //   model: 'User',
-      //   key:'id',    //^ added 1003 12/10
-      //   onDelete: 'CASCADE',
-      //   hooks: true
-      // }
     },
     spotId: {
       type: DataTypes.INTEGER,
-      allowNull:false,
-      // references:{
-      //   model: 'Spot',
-      //   onDelete:'CASCADE'
-      // }
+      allowNull:false
     }
   }, {
     sequelize,
