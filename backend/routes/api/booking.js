@@ -119,7 +119,7 @@ router.put(
       next(err);
     }
     currBooking = currBooking.toJSON();
-    console.log(currBooking);
+    // console.log(currBooking);
 
     console.log(req.user.id);
     if (req.user.id === currBooking.userId) {
@@ -257,13 +257,13 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
     const err = new Error("Booking couldn't be found");
     err.status = 404;
     err.message = "Booking couldn't be found";
-    next(err);
+    return next(err);
   }
 
   if (reservation.userId !== req.user.id) {
     const err = new Error("Forbidden");
     err.status = 403;
-    next(err);
+    return next(err);
   }
 
   const start = new Date(reservation.startDate);
@@ -272,7 +272,7 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
     const err = new Error("Bookings that have been started can't be deleted");
     err.status = 403;
     err.message = "Bookings that have been started can't be deleted";
-    next(err);
+    return next(err);
   }
 
   await Booking.destroy({
