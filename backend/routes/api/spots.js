@@ -900,7 +900,7 @@ const all = [];
             const err = new Error(
               "Sorry, this spot is already booked for the specified dates"
             );
-            err.status = 400;
+            err.status = 403;
             err.message =
               "Sorry, this spot is already booked for the specified dates";
             err.errors = {
@@ -913,7 +913,7 @@ const all = [];
             const err = new Error(
               "Sorry, this spot is already booked for the specified dates"
             );
-            err.status = 400;
+            err.status = 403;
             err.message =
               "Sorry, this spot is already booked for the specified dates";
             err.errors = {
@@ -926,7 +926,7 @@ const all = [];
             const err = new Error(
               "Sorry, this spot is already booked for the specified dates"
             );
-            err.status = 400;
+            err.status = 403;
             err.message =
               "Sorry, this spot is already booked for the specified dates";
             err.errors = {
@@ -966,7 +966,7 @@ const all = [];
               const err = new Error(
                 "Sorry, this spot is already booked for the specified dates"
               );
-              err.status = 400;
+              err.status = 403;
               err.message =
                 "Sorry, this spot is already booked for the specified dates";
               err.errors = {
@@ -980,7 +980,7 @@ const all = [];
               const err = new Error(
                 "Sorry, this spot is already booked for the specified dates"
               );
-              err.status = 400;
+              err.status = 403;
               err.message =
                 "Sorry, this spot is already booked for the specified dates";
               err.errors = {
@@ -994,7 +994,7 @@ const all = [];
               const err = new Error(
                 "Sorry, this spot is already booked for the specified dates"
               );
-              err.status = 400;
+              err.status = 403;
               err.message =
                 "Sorry, this spot is already booked for the specified dates";
               err.errors = {
