@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
 
 User.hasMany(models.Booking,{
   foreignKey: 'userId',
-  onDelete:'CASCADE',
   as: 'userId',
+  onDelete:'CASCADE',
   hooks: true
 })
     User.hasMany(models.Spot,{
@@ -24,7 +24,7 @@ User.hasMany(models.Booking,{
       onDelete:'CASCADE',
       hooks:true
     })
-    
+
     User.belongsToMany(
       models.Spot,{
         through: models.Booking,
