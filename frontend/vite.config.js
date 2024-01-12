@@ -9,8 +9,13 @@ export default defineConfig(({ mode }) => ({
     eslint({
       lintOnStart: true,
       failOnError: mode === "production"
-    })
+    }),
   ],
+  server:{
+    proxy:{
+      '/api' : 'http://localhost:8000'
+    }
+  }
   // To automatically open the app in the browser whenever the server starts,
   // uncomment the following lines:
   // server: {
