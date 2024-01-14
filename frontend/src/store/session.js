@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf"
 const SET_USER = 'session/setUser'
 const END_SESSION = 'session/endSession'
 
+
 //?   Actions
 
 const updateSession= (user) =>({
@@ -36,6 +37,14 @@ export const logout = () => async dispatch => {
         dispatch(endSession())
 
 
+}
+
+export const restoreUser = () => async dispatch =>{
+let currentUser = await csrfFetch('/api/session')
+currentUser = await currentUser.json()
+
+
+dispatch(updateSession(currentUser.user))
 }
 
 //! reducer
