@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf"
 
 const SET_USER = 'session/setUser'
 const END_SESSION = 'session/endSession'
+const ADD_USER = 'session/addUser'
 
 
 //?   Actions
@@ -15,6 +16,11 @@ const endSession = () => ({
 type: END_SESSION
 })
 
+const newUser = (user) => ({
+    type: ADD_USER,
+    user
+})
+
 //&   Thunks
 
 export const login = (payload) => async dispatch => {
@@ -22,18 +28,13 @@ export const login = (payload) => async dispatch => {
         method: 'POST',
         body: JSON.stringify(payload)
     })
-
-
         data = await data.json()
        return dispatch(updateSession(data.user))
-
-
 
 }
 
 export const logout = () => async dispatch => {
-    const user = await csrfFetch('/api/session',{method: 'DELETE'})
-
+     await csrfFetch('/api/session',{method: 'DELETE'})
         dispatch(endSession())
 
 
@@ -43,9 +44,30 @@ export const restoreUser = () => async dispatch =>{
 let currentUser = await csrfFetch('/api/session')
 currentUser = await currentUser.json()
 
-
 dispatch(updateSession(currentUser.user))
 }
+
+
+export const signup = (payload) => async dispatch => {
+    const {firstName,lastName,email,username,password} = payload
+    const user = await csrfFetch('/api/users',{
+        method: 'POST',
+
+        body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            username,
+            password
+        })
+    })
+
+    const data = await user.json()
+dispatch(updateSession(data))
+}
+
+
+
 
 //! reducer
 const sessionReducer = (state={user:null},action) => {
@@ -57,6 +79,9 @@ return {...state, user: action.user};
 
  case END_SESSION:
     return {...state, user: null};
+
+    case ADD_USER:
+        return{...state,user: action.user}
 
     default: return state
 }
