@@ -1,26 +1,19 @@
-import { createBrowserRouter, RouterProvider,Outlet } from 'react-router-dom'
-import LoginFormPage from './components/LoginFormPage/LoginFormPage'
-
-
-
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import LoginFormPage from './components/LoginFormPage';
 
 const router = createBrowserRouter([
-
-      {
-        path: '/',
-        element: <LoginFormPage />
-      }
-
-])
-
-
+  {
+    path: '/',
+    element: <h1>Welcome!</h1>
+  },
+  {
+    path: '/login',
+    element: <LoginFormPage />
+  }
+]);
 
 function App() {
-  return(
-  <div>
-    <h1> Hello from App </h1>
-    <RouterProvider router={router} />
-  </div>
-)}
+  return <RouterProvider router={router} />;
+}
 
 export default App;

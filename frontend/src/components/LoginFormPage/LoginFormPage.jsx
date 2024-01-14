@@ -1,32 +1,60 @@
 
-import { useState } from "react"
-export default function LoginFormPage() {
+import { useState } from 'react';
+import * as sessionActions from '../../store/session';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import './LoginForm.css';
 
-  const [credential,setCredential] = useState('');
-  const [password,setPassword] = useState('')
 
-    return (
-    <div>
-        <h2>Login</h2>
-       <form>
-        <label htmlFor="credential">Username or Email</label>
-        <br />
-        <input
-        id='credential'
-        type='text'
-        value={credential}
-        onChange={e => setCredential(e.target.value)}
-        />
-<br />
-        <label htmlFor="password">Password</label>
-        <br />
-        <input
-        id='password'
-        type='text'
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        />
-       </form>
-    </div>
-  )
+function LoginFormPage() {
+  const dispatch = useDispatch();
+  const sessionUser = useSelector((state) => state.session.user);
+  const [credential, setCredential] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+
+  if (sessionUser) return <Navigate to="/" replace={true} />;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setErrors({});
+    return dispatch(sessionActions.login({ credential, password })).catch(
+      async (res) => {
+        const data = await res.json();
+        if (data?.errors) setErrors(data.errors);
+      }
+    );
+  };
+
+  return (
+    <>
+      <h1>Log In</h1>
+      <form className='LoginForm' onSubmit={handleSubmit}>
+        <label>
+          Username or Email
+          <input
+            type="text"
+            value={credential}
+            onChange={(e) => setCredential(e.target.value)}
+            required
+          />
+          <br />
+        </label>
+        <label>
+          Password
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </label>
+        {errors.credential && <p>{errors.credential}</p>}
+        < br />
+        <button type="submit">Log In</button>
+      </form>
+    </>
+  );
 }
+
+export default LoginFormPage;
