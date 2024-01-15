@@ -45,7 +45,7 @@ export default function SignUpForm() {
   }, [firstName, lastName, email, userName, password]);
 
   const handleSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
 
     const newUser = {
       firstName,
@@ -53,7 +53,7 @@ export default function SignUpForm() {
       email,
       userName,
       password,
-    };
+    }
 
    dispatch(sessionActions.signUp(newUser))
     navigate("/");
