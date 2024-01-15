@@ -48,11 +48,10 @@ dispatch(updateSession(currentUser.user))
 }
 
 
-export const signup = (payload) => async dispatch => {
+export const signUp = (payload) => async dispatch => {
     const {firstName,lastName,email,username,password} = payload
     const user = await csrfFetch('/api/users',{
         method: 'POST',
-
         body: JSON.stringify({
             firstName,
             lastName,
@@ -63,7 +62,7 @@ export const signup = (payload) => async dispatch => {
     })
 
     const data = await user.json()
-dispatch(updateSession(data))
+return dispatch(newUser(data))
 }
 
 
