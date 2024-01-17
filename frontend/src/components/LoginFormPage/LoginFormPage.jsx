@@ -1,8 +1,8 @@
 
-import { useState } from 'react';
+import {  useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 
 
@@ -12,8 +12,11 @@ function LoginFormPage() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+const navigate = useNavigate()
 
-  if (sessionUser) return <Navigate to="/" replace={true} />;
+
+
+if(sessionUser)return navigate('/')
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,7 +28,7 @@ function LoginFormPage() {
       }
 
     );
-    
+
   };
 
   return (

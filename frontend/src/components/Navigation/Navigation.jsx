@@ -6,15 +6,17 @@ import { logout } from '../../store/session'
 import ProfileButton from './profileButton'
 import './Navigation.css'
 export default function Navigation() {
-    const user = useSelector(state => state.session.user)
+    let user = useSelector(state => state.session.user)
+
     const dispatch = useDispatch()
 const navigate=useNavigate()
 
 
 
-const handleLogout = (e) =>{
+const  handleLogout = (e) =>{
     e.preventDefault()
     dispatch(logout())
+    // user = dispatch(logout())
     navigate("/login",{replace:true})
    }
 
@@ -32,7 +34,7 @@ const handleLogout = (e) =>{
     <NavLink to='/users' >Sign Up</NavLink>
    </li>
 <li hidden={!user}>
-    <ProfileButton user={user}/>
+    <ProfileButton user={user} />
 </li>
 </ul>
 <button type='button' onClick={handleLogout} hidden={!user}>Log Out</button>
