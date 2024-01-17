@@ -1,5 +1,5 @@
 
-import {  useState } from 'react';
+import {  useEffect, useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -12,11 +12,12 @@ function LoginFormPage() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-const navigate = useNavigate()
+  const navigate = useNavigate()
 
 
+  if(sessionUser)return navigate('/')
 
-if(sessionUser)return navigate('/')
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
