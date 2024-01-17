@@ -1,31 +1,25 @@
 
-import { useEffect, useState } from 'react'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { logout } from '../../store/session'
-import { isPlainObject } from 'redux'
-
+import ProfileButton from './profileButton'
+import './Navigation.css'
 export default function Navigation() {
     const user = useSelector(state => state.session.user)
     const dispatch = useDispatch()
 const navigate=useNavigate()
-const [LoggedIn,setLoggedIn] = useState(user);
-useEffect(()=>{
-if(user !== null){
-    setLoggedIn(true)
 
-}
-},[user])
 
 
 const handleLogout = (e) =>{
     e.preventDefault()
     dispatch(logout())
-     navigate('/login')
+    navigate("/login",{replace:true})
    }
 
   return (
-    <nav>
+    <nav className='NavBar'>
 <ul>
     <li>
         <NavLink to='/'>Home</NavLink>
@@ -37,9 +31,13 @@ const handleLogout = (e) =>{
    <li hidden={user}>
     <NavLink to='/users' >Sign Up</NavLink>
    </li>
-
+<li hidden={!user}>
+    <ProfileButton user={user}/>
+</li>
 </ul>
-<button onClick={handleLogout}>Log Out</button>
+<button type='button' onClick={handleLogout} hidden={!user}>Log Out</button>
+
+
     </nav>
   )
 }
