@@ -1,0 +1,10 @@
+
+.LoginForm{
+    background-color: aqua;
+    display:inline-flex;
+    flex-direction: column;
+justify-content: center;
+row-gap: 10px;
+
+
+}

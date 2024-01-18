@@ -1,0 +1,10 @@
+.NavBar{
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.navLinks{
+    list-style-type: none;
+}
