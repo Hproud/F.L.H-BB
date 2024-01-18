@@ -3,7 +3,9 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import { useEffect } from "react";
-
+import LoginFormModal from "../LoginFormModal/LoginFormModal";
+import SignUpModal from "../signUpForm/SignUpModal";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
 
 function ProfileButton({ user }) {
   const ulRef = useRef();
@@ -46,7 +48,7 @@ function ProfileButton({ user }) {
         <i className='fas fa-user-circle' />
       </button>
       <ul className={ulClassName} hidden={!showMenu} ref={ulRef}>
-        {user && (
+        {user ? (
           <>
             <li>
               {user.firstName} {user.lastName}
@@ -55,7 +57,24 @@ function ProfileButton({ user }) {
             <li>{user.email}</li>
             <button onClick={handleLogout}>LogOut</button>
           </>
-        )}
+        ): (<>
+          <li>
+            <OpenModalButton
+              buttonText="Log In"
+              modalComponent={<LoginFormModal />}
+                onButtonClick={() =>{<LoginFormModal /> }}
+
+  />
+            {/* <NavLink to="/login">Log In</NavLink> */}
+          </li>
+          <li>
+            <OpenModalButton
+              buttonText="Sign Up"
+              modalComponent={<SignUpModal />}
+            />
+            {/* <NavLink to="/signup">Sign Up</NavLink> */}
+          </li>
+        </>)}
       </ul>
     </>
   );

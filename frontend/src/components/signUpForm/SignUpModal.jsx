@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import '../signUpForm/signUpForm.css'
+import { useModal } from "../../context/Modal";
 
 
-export default function SignUpForm() {
+
+export default function SignUpModal() {
   const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -13,7 +15,11 @@ export default function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
+const {closeModal} = useModal();
+
+
 
   useEffect(() => {
     const errs = {};
@@ -55,8 +61,8 @@ export default function SignUpForm() {
       password,
     }
 
-   dispatch(sessionActions.signUp(newUser))
-    navigate("/");
+   dispatch(sessionActions.signUp(newUser)).then(closeModal)
+    // navigate("/");
   };
   return (
     <div>
