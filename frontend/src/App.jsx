@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 
 import * as sessionActions from './store/session'
 import Navigation from './components/Navigation/Navigation';
+import LandingPage from './components/LandingPage/LandingPage';
 
 const Layout = () =>{
   const [isLoaded,setIsLoaded] = useState(false)
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
     children:[
       {
         path: '/',
-        element: <h1>Welcome!</h1>
+        element: <LandingPage />
       },
 
 
