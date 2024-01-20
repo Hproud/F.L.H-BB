@@ -26,12 +26,22 @@ function LoginFormModal() {
       });
   };
 
-
+const demoUser = () => {
+  dispatch(sessionActions.login({
+    credential: 'demo@user.io',
+    password: 'password'
+  })).then(closeModal).catch(async (res) => {
+    const data = await res.json();
+    if (data && data.errors) {
+      setErrors(data.errors);
+    }
+  })
+}
 
   return (
-    <>
+    <div className='LoginForm'>
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} >
         <label>
           Username or Email
           <input
@@ -57,8 +67,12 @@ function LoginFormModal() {
           <p>{errors.password}</p>
         )}
         <button type="submit">Log In</button>
+          <button type='submit' onClick={(e) => {
+            setCredential('demo@user.io')
+            setPassword('password')
+          }}>DemoUser</button>
       </form>
-    </>
+    </div>
   );
 }
 

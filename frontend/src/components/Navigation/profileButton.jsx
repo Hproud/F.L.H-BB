@@ -16,7 +16,7 @@ function ProfileButton({ user }) {
     e.preventDefault();
     dispatch(sessionActions.logout());
     // user = dispatch(logout())
-    return navigate("/login", { replace: true });
+    return navigate("/", { replace: true });
   };
 
   const toggleMenu = (e) => {
