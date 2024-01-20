@@ -270,6 +270,7 @@ router.get("/:spotId", async (req, res, next) => {
       "lng",
       "name",
       "price",
+      "avgRating",
       "previewImage",
       "description"
     ],

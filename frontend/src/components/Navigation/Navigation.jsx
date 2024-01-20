@@ -2,11 +2,11 @@
 
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import LoginFormModal from '../LoginFormModal/LoginFormModal'
-import OpenModalButton from '../OpenModalButton/OpenModalButton'
+// import LoginFormModal from '../LoginFormModal/LoginFormModal'
+// import OpenModalButton from '../OpenModalButton/OpenModalButton'
 import ProfileButton from './profileButton'
 import './Navigation.css'
-import SignUpModal from '../signUpForm/SignUpModal'
+// import SignUpModal from '../signUpForm/SignUpModal'
 
 
 

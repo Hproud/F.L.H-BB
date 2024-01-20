@@ -1,4 +1,6 @@
 import { csrfFetch } from "./csrf";
+//?------------------------------Variables--------------------------------------
+
 const GET_SPOTS= 'spots/getSpots'
 const GET_ONE= 'spots/getOne'
 
@@ -35,6 +37,7 @@ if(res.ok){
 
 }
 
+//TODO-------------------------------REDUCER--------------------------------------
 
 
 const spotReducer = (state={},action) => {
