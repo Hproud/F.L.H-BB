@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 
 const GET_SPOTS= 'spots/getSpots'
 const GET_ONE= 'spots/getOne'
+const CREATE_SPOT='spots/createSpot'
 
 //& ------------------------------- ACTIONS-----------------------------------//
 
@@ -13,6 +14,11 @@ const getAllSpots = (spots) =>({
 
 const oneSpot = (spot) => ({
     type: GET_ONE,
+    spot
+})
+
+const createSpot = (spot) =>({
+    type: CREATE_SPOT,
     spot
 })
 
@@ -37,6 +43,26 @@ if(res.ok){
 
 }
 
+export const addSpot = (payload)=>async dispatch => {
+
+
+const res = await csrfFetch('/api/spots',{
+    method: 'POST',
+        body: JSON.stringify(payload)
+})
+
+if(res.ok){
+    const spot = await res.json()
+    // console.log(spot,'this is the created spot!!!!')
+    dispatch(createSpot(spot))
+}else{
+    const errors = await res.json();
+    // console.log(errors,'this is the errors inside the thunk')
+    return errors
+}
+
+}
+
 //TODO-------------------------------REDUCER--------------------------------------
 
 
@@ -49,6 +75,9 @@ return {...state, spots: action.spots};
 
 case GET_ONE:
     return {...state, spot: action.spot}
+
+    case CREATE_SPOT:
+        return{...state, spot: action.spot}
 
 default: return state;
 
