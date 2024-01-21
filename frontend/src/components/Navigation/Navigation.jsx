@@ -41,8 +41,12 @@ export default function Navigation({isLoaded}) {
 
 
   return (
-    <nav className='NavBar'>
-<ul className='navLinks'>
+    <div className='navContainer'>
+      <img src='https://res.cloudinary.com/dxbirmmv1/image/upload/v1705641036/Design_ktv1os.png' className='logo' />
+    <nav >
+<ul className='navlist'>
+      <li>
+      </li>
     <li>
         <NavLink to='/'>Home</NavLink>
     </li>
@@ -51,5 +55,6 @@ export default function Navigation({isLoaded}) {
 </ul>
 {/* <button type='button' onClick={handleLogout} hidden={!user}>Log Out</button> */}
     </nav>
+    </div>
   )
 }

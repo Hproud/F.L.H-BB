@@ -23,7 +23,7 @@ try
         name: 'Test spot 1',
         description: 'cozy little tent with a great fire',
         price: 200,
-        previewImage: '/mytest/1'
+        previewImage: 'https://i.insider.com/5db0cd17e94e8647fd02727b?width=1000&format=jpeg&auto=webp'
       },
       {
         ownerId: 3,
@@ -36,7 +36,7 @@ try
         name:  'Test spot 2',
         description: 'Under the ocean swimming with fish',
         price: 20,
-        previewImage: '/mytest/2'
+        previewImage: 'https://superyachttechnologynetwork.com/wp-content/uploads/2017/03/Underwater-homes-980x551.jpg'
       },
       {
         ownerId: 2,
@@ -47,9 +47,9 @@ try
         lat: 25.1548615,
         lng: -150.1628379,
         name: 'Test spot 3',
-        description: 'cozy little tent with a great fire',
+        description: 'great seaside escape',
         price: 200,
-        previewImage: '/mytest/3'
+        previewImage: 'https://media.architecturaldigest.com/photos/56748b18b313ecbd18113301/master/pass/beach-house-designs-seaside-living-book-10.jpg'
       },
       {
         ownerId: 3,
@@ -62,7 +62,7 @@ try
         name: 'Test spot 4',
         description: 'super soft couches',
         price: 150,
-        previewImage: '/mytest/4'
+        previewImage: 'https://www.thehousedesigners.com/images/uploads/SiteImage-Landing-contemporary-house-plans-1.webp'
       },
       {
           ownerId: 1,
@@ -75,7 +75,7 @@ try
         name: 'Test spot 5',
         description: 'the nicest castle you will see',
         price: 1000,
-        previewImage: '/mytest/5'
+        previewImage: 'https://i.insider.com/5102b07e6bb3f7f105000006?width=600&format=jpeg'
       }, {
         ownerId: 4,
         address: '22 Blinking St',
@@ -87,7 +87,7 @@ try
         name: 'Test spot 6',
         description: 'Great place for kids!',
         price: 80,
-        previewImage: '/mytest/6'
+        previewImage: 'https://thinkrealty.com/wp-content/uploads/2019/10/Big-Backyard.jpeg'
       },
       {
         ownerId: 1,
@@ -100,7 +100,7 @@ try
         name:  'Test spot 7',
         description: 'we have lots of places to BBQ',
         price: 5,
-        previewImage: '/mytest/7'
+        previewImage: 'https://images.trvl-media.com/lodging/20000000/19380000/19371600/19371549/528ff0ec.jpg?impolicy=fcrop&w=608&h=342&p=0.5'
       },
       {
         ownerId: 3,
@@ -113,7 +113,7 @@ try
         name: 'Test spot 8',
         description: 'Great views and lots to do around the location!',
         price: 350,
-        previewImage: '/mytest/8'
+        previewImage: 'https://qph.cf2.quoracdn.net/main-qimg-03051c3fade3f3a2d9b27faaf81a4101-lq'
       },
       {
         ownerId: 5,
@@ -126,7 +126,7 @@ try
         name: 'Test spot 9',
         description: 'We pride ourselves on giving you privacy',
         price: 404,
-        previewImage: '/mytest/9'
+        previewImage: 'https://www.realestate.com.au/news-image/w_2000,h_1500/v1662076243/news-lifestyle-content-assets/wp-content/production/white-wooden-fence-design-elm_34334192800.jpg?_i=AA'
       },
       {
           ownerId: 3,
@@ -139,7 +139,7 @@ try
         name: 'Test spot 10',
         description: 'We have absolute fine dining',
         price: 2000,
-        previewImage: '/mytest/10'
+        previewImage: 'https://plus.unsplash.com/premium_photo-1661883964999-c1bcb57a7357?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bHV4dXJ5JTIwaG91c2V8ZW58MHx8MHx8fDA%3D'
       },
 
 

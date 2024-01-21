@@ -1,10 +1,22 @@
-.NavBar{
-    background-color: aquamarine;
+.navContainer{
     display: flex;
-    flex-direction: column;
+    background-color: bisque;
+flex-direction: row;
+height: 100px;
+
+
+.logo{
+    height: auto;
+    flex: 1 start;
+}
+
+.navlist{
+display:flex;
+    list-style: none;
+flex-wrap: wrap;
 }
 
 
-.navLinks{
-    list-style-type: none;
+
+
 }
