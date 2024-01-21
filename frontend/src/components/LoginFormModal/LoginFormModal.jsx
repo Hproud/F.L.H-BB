@@ -1,6 +1,6 @@
 // frontend/src/components/LoginFormModal/LoginFormModal.jsx
 
-import { useState } from 'react';
+import {  useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
@@ -10,30 +10,33 @@ function LoginFormModal() {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState(null);
   const { closeModal } = useModal();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors({});
+
     return dispatch(sessionActions.login({ credential, password }))
       .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();
-        if (data && data.errors) {
-          setErrors(data.errors);
+        if (data && data.message) {
+         setErrors(data.message);
         }
       });
   };
 
-
-
+console.log(errors)
   return (
-    <>
+    <div className='LoginForm'>
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      {errors && (
+        <p>{errors}</p>
+      )}
+      <form onSubmit={handleSubmit} >
         <label>
           Username or Email
+          {<br />}
           <input
             type="text"
             value={credential}
@@ -41,11 +44,12 @@ function LoginFormModal() {
 
           />
         </label>
-        {errors.credential && (
-          <p>{errors.credential}</p>
-        )}
+        {<br />}
+
         <label>
           Password
+          {<br />}
+
           <input
             type="password"
             value={password}
@@ -53,12 +57,18 @@ function LoginFormModal() {
 
           />
         </label>
-        {errors.password && (
-          <p>{errors.password}</p>
-        )}
-        <button type="submit">Log In</button>
+        {<br />}
+        {<br />}
+
+        <button type="submit" disabled={credential.length<4 || password.length<6}>Log In</button>
+        {<br />}
+
+          <button type='submit' onClick={() => {
+            setCredential('demo@user.io')
+            setPassword('password')
+          }}>DemoUser</button>
       </form>
-    </>
+    </div>
   );
 }
 

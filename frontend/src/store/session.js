@@ -1,11 +1,13 @@
 import { csrfFetch } from "./csrf"
+//?------------------------------Variables--------------------------------------
 
 const SET_USER = 'session/setUser'
 const END_SESSION = 'session/endSession'
 const ADD_USER = 'session/addUser'
 
 
-//?   Actions
+//& ------------------------------ACTIONS---------------------------------------
+
 
 const updateSession= (user) =>({
 type: SET_USER,
@@ -21,15 +23,21 @@ const newUser = (user) => ({
     user
 })
 
-//&   Thunks
+//! -------------------------------THUNKS----------------------------------------
+
 
 export const login = (payload) => async dispatch => {
     let data = await csrfFetch('/api/session',{
         method: 'POST',
         body: JSON.stringify(payload)
     })
+    if(data.ok){
         data = await data.json()
        return dispatch(updateSession(data.user))
+    }else{
+        const errors = data.json();
+        return errors
+    }
 
 }
 
@@ -69,7 +77,8 @@ return dispatch(newUser(data))
 
 
 
-//! reducer
+//TODO-------------------------------REDUCER--------------------------------------
+
 const sessionReducer = (state={user:null},action) => {
 
 switch(action.type){

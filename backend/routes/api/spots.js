@@ -265,11 +265,14 @@ router.get("/:spotId", async (req, res, next) => {
       "address",
       "city",
       "state",
+      "country",
       "lat",
       "lng",
       "name",
       "price",
+      "avgRating",
       "previewImage",
+      "description"
     ],
   });
 
@@ -331,7 +334,7 @@ router.get("/:spotId", async (req, res, next) => {
       Owner: {
         id: owners.id,
         firstName: owners.firstName,
-        lastNight: owners.lastName,
+        lastName: owners.lastName,
       },
     });
   }
