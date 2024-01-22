@@ -55,6 +55,7 @@ const spot = useSelector(state => state.spot.spot)
     })
 console.log(spot.id, 'this is spot after')
 
+
 navigate(`/spots/${(spot.id)}`)
   };
 

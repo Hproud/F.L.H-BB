@@ -119,8 +119,12 @@ export const deleteSpot = (spotId) => async dispatch => {
     const file = await csrfFetch(`/api/spots/${spotId}`,{
         method: 'DELETE'
     });
-
-        dispatch(removeSpot())
+if(file.ok){
+  dispatch(removeSpot())
+}else{
+  const errors = file.json();
+  return errors
+}
 
 }
 

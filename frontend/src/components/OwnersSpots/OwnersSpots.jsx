@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { ownerSpots,singleSpot,deleteSpot } from "../../store/spot"
+import { ownerSpots,singleSpot } from "../../store/spot"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal'
 
