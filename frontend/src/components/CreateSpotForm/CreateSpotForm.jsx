@@ -54,7 +54,8 @@ const spot = useSelector(state => state.spot.spot)
 
     })
 console.log(spot.id, 'this is spot after')
-navigate(`/spots/${(spot.id)+1}`)
+
+navigate(`/spots/${(spot.id)}`)
   };
 
   console.log(errors, "this is the errors in the create spot form");
