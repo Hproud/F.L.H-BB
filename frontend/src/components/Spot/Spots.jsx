@@ -35,7 +35,7 @@ if(!isLoading){
   <p>{spot.description}</p>
 
 
-
+ 
 
 <div>{spot.avgRating} Average Star Rating   {spot.numReviews} Reviews</div>
 <div>
