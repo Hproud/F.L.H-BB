@@ -4,6 +4,8 @@ import { singleSpot } from "../../store/spot";
 import { useEffect, useState } from "react";
 import { findReviews } from "../../store/reviews";
 import ReserveButton from "../ReserveButton";
+import OpenModalButton from "../OpenModalButton/OpenModalButton"
+import ReviewModal from "../ReviewModal/ReviewModal";
 
 export default function Spots() {
 const {spotId} = useParams()
@@ -18,6 +20,15 @@ const reviews = useSelector(state => state?.reviews.reviews)
     .then(()=>setIsLoading(false))
 
   },[dispatch,spotId])
+
+const allreviews =(reviews) => {
+  if(reviews && reviews.length){
+    return true
+  }else{
+    return false
+  }
+}
+const answer = allreviews(reviews)
 
 // console.log(reviews,"this is my set of reviews")
 if(!isLoading){
@@ -35,11 +46,18 @@ if(!isLoading){
   <p>{spot.description}</p>
 
 
- 
+
 
 <div>{spot.avgRating} Average Star Rating   {spot.numReviews} Reviews</div>
 <div>
   <ReserveButton spot={spot} />
+</div>
+<div>
+  <OpenModalButton
+  buttonText='Post Your Review'
+  modalComponent={<ReviewModal />}
+  onButtonClick={() => {<ReviewModal />}}
+  />
 </div>
 {reviews && reviews.map(review => (
   <div key={review.id}>
@@ -48,6 +66,14 @@ if(!isLoading){
     <p>{review.review}</p>
   </div>
 ))}
+{ !answer &&  (
+<div>
+<h3>Be the first to post a review!</h3>
+</div>
+)
+}
+
+
 
 </div>
     </div>
