@@ -17,7 +17,7 @@ const reviews = useSelector(state => state?.reviews.reviews)
  .then(()=> dispatch(findReviews(spotId)))
     .then(()=>setIsLoading(false))
 
-  },[dispatch])
+  },[dispatch,spotId])
 
 // console.log(reviews,"this is my set of reviews")
 if(!isLoading){
@@ -25,8 +25,9 @@ if(!isLoading){
     <div>
       <h2>{spot.name}</h2>
       <p>{spot.city}, {spot.state} {spot.country}</p>
+      <img src={spot.previewImage} />
 {spot && spot.SpotImages.map(image =>(
-<img  src={image.url}/>
+<img key={image.id}  src={image.url}/>
   )
 )}
 <div>
@@ -41,7 +42,7 @@ if(!isLoading){
   <ReserveButton spot={spot} />
 </div>
 {reviews && reviews.map(review => (
-  <div>
+  <div key={review.id}>
     <h3>{review.User.firstName}</h3>
     <p>{review.createdAt}</p>
     <p>{review.review}</p>
