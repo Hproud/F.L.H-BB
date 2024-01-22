@@ -79,11 +79,22 @@ const validateSpot = [
     .trim()
     .exists({ checkFalsy: true })
     .withMessage("Description is required"),
+    check("description")
+    .isLength({min: 30})
+    .withMessage('Description needs a minimum of 30 characters'),
   check("price")
     .trim()
     .exists({ checkFalsy: true })
     .isFloat({ min: 0 })
     .withMessage("Price per day must be a positive number"),
+    check("previewImage")
+    .exists({checkFalsy: true })
+    .withMessage('At least one image is required'),
+    check("previewImage")
+    .custom((value) =>{
+      if(value.includes('png') || value.includes('jpg') || value.includes('jpeg') || value.includes('webp') ) return true
+    })
+    .withMessage("Image Url must end in .png, .jpg, or .jpeg"),
   handleValidationErrors,
 ];
 
@@ -330,6 +341,7 @@ router.get("/:spotId", async (req, res, next) => {
       updatedAt: location.updatedAt,
       numReviews: location.numReviews,
       avgRating: location.avgRating,
+      previewImage: location.previewImage,
       SpotImages: pics,
       Owner: {
         id: owners.id,
@@ -532,7 +544,7 @@ router.get("/", ValidateQueries, async (req, res) => {
 //?----------------------------ADD SPOT------------------------------?//
 //&--------------------     fixed this bug   ------------------------?//
 router.post("/", requireAuth, validateSpot, async (req, res, next) => {
-  const { address, city, state, country, lat, lng, name, description, price } =
+  const { address, city, state, country, lat, lng, name, description, price, previewImage } =
     req.body;
 
   const ownerId = req.user.id;
@@ -556,7 +568,9 @@ router.post("/", requireAuth, validateSpot, async (req, res, next) => {
       name,
       description,
       price,
+      previewImage
     });
+
 return res.status(201).json({
       id: newSpot.id,
       ownerId: newSpot.ownerId,
@@ -570,6 +584,7 @@ return res.status(201).json({
       name: newSpot.name,
       description: newSpot.description,
       price: newSpot.price,
+      previewImage: newSpot.previewImage,
       createdAt: newSpot.createdAt,
       updatedAt: newSpot.updatedAt,
     });

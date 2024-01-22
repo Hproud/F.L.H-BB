@@ -47,8 +47,12 @@ export default function Navigation({isLoaded}) {
 <ul className='navlist'>
       <li>
       </li>
-    <li>
+    <li key='homeButton'>
         <NavLink to='/'>Home</NavLink>
+    </li>
+    
+    <li key='createSpotLink'>
+<NavLink to='/spots/new'>Create a Spot</NavLink>
     </li>
 
 {isLoaded && <ProfileButton user={user} />}

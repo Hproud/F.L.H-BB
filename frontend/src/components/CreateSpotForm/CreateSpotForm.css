@@ -1,0 +1,9 @@
+.spot-form-error{
+   color: red;
+   font-weight: bold;
+}
+
+.createSpotForm{
+   display: flex;
+   flex-direction: column;
+}

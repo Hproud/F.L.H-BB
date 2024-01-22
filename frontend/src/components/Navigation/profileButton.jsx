@@ -1,10 +1,10 @@
 import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import { useEffect } from "react";
-import LoginFormModal from "../LoginFormModal/LoginFormModal";
-import SignUpModal from "../signUpForm/SignUpModal";
+import LoginFormModal from '../LoginFormModal/LoginFormModal'
+import SignUpModal from '../signUpForm/SignUpModal'
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 
 function ProfileButton({ user }) {
@@ -50,11 +50,11 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} hidden={!showMenu} ref={ulRef}>
         {user ? (
           <>
-            <li>
-              {user.firstName} {user.lastName}
-            </li>
-            <li>{user.username}</li>
+
+            <li> Hello, {user.username}</li>
             <li>{user.email}</li>
+            <Link to='spots/current'>Manage Spots</Link>
+            <br/>
             <button onClick={handleLogout}>LogOut</button>
           </>
         ): (<>
