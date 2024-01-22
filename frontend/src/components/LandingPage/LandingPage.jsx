@@ -1,5 +1,5 @@
 
-import * as spotAction from '../../store/spot'
+
 import { useDispatch,useSelector} from "react-redux";
 import { useEffect,useState } from 'react'
 import { allSpots } from '../../store/spot';

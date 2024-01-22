@@ -1,0 +1,53 @@
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { ownerSpots,singleSpot } from "../../store/spot"
+
+
+
+export default function OwnersSpots() {
+const navigate= useNavigate()
+const dispatch = useDispatch()
+const user = useSelector(state => state.session?.user)
+const spots = useSelector(state => state.spot?.spots)
+// const [spotId,setSpotId] = useState()
+const [isLoaded, setIsLoaded] = useState(false)
+
+useEffect(() => {
+  dispatch(ownerSpots(user.id))
+},[dispatch])
+
+console.log(spots, 'this is what im getting from dispatch')
+
+const onClickUpdate = (spotId) => {
+
+  dispatch(singleSpot(spotId)).then(()=> setIsLoaded(true)).then(()=> navigate('/update') )
+
+}
+
+
+
+  return (
+    <div>
+      <h1>Manage Your Spots</h1>
+      <button type='button' onClick={() => navigate('/spots/new')}>Create a New spot</button>
+
+      <ul>
+{spots && spots.map((spot) => (
+  <li key={spot.id}>
+    <div>
+      <img src={spot.previewImage} />
+      <p>{spot.city}, {spot.state}</p>
+      <p>${spot.price} night</p>
+      <div>
+        <button type='button' onClick={e => { e.preventDefault(); onClickUpdate(spot.id)}} >Update</button>
+        <button type='button' >Delete</button>
+
+      </div>
+    </div>
+  </li>
+))}
+      </ul>
+    </div>
+  )
+}

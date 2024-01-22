@@ -92,7 +92,7 @@ const validateSpot = [
     .withMessage('At least one image is required'),
     check("previewImage")
     .custom((value) =>{
-      if(value.includes('.png') || value.includes('.jpg') || value.includes('.jpeg') || value.includes('.webp') ) return true
+      if(value.includes('png') || value.includes('jpg') || value.includes('jpeg') || value.includes('webp') ) return true
     })
     .withMessage("Image Url must end in .png, .jpg, or .jpeg"),
   handleValidationErrors,
