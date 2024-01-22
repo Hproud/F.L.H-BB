@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { ownerSpots,singleSpot } from "../../store/spot"
@@ -11,7 +11,7 @@ const dispatch = useDispatch()
 const user = useSelector(state => state.session?.user)
 const spots = useSelector(state => state.spot?.spots)
 // const [spotId,setSpotId] = useState()
-const [isLoaded, setIsLoaded] = useState(false)
+// const [isLoaded, setIsLoaded] = useState(false)
 
 useEffect(() => {
   dispatch(ownerSpots(user.id))
@@ -21,7 +21,7 @@ console.log(spots, 'this is what im getting from dispatch')
 
 const onClickUpdate = (spotId) => {
 
-  dispatch(singleSpot(spotId)).then(()=> setIsLoaded(true)).then(()=> navigate('/update') )
+  dispatch(singleSpot(spotId)).then(()=> navigate('/update') )
 
 }
 

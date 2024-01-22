@@ -71,7 +71,7 @@ export const addSpot = (payload) => async (dispatch) => {
 };
 
 
-export const ownerSpots = (userId) => async dispatch => {
+export const ownerSpots = () => async dispatch => {
     const res = await csrfFetch(`/api/spots/current`)
 
     if(res.ok){
