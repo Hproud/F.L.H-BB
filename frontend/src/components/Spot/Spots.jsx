@@ -12,6 +12,7 @@ const {spotId} = useParams()
 const [isLoading,setIsLoading] = useState(true)
 const dispatch = useDispatch()
 const spot = useSelector(state => state?.spot.spot)
+const user =useState(state => {state.session?.user})
 const reviews = useSelector(state => state?.reviews.reviews)
 
 const rating = (reviews) => {
@@ -34,6 +35,14 @@ const allreviews =(reviews) => {
     return false
   }
 }
+
+const reviewer =(review,user)=>{
+   if(review.userId === user.id){ return true}else{
+    return false
+   }
+}
+
+}
 const answer = allreviews(reviews)
 
 // console.log(reviews,"this is my set of reviews")
@@ -53,7 +62,7 @@ if(!isLoading){
 
 
 
-{ finalRating && (
+{ finalRating && reviewer(
 <div>{spot.avgRating} Average Star Rating   {spot.numReviews} Reviews</div>
 
 )
@@ -72,10 +81,12 @@ if(!isLoading){
   />
 </div>
 {reviews && reviews.map(review => (
+
   <div key={review.id}>
     <h3>{review.User.firstName}</h3>
     <p>{review.createdAt}</p>
     <p>{review.review}</p>
+    
   </div>
 ))}
 { !answer &&  (

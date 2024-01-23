@@ -11,6 +11,7 @@ const navigate= useNavigate()
 const dispatch = useDispatch()
 const user = useSelector(state => state.session?.user)
 const spots = useSelector(state => state.spot?.spots)
+
 // const [spotId,setSpotId] = useState()
 // const [isLoaded, setIsLoaded] = useState(false)
 
@@ -18,7 +19,7 @@ useEffect(() => {
   dispatch(ownerSpots(user.id))
 },[dispatch])
 
-console.log(spots, 'this is what im getting from dispatch')
+
 
 const onClickUpdate = (spotId) => {
 
