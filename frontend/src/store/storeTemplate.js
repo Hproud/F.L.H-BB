@@ -1,5 +1,7 @@
 // import { csrfFetch } from "./csrf";
 
+import { useReducer } from "react";
+
 //?------------------------------Variables--------------------------------------
 
 
@@ -21,9 +23,12 @@
 
 //     switch(action.type){
 
-//         case:
-
+//         case -- :
+                // return {...state, --- : action.---}
 //     default: return state
 //     }
 
 // }
+
+
+// export default --useReducer;

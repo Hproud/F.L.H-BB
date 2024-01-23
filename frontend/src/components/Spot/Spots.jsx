@@ -63,7 +63,11 @@ if (!isLoading) {
       </p>
       <img src={spot.previewImage} />
       {spot &&
-        spot.SpotImages.map((image) => <img key={image.id} src={image.url} />)}
+        spot.SpotImages.map((image) =>
+        {if(image.url !== spot.previewImage){
+         <img key={image.id} src={image.url}/>
+        }}
+         )}
       <div>
         <h2>
 
