@@ -6,7 +6,7 @@ const GET_ONE = "spots/getOne";
 const CREATE_SPOT = "spots/createSpot";
 const GET_OWNED = "spots/getOwned";
 const UPDATE_SPOT='spots/updateSpot'
-const DELETE_SPOT='spots/deleteSpot'
+
 //& ------------------------------- ACTIONS-----------------------------------//
 
 const getAllSpots = (spots) => ({
@@ -34,9 +34,7 @@ const updateSpot = (spot) => ({
     spot
 })
 
-const removeSpot=() =>({
-    type: DELETE_SPOT
-})
+
 
 //! ------------------------------- THUNKS -----------------------------------//
 
@@ -151,8 +149,7 @@ const spotReducer = (state = {}, action) => {
       case UPDATE_SPOT:
         return { ...state, spot: action.spot };
 
-        case DELETE_SPOT:
-            return { ...state, spot: null }
+
 
 
     default:

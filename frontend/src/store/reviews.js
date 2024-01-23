@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf";
 
 //?------------------------------Variables--------------------------------------
 const GET_ALL = 'reviews/getAll'
-const ADD_REVIEW = 'reviews/addReview'
+// const ADD_REVIEW = 'reviews/addReview'
 
 //& ------------------------------ACTIONS---------------------------------------
 
