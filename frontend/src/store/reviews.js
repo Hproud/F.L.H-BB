@@ -11,10 +11,7 @@ const allReviews = (reviews) => ({
     reviews
 })
 
-const newReview = (review) => ({
-    type: ADD_REVIEW,
-    review
-})
+
 //! -------------------------------THUNKS----------------------------------------
 
 
@@ -46,7 +43,7 @@ console.log('start',payload)
     if(res.ok){
         const review = await res.json()
         console.log(review,'this is what the res is')
-        dispatch(newReview(review))
+        dispatch(findReviews(spotId))
 
     }else{
         const errors = await res.json()
@@ -65,8 +62,7 @@ const reviewsReducer = (state={},action)=>{
 case GET_ALL:
     return {...state, reviews: action.reviews};
 
-case ADD_REVIEW:
-    return {...state, review: action.review}
+
 
 
 

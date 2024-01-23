@@ -18,17 +18,7 @@ const yes = (e) =>{
     console.log(spot.id,'this is the spot')
 dispatch(deleteSpot(spot.id))
 .then(closeModal)
-.catch(async (res) => {
-  const data = await res.json()
-  console.log(data,"this is the data in the error handler")
-    if(data.errors){
-        setErrors(data.errors)
-    }else
-    if(data.message){
-        setErrors(data)
-    }
 
-})
     // return closeModal
 }
 
