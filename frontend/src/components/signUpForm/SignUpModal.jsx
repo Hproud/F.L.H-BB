@@ -13,7 +13,8 @@ export default function SignUpModal() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
   const [errors, setErrors] = useState({});
   // const navigate = useNavigate();
 
@@ -31,12 +32,18 @@ const {closeModal} = useModal();
       errs.lastName = "Last Name is required";
     }
 
-    if (email.length < 1 || !email.includes("@")) {
-      errs.email = "Valid email is required";
-    }
+    // if (email.length < 1 || !email.includes("@")) {
+    //   errs.email = "Valid email is required";
+    // }
 
-    if (password.length < 6 || password.length < 1) {
+    if (password1.length < 6 || password1.length < 1 ) {
       errs.password = "Password must be at least 6 characters";
+
+    } if (password1.length < 1) {
+      errs.password = "Password required";
+    }
+    if(password1 !== password2){
+      errs.password= 'Passwords must match'
     }
 
     if (userName.length < 1) {
@@ -48,7 +55,7 @@ const {closeModal} = useModal();
     }
 
     return setErrors(errs);
-  }, [firstName, lastName, email, userName, password]);
+  }, [firstName, lastName, email, userName, password1,password2]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,7 +65,7 @@ const {closeModal} = useModal();
       lastName,
       email,
       userName,
-      password,
+      password1,
     }
 
    dispatch(sessionActions.signUp(newUser)).then(closeModal)
@@ -68,16 +75,9 @@ const {closeModal} = useModal();
     <div>
       <h1>Sign Up!</h1>
       <form className="signUpForm" onSubmit={handleSubmit}>
-        <label>Create a Username:</label>
-
-        <input
-          type='text'
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-        />
-        <p>{errors.userName}</p>
         <label>First Name: </label>
 
+<br />
         <input
           type='text'
           value={firstName}
@@ -86,6 +86,7 @@ const {closeModal} = useModal();
         <p>{errors.firstName}</p>
         <label>Last Name: </label>
 
+<br />
         <input
           type='text'
           value={lastName}
@@ -94,23 +95,43 @@ const {closeModal} = useModal();
         <p>{errors.lastName}</p>
         <label>Email: </label>
 
+<br />
         <input
           type='text'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <p>{errors.email}</p>
+        
+        <label>Create a Username:</label>
 
+<br />
+        <input
+          type='text'
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+        />
+        <p>{errors.userName}</p>
+  <p>{errors.password}</p>
         <label className='password'>Password: </label>
-
+<br />
         <input
           type='password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <p>{errors.password}</p>
+          value={password1}
+          onChange={(e) => setPassword1(e.target.value)}
+          />
+<br />
+        <label className='confirm-password'>Confirm Password: </label>
+
+        <br />
+<input
+  type='password'
+  value={password2}
+  onChange={(e) => setPassword2(e.target.value)}
+/>
+
       </form>
-      <button type='submit' disabled={Object.values(errors).length}>Submit</button>
+      <button type='submit' disabled={Object.values(errors).length}>Sign Up</button>
     </div>
   );
 }

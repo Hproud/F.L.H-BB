@@ -87,14 +87,14 @@ const validateSpot = [
     .exists({ checkFalsy: true })
     .isFloat({ min: 0 })
     .withMessage("Price per day must be a positive number"),
-    check("previewImage")
-    .exists({checkFalsy: true })
-    .withMessage('At least one image is required'),
-    check("previewImage")
-    .custom((value) =>{
-      if(value.includes('png') || value.includes('jpg') || value.includes('jpeg') || value.includes('webp') ) return true
-    })
-    .withMessage("Image Url must end in .png, .jpg, or .jpeg"),
+    // check("previewImage")
+    // .exists({checkFalsy: true })
+    // .withMessage('At least one image is required'),
+    // check("previewImage")
+    // .custom((value) =>{
+    //   if(value.includes('png') || value.includes('jpg') || value.includes('jpeg') || value.includes('webp') ) return true
+    // })
+    // .withMessage("Image Url must end in .png, .jpg, or .jpeg"),
   handleValidationErrors,
 ];
 
@@ -608,7 +608,7 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
   if (theSpot) {
     if (req.user.id === theSpot.ownerId) {
       await theSpot.destroy();
-      res.json({ message: "Successfully deleted" });
+      res.json(theSpot);
     } else {
       const err = new Error("Forbidden");
       err.status = 403;

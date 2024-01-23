@@ -26,12 +26,12 @@ function LoginFormModal() {
       });
   };
 
-console.log(errors)
+console.log(errors, 'this is the errors')
   return (
     <div className='LoginForm'>
       <h1>Log In</h1>
       {errors && (
-        <p>{errors}</p>
+        <p>The Provided credentials were invalid</p>
       )}
       <form onSubmit={handleSubmit} >
         <label>

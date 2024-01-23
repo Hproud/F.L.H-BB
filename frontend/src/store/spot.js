@@ -116,13 +116,14 @@ export const updatingSpot = (payload) => async dispatch => {
 
 
 export const deleteSpot = (spotId) => async dispatch => {
+  console.log(spotId,'THIS IS BEFORE THE FILE FETCH!')
     const file = await csrfFetch(`/api/spots/${spotId}`,{
         method: 'DELETE'
-    });
+    })
 if(file.ok){
-  dispatch(removeSpot())
+  dispatch(ownerSpots())
 }else{
-  const errors = file.json();
+  const errors = await file.json();
   return errors
 }
 

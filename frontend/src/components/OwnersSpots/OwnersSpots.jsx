@@ -51,7 +51,7 @@ const onClickUpdate = (spotId) => {
         <OpenModalButton
               buttonText="Delete"
               modalComponent={<ConfirmDeleteModal />}
-                onButtonClick={() =>{<ConfirmDeleteModal /> }}
+                onButtonClick={() =>{dispatch(singleSpot(spot.id)).then(() => <ConfirmDeleteModal />) }}
 
   />
 

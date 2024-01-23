@@ -14,6 +14,12 @@ const dispatch = useDispatch()
 const spot = useSelector(state => state?.spot.spot)
 const reviews = useSelector(state => state?.reviews.reviews)
 
+const rating = (reviews) => {
+if(reviews){return finalRating=true}else{return finalRating=false}
+}
+
+let finalRating
+
   useEffect(() => {
     dispatch(singleSpot(spotId))
  .then(()=> dispatch(findReviews(spotId)))
@@ -47,8 +53,14 @@ if(!isLoading){
 
 
 
-
+{ finalRating && (
 <div>{spot.avgRating} Average Star Rating   {spot.numReviews} Reviews</div>
+
+)
+}
+{ !finalRating && (
+  <div> new </div>
+)}
 <div>
   <ReserveButton spot={spot} />
 </div>
