@@ -5,18 +5,20 @@ flex-direction: row;
 height: 100px;
 
 
-.logo{
-    height: auto;
-    flex: 1 start;
-}
 
 .navlist{
-display:flex;
+    display:flex;
     list-style: none;
-flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 
 
 
 
+}
+
+.logo{
+    height: 100px;
+    height: 100px;
+    flex: start;
 }

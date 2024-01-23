@@ -5,7 +5,7 @@ export default function ReserveButton({spot}) {
     <div className="reservationButton">
         <p>${spot.price} night</p>
         <p>{spot.avgRating}  {spot.numReviews}Reviews</p>
-        <button type='button'>Reserve</button>
+        <button type='button' onClick={()=> alert("Feature Coming Soon!")}>Reserve</button>
     </div>
   )
 }

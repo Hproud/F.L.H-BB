@@ -116,9 +116,11 @@ export const updatingSpot = (payload) => async dispatch => {
 
 
 export const deleteSpot = (spotId) => async dispatch => {
+  console.log('THIS IS BEFORE THE FILE FETCH!')
     const file = await csrfFetch(`/api/spots/${spotId}`,{
         method: 'DELETE'
-    });
+    }).then( ()=>
+    console.log(file,'this is what i am getting back'))
 if(file.ok){
   dispatch(removeSpot())
 }else{
