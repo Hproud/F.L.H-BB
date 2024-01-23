@@ -18,7 +18,7 @@ useEffect(() => {
   dispatch(ownerSpots(user.id))
 },[dispatch])
 
-console.log(spots, 'this is what im getting from dispatch')
+
 
 const onClickUpdate = (spotId) => {
 
