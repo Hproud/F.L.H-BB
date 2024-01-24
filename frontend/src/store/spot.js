@@ -64,8 +64,9 @@ export const addSpot = (payload) => async (dispatch) => {
 
   if (res.ok) {
     const spot = await res.json();
-    // console.log(spot,'this is the created spot!!!!')
+    console.log(spot,'this is the created spot!!!!')
     dispatch(createSpot(spot));
+    // return spot
   } else {
     const errors = await res.json();
     // console.log(errors,'this is the errors inside the thunk')
@@ -106,6 +107,7 @@ export const updatingSpot = (payload) => async dispatch => {
         const spot = await res.json()
         console.log(spot, 'this is my updated spot')
         dispatch(updateSpot(spot))
+        return spot
     }else{
         const errors = res.json()
         return errors

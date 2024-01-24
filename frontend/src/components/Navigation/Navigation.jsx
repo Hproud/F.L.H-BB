@@ -17,7 +17,8 @@ export default function Navigation({isLoaded}) {
   return (
     <div className='navContainer'>
       <Link to='/'>
-      <img src='https://res.cloudinary.com/dxbirmmv1/image/upload/v1705641036/Design_ktv1os.png' className='logo'  />
+      <img src='https://res.cloudinary.com/dxbirmmv1/image/upload/v1705641036/Design_ktv1os.png' className='logo' style={{height: '120px',
+    width: '275px', flex: 'start'}}  />
     </Link>
     <nav >
 <ul className='navlist'>

@@ -7,6 +7,7 @@ import ReserveButton from "../ReserveButton";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import ReviewModal from "../ReviewModal/ReviewModal";
 import Review from './Review'
+import { addspotPic } from "../../store/pictures";
 
 
 export default function Spots() {
@@ -18,6 +19,7 @@ export default function Spots() {
     state?.session?.user
   );
   const reviews = useSelector((state) => state?.reviews.reviews);
+const pics = useSelector(state => state?.spot.spot?.SpotImages)
 
   const rating = (reviews) => {
     if (reviews) {
@@ -26,6 +28,17 @@ export default function Spots() {
       return (finalRating = false);
     }
   };
+// {!spot.SpotImages && pics (
+//       const payload={
+//         url: pic.url,
+//         preview:false
+//       }
+//       dispatch(addspotPic(payload,spot.id)).then(singleSpot(spot.id))
+//     ))
+
+
+
+
 
   let finalRating;
 
@@ -33,8 +46,9 @@ export default function Spots() {
     dispatch(singleSpot(spotId))
       .then(() => dispatch(findReviews(spotId)))
       .then(() => setIsLoading(false));
-  }, [dispatch, spotId]);
 
+  }, [dispatch, spotId]);
+// console.log(pics,'this is the images')
   // const allreviews = (reviews) => {
   //   if (reviews && reviews.length) {
   //     return true;
@@ -61,12 +75,12 @@ if (!isLoading) {
       <p>
         {spot.city}, {spot.state} {spot.country}
       </p>
-      <img src={spot.previewImage} />
-      {spot &&
-        spot.SpotImages.map((image) =>
-        {if(image.url !== spot.previewImage){
-         <img key={image.id} src={image.url}/>
-        }}
+      <img src={spot.previewImage} style={{height:'400px'}} />
+      {pics &&
+       pics.map((image) =>
+
+         <img key={image.id} src={image.url} style={{height:'200px',width:'250px'}}/>
+
          )}
       <div>
         <h2>
