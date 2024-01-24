@@ -4,10 +4,8 @@ import { singleSpot } from "../../store/spot";
 import { useEffect, useState } from "react";
 import { findReviews } from "../../store/reviews";
 import ReserveButton from "../ReserveButton";
-import OpenModalButton from "../OpenModalButton/OpenModalButton";
-import ReviewModal from "../ReviewModal/ReviewModal";
 import Review from './Review'
-import { addspotPic } from "../../store/pictures";
+import ReviewUpdateModal from "../ReviewModal/ReviewUpdateModal";
 
 
 export default function Spots() {
@@ -15,19 +13,19 @@ export default function Spots() {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const spot = useSelector((state) => state?.spot.spot);
-  const user = useState((state) =>
-    state?.session?.user
-  );
-  const reviews = useSelector((state) => state?.reviews.reviews);
+  // const user = useState((state) =>
+  //   state?.session?.user
+  // );
+  // const reviews = useSelector((state) => state?.reviews.reviews);
 const pics = useSelector(state => state?.spot.spot?.SpotImages)
 
-  const rating = (reviews) => {
-    if (reviews) {
-      return (finalRating = true);
-    } else {
-      return (finalRating = false);
-    }
-  };
+  // const rating = (reviews) => {
+  //   if (reviews) {
+  //     return (finalRating = true);
+  //   } else {
+  //     return (finalRating = false);
+  //   }
+  // };
 // {!spot.SpotImages && pics (
 //       const payload={
 //         url: pic.url,

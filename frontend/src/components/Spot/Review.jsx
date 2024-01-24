@@ -1,36 +1,27 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import ReviewModal from "../ReviewModal/ReviewModal";
 import { useEffect, useState } from "react";
-import { findReviews } from "../../store/reviews";
+import { findReviews, singleReview } from "../../store/reviews";
+import ReviewUpdateModal from "../ReviewModal/ReviewUpdateModal";
+import ReviewDeleteModal from "../ReviewModal/ReviewDeleteModal";
 
+export default function Review({ spotId }) {
+  const reviews = useSelector((state) => state?.reviews.reviews);
+  const user = useSelector((state) => state?.session.user.id);
+  const dispatch = useDispatch();
+  const [isloading, setIsLoading] = useState(true);
 
-export default function Review({spotId}) {
-    const reviews = useSelector(state => state?.reviews.reviews)
-    const user = useSelector(state => state?.session.user)
-const dispatch = useDispatch();
-const [isloading,setIsLoading] = useState(true)
+  // console.log(user, "this is what i am getting for user");
+  useEffect(() => {
+    dispatch(findReviews(spotId)).then(() => setIsLoading(false));
+  }, [dispatch]);
 
+  // console.log(reviews,'this is the reviews')
 
-useEffect(()=>{
-  dispatch(findReviews(spotId))
-  .then(() => setIsLoading(false));
-},[dispatch])
-
-console.log(reviews,'this is the reviews')
-    // const allreviews = (reviews) => {
-    //     if (reviews && reviews.length) {
-    //       return true;
-    //     } else {
-    //       return false;
-    //     }
-    //   };
-
-    //   const answer = allreviews(reviews);
-
-if(!isloading){
-  return (
-    <div>
+  if (!isloading) {
+    return (
+      <div>
         <h2>reviews</h2>
         <div>
           <OpenModalButton
@@ -40,23 +31,49 @@ if(!isloading){
               <ReviewModal />;
             }}
           />
-          {reviews &&
-          reviews.map((review) => (
-            <div key={review.id}>
-              <h3>{review.User.firstName}</h3>
-              <p>{review.createdAt}</p>
-              <p>{review.review}</p>
+
+          {reviews.length > 0 &&
+            reviews.map((review) => (
+              <div key={review.id}>
+                <h3>{review.User.firstName}</h3>
+                <p>{review.createdAt}</p>
+                <p>{review.review}</p>
+                <div>
+                  {review.userId === user && (
+                    <OpenModalButton
+                      buttonText='Update'
+                      modalComponent={<ReviewUpdateModal />}
+                      onButtonClick={() => {
+                        dispatch(singleReview(review)).then(() => (
+                          <ReviewUpdateModal />
+                        ));
+                      }}
+                    />
+
+
+                  )}
+                  {review.userId === user &&(
+                    <OpenModalButton
+                      buttonText='Delete'
+                      modalComponent={<ReviewDeleteModal />}
+                      onButtonClick={() => {
+                        dispatch(singleReview(review)).then(<ReviewDeleteModal />);
+                      }}
+                    />
+                  )}
+                </div>
+
+              </div>
+            ))}
+          {!reviews.length && (
+            <div>
+              <h3>Be the first to post a review!</h3>
             </div>
-          ))}
-           {(!reviews) && (
-          <div>
-            <h3>Be the first to post a review!</h3>
-          </div>
-        )}
+          )}
         </div>
-    </div>
-  )
-           }else{
-            return (<div>loading...</div>)
-           }
+      </div>
+    );
+  } else {
+    return <div>loading...</div>;
+  }
 }

@@ -29,7 +29,7 @@ export default function Navigation({isLoaded}) {
     </li>
 
     <li key='createSpotLink' hidden={!user}>
-<NavLink to='/spots/new'>Create a Spot</NavLink>
+<NavLink to='/spots/new'>Create a New Spot</NavLink>
     </li>
 
 {isLoaded && <ProfileButton user={user} />}

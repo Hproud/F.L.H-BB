@@ -50,10 +50,14 @@ const router = createBrowserRouter([
             path: 'current',
             element: <OwnersSpots />
           },
+          {
+            path: ':spotId',
+            element: <Spots />
+          }
         ]
       },
       {
-        path: '/update',
+        path: 'update',
         element: <UpdateSpotForm />
       }
 
