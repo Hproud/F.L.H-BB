@@ -1,18 +1,21 @@
 
 
-import { useSelector } from 'react-redux'
+import {  useSelector } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 // import LoginFormModal from '../LoginFormModal/LoginFormModal'
 // import OpenModalButton from '../OpenModalButton/OpenModalButton'
 import ProfileButton from './profileButton'
 import './Navigation.css'
+
 // import SignUpModal from '../signUpForm/SignUpModal'
 // import { useNavigate } from 'react-router-dom'
 
 
 export default function Navigation({isLoaded}) {
-    const user = useSelector(state => state.session?.user?.user)
+
+    const user = useSelector(state => state.session.user)
 // const navigate = useNavigate()
+
 console.log(user,'my user')
   return (
     <div className='navContainer'>
