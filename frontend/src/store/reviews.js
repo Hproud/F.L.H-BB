@@ -4,7 +4,7 @@ import { csrfFetch } from "./csrf";
 const GET_ALL = 'reviews/getAll'
 const EDIT_REVIEW = 'reviews/addReview'
 const GET_ONE = 'reviews/getOne'
-const DELETE_Review='reviews/deleteReview'
+const OWNER_REVIEWS='reviews/ownerReviews'
 //& ------------------------------ACTIONS---------------------------------------
 
 const allReviews = (reviews) => ({
@@ -20,6 +20,12 @@ const editReview = ( review ) => ({
 const getReview =(review) => ({
     type: GET_ONE,
     review
+})
+
+
+const myReviews = (reviews) =>({
+    type: OWNER_REVIEWS,
+    reviews
 })
 //! -------------------------------THUNKS----------------------------------------
 
@@ -107,6 +113,23 @@ export const removeReview = (reviewId,spotId) => async dispatch =>{
       }
 }
 
+
+export const allMyReviews = () => async dispatch =>{
+    const res = await csrfFetch(`/api/reviews/current`)
+
+    if(res.ok){
+        const reviews = await res.json();
+        console.log(reviews.Reviews,'this is my reviews')
+        dispatch(myReviews(reviews.Reviews))
+        return reviews
+    }else{
+        const errors = await res.json();
+        return errors
+      }
+}
+
+
+
 //TODO-------------------------------REDUCER--------------------------------------
 
 
@@ -122,6 +145,8 @@ case EDIT_REVIEW:
 case GET_ONE:
     return { ...state, review: action.review}
 
+    case OWNER_REVIEWS:
+    return {...state, reviews: action.reviews}
 
         default: return state
     }
