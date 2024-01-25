@@ -6,8 +6,10 @@ import { useEffect } from "react";
 import LoginFormModal from '../LoginFormModal/LoginFormModal'
 import SignUpModal from '../signUpForm/SignUpModal'
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import { useSelector } from "react-redux";
 
-function ProfileButton({ user }) {
+function ProfileButton() {
+  const user = useSelector(state => state.session.user?.user)
   const ulRef = useRef();
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
