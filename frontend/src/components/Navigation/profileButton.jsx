@@ -9,7 +9,7 @@ import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { useSelector } from "react-redux";
 
 function ProfileButton() {
-  const user = useSelector(state => state.session?.user?.user)
+  const user = useSelector(state => state.session.user?.user)
   const ulRef = useRef();
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);

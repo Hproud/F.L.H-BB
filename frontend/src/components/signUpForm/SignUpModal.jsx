@@ -68,7 +68,13 @@ const {closeModal} = useModal();
       password,
     }
 
-     dispatch(sessionActions.signUp(newUser)).then(closeModal)
+     dispatch(sessionActions.signUp(newUser)).then(closeModal).catch(async (res) => {
+      const data = await res.json()
+      if (data && data.errors) {
+        setErrors(data.errors);
+       }
+     })
+     console.log(errors, 'this is the errors')
     // navigate("/");
   };
   return (

@@ -16,17 +16,18 @@ function LoginFormModal() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    return dispatch(sessionActions.login({ credential, password }))
-      .then(closeModal)
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.message) {
-         setErrors(data.message);
+     dispatch(sessionActions.login({ credential:credential, password: password }))
+
+     .then(closeModal)
+     .catch(async (res) => {
+       const data = await res.json()
+       if (data && data.errors) {
+         setErrors(data.errors);
         }
-      });
+      })
+      // console.log(errors, 'this is the errors')
   };
 
-console.log(errors, 'this is the errors')
   return (
     <div className='LoginForm'>
       <h1>Log In</h1>
@@ -34,6 +35,9 @@ console.log(errors, 'this is the errors')
         <p>The Provided credentials were invalid</p>
       )}
       <form onSubmit={handleSubmit} >
+        {errors && (
+          <p>{errors}</p>
+        )}
         <label>
           Username or Email
           {<br />}
@@ -66,6 +70,7 @@ console.log(errors, 'this is the errors')
           <button type='submit' onClick={() => {
             setCredential('demo@user.io')
             setPassword('password')
+
           }}>DemoUser</button>
       </form>
     </div>

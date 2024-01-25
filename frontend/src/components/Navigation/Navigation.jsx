@@ -11,9 +11,9 @@ import './Navigation.css'
 
 
 export default function Navigation({isLoaded}) {
-    const user = useSelector(state => state.session.user)
+    const user = useSelector(state => state.session?.user?.user)
 // const navigate = useNavigate()
-
+console.log(user,'my user')
   return (
     <div className='navContainer'>
       <Link to='/'>
@@ -22,8 +22,7 @@ export default function Navigation({isLoaded}) {
     </Link>
     <nav >
 <ul className='navlist'>
-      <li>
-      </li>
+
     <li key='homeButton'>
         <NavLink to='/'>Home</NavLink>
     </li>
@@ -32,7 +31,8 @@ export default function Navigation({isLoaded}) {
 <NavLink to='/spots/new'>Create a New Spot</NavLink>
     </li>
 
-{isLoaded && <ProfileButton user={user} />}
+
+{isLoaded &&( <ProfileButton />)}
 </ul>
 
     </nav>
