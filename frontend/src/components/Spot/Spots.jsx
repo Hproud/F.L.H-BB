@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { findReviews } from "../../store/reviews";
 import ReserveButton from "../ReserveButton";
 import Review from './Review'
-import ReviewUpdateModal from "../ReviewModal/ReviewUpdateModal";
+// import ReviewUpdateModal from "../ReviewModal/ReviewUpdateModal";
 
 
 export default function Spots() {

@@ -12,7 +12,7 @@ const Review = useSelector(state => state?.reviews.review)
   const dispatch = useDispatch();
   // const reviews = useSelector(state => state.reviews?.review)
   const [errors,setErrors] = useState('')
-console.log(Review,'this is the review')
+// console.log(Review,'this is the review')
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -24,7 +24,7 @@ console.log(Review,'this is the review')
      dispatch(reviewsActions.changeReview(data)).then(dispatch(reviewsActions.findReviews(spot.id))).then(closeModal).catch( async (res) => {
     const data= await res.json()
       if (data ) {
-        console.log(data,'this is in your modal!')
+        // console.log(data,'this is in your modal!')
        setErrors(data);
       }else{
         closeModal
@@ -32,7 +32,7 @@ console.log(Review,'this is the review')
     });
 
     }
-    console.log(errors,'this is the errors in the review update')
+    // console.log(errors,'this is the errors in the review update')
 
 
 

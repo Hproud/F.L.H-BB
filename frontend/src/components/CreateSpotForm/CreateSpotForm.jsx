@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as spotActions from "../../store/spot";
 import './CreateSpotForm.css'
 import { useNavigate } from "react-router-dom";
-import { addpicInput, addspotPic } from "../../store/pictures";
+import { addspotPic } from "../../store/pictures";
 
 export default function CreateSpotForm() {
   const [country, setCountry] = useState("");
@@ -50,7 +50,7 @@ const handleSubmit = (e) => {
     description,
     previewImage,
   };
-  dispatch(spotActions.addSpot(newSpot)).then(res => res.json()).then(res => dispatch( potActions.singleSpot(res.id))).then((res) => {
+  dispatch(spotActions.addSpot(newSpot)).then(res => res.json()).then(res => dispatch( spotActions.singleSpot(res.id))).then((res) => {
     console.log(res, ' this is the last res')
   })
   .catch(async (res) => {

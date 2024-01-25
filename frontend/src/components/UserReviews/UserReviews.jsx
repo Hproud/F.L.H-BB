@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { allMyReviews } from "../../store/reviews";
+import { allMyReviews,singleReview } from "../../store/reviews";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import ReviewDeleteModal from "../ReviewModal/ReviewDeleteModal";
 import ReviewUpdateModal from "../ReviewModal/ReviewUpdateModal";
@@ -13,7 +13,7 @@ const dispatch = useDispatch()
 
 useEffect(()=>{
 dispatch(allMyReviews())
-},[])
+},[dispatch])
 
 
 
@@ -21,7 +21,7 @@ dispatch(allMyReviews())
     <div>
       <h1>Manage Reviews</h1>
       {reviews && reviews.map((review)=>(
-<div>
+<div key={review.id}>
   <h2>{review.Spot.name}</h2>
   <p>{review.createdAt}</p>
   <p>{review.review}</p>
