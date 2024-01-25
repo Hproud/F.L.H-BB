@@ -3,7 +3,7 @@ import { csrfFetch } from "./csrf";
 //?------------------------------Variables--------------------------------------
 const GET_SPOT_PICS ='pictures/getSpotPics'
 const GET_REVIEW_PICS='pictures/getReviewImages'
-const ADD_SPOT_IMAGES='pictures/getSpotImages'
+// const ADD_SPOT_IMAGES='pictures/getSpotImages'
 const PLACE_HOLDER='pictures/placeholder'
 //& ------------------------------ACTIONS---------------------------------------
 const spotPictures = (data) => ({
@@ -11,14 +11,14 @@ const spotPictures = (data) => ({
     data
 })
 
-const reviewPictures = (data) => ({
-    type: GET_REVIEW_PICS,
-    data
-})
-const addSpotImages = (data) =>({
-    type: ADD_SPOT_IMAGES,
-    data
-})
+// const reviewPictures = (data) => ({
+//     type: GET_REVIEW_PICS,
+//     data
+// })
+// const addSpotImages = (data) =>({
+//     type: ADD_SPOT_IMAGES,
+//     data
+// })
 
 const placeHolder = (data) =>({
     type: PLACE_HOLDER,

@@ -15,7 +15,7 @@ export default function Review({ spotId }) {
   // console.log(user, "this is what i am getting for user");
   useEffect(() => {
     dispatch(findReviews(spotId)).then(() => setIsLoading(false));
-  }, [dispatch]);
+  }, [dispatch,spotId]);
 
   // console.log(reviews,'this is the reviews')
 

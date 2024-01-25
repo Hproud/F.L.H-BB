@@ -52,7 +52,7 @@ export default function UpdateSpotForm() {
         }
 
     })
-console.log(spot.id, 'this is spot after')
+// console.log(spot.id, 'this is spot after')
 navigate(`/spots/current`)
   };
 
@@ -74,7 +74,7 @@ setPreviewImage(spot.previewImage)
 
 
 
-},[])
+},[spot.address,spot.country,spot.city,spot.state,spot.description,spot.lat,spot.lng,spot.name,spot.price,spot.previewImage])
   return (
     <div>
     <h1>Update your spot</h1>

@@ -17,7 +17,7 @@ const spots = useSelector(state => state.spot?.spots)
 
 useEffect(() => {
   dispatch(ownerSpots(user.id))
-},[dispatch])
+},[dispatch,user.id])
 
 
 
