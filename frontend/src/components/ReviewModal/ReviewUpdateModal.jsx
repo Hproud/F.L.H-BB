@@ -1,18 +1,24 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import *  as reviewsActions from '../../store/reviews'
 
 export default function ReviewUpdateModal() {
-const Review = useSelector(state => state?.reviews.review)
+const Review = useSelector(state => state.reviews.review)
   const [review,setReview] = useState(Review.review);
   const [stars,setStars] = useState(Review.stars)
   const {closeModal} = useModal()
-  const spot = useSelector(state => state.spot?.spot)
+  // const spot = useSelector(state => state.spot?.spot)
   const dispatch = useDispatch();
-  // const reviews = useSelector(state => state.reviews?.review)
-  const [errors,setErrors] = useState('')
-// console.log(Review,'this is the review')
+  // const reviews = useSelector(state => state.reviews.review)
+  const [errors,setErrors] = useState({})
+console.log(Review,'this is the review')
+const spot = Review.spotId;
+console.log(spot,'this is my spot')
+
+
+useEffect(()=>{},[Review,review,stars])
+
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -21,7 +27,11 @@ const Review = useSelector(state => state?.reviews.review)
     review,
     stars
     }
-     dispatch(reviewsActions.changeReview(data)).then(dispatch(reviewsActions.findReviews(spot.id))).then(closeModal).catch( async (res) => {
+     dispatch(reviewsActions.changeReview(data))
+     .then(()=> {dispatch(reviewsActions.findReviews(spotId))})
+     .then(()=>closeModal)
+
+     .catch( async (res) => {
     const data= await res.json()
       if (data ) {
         // console.log(data,'this is in your modal!')
@@ -29,7 +39,8 @@ const Review = useSelector(state => state?.reviews.review)
       }else{
         closeModal
       }
-    });
+    })
+    window.location.reload();
 
     }
     // console.log(errors,'this is the errors in the review update')

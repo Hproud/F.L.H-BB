@@ -12,7 +12,7 @@ export default function Spots() {
   const { spotId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
-  const spot = useSelector((state) => state?.spot?.spot);
+  const spot = useSelector((state) => state?.spot.spot);
   // const user = useState((state) =>
   //   state?.session?.user
   // );
@@ -98,7 +98,7 @@ if (!isLoading) {
           <ReserveButton spot={spot} />
         </div>
         <div>
-          {<Review spotId={spot.id} />}
+          {<Review spot={spot} />}
         </div>
         {/* <div>
           <OpenModalButton

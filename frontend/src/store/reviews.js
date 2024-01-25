@@ -69,13 +69,13 @@ console.log('start',payload)
 
 
 
-export const changeReview = (payload) => async dispatch => {
-    const {reviewId, review, stars} = payload
-
+export const changeReview = (data) => async dispatch => {
+    const {reviewId, review, stars} = data
+console.log(data, 'this is what i have from my thunk')
     const res = await csrfFetch(`/api/reviews/${reviewId}`,{
         method: 'PUT',
         body: JSON.stringify({
-             review,
+            review,
             stars
         })
     })
