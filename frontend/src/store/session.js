@@ -66,7 +66,7 @@ export const signUp = (payload) => async (dispatch) => {
   });
   if (user.ok) {
     const data = await user.json();
-    return dispatch(newUser(data));
+    return dispatch(newUser(data.user));
   } else {
     const errors = await user.json();
     return errors;

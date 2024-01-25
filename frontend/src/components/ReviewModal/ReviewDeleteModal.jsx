@@ -4,18 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import *  as reviewsActions from '../../store/reviews'
 
 export default function ReviewDeleteModal() {
-    const spot = useSelector(state => state.spot?.spot)
-    const review= useSelector(state => state.reviews?.review)
+    const spot = useSelector(state => state.spot.spot)
+    const review= useSelector(state => state.reviews.review)
     const {closeModal} = useModal()
     const dispatch= useDispatch()
     const yes = (e) =>{
         e.preventDefault()
         // console.log('you said  yes')
-        // console.log(spot.id,'this is the spot')
-        // console.log(review.id,'this is the review')
+        console.log(spot.id,'this is the spot')
+        console.log(review.id,'this is the review')
             dispatch(reviewsActions.removeReview(review.id,spot.id))
     .then(closeModal)
-
+    window.location.reload();
         // return closeModal
     }
 

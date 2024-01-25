@@ -6,18 +6,18 @@ import { findReviews, singleReview } from "../../store/reviews";
 import ReviewUpdateModal from "../ReviewModal/ReviewUpdateModal";
 import ReviewDeleteModal from "../ReviewModal/ReviewDeleteModal";
 
-export default function Review({ spotId }) {
-  const reviews = useSelector((state) => state.reviews?.reviews);
-  const user = useSelector((state) => state.session?.user);
+export default function Review({spot}) {
+  const reviews = useSelector((state) => state.reviews.reviews);
+  const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const [isloading, setIsLoading] = useState(true);
-
-  console.log(user, "this is what i am getting for user");
+// console.log(spot,"this is the spot in review")
+//   console.log(user, "this is what i am getting for user");
   useEffect(() => {
-    dispatch(findReviews(spotId)).then(() => setIsLoading(false));
-  }, [dispatch, spotId]);
+    dispatch(findReviews(spot.id)).then(() => setIsLoading(false));
+  }, [dispatch, spot]);
 
-  console.log(reviews, "this is the reviews");
+  // console.log(reviews, "this is the reviews");
 
   if (!isloading) {
     return (
@@ -38,29 +38,29 @@ export default function Review({ spotId }) {
                 <h3>{review.User.firstName}</h3>
                 <p>{review.createdAt}</p>
                 <p>{review.review}</p>
-                <div>
                   {review.userId === user.id  && (
                     <OpenModalButton
-                      buttonText='Update'
-                      modalComponent={<ReviewUpdateModal />}
-                      onButtonClick={() => {
-                        dispatch(singleReview(review)).then(() => (
-                          <ReviewUpdateModal />
+                    buttonText='Update'
+                    modalComponent={<ReviewUpdateModal />}
+                    onButtonClick={() => {
+                      dispatch(singleReview(review)).then(() => (
+                        <ReviewUpdateModal spot={spot}  />
                         ));
                       }}
-                    />
+                      />
                   )}
                   {review.userId === user.id &&  (
                     <OpenModalButton
-                      buttonText='Delete'
-                      modalComponent={<ReviewDeleteModal />}
-                      onButtonClick={() => {
-                        dispatch(singleReview(review)).then(
-                          <ReviewDeleteModal />
+                    buttonText='Delete'
+                    modalComponent={<ReviewDeleteModal />}
+                    onButtonClick={() => {
+                      dispatch(singleReview(review)).then(
+                        <ReviewDeleteModal />
                         );
                       }}
-                    />
+                      />
                   )}
+                      <div>
                 </div>
               </div>
             ))}
