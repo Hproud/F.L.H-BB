@@ -107,7 +107,7 @@ export const updatingSpot = (payload) => async dispatch => {
         const spot = await res.json()
         console.log(spot, 'this is my updated spot')
         dispatch(updateSpot(spot))
-        return spot
+     
     }else{
         const errors = res.json()
         return errors
