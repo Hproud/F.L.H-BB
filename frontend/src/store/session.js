@@ -33,7 +33,7 @@ export const login = (payload) => async dispatch => {
     })
     if(data.ok){
         data = await data.json()
-       return dispatch(updateSession(data.user))
+       dispatch(updateSession(data.user))
     }else{
         const errors = data.json();
         return errors
