@@ -39,8 +39,8 @@ export default function UpdateSpotForm() {
       description,
       previewImage,
     };
-     dispatch(spotActions.updatingSpot(listing))
-    .then(res => res.json())
+     dispatch(spotActions.updatingSpot(listing)).then(dispatch(spotActions.singleSpot(spot.id)))
+    // .then(res => res.json())
     .catch(async (res) => {
       const data = await res.json()
       console.log(data,"this is the data in the error handler")
