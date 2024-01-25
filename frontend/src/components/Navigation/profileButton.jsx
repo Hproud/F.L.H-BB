@@ -9,7 +9,7 @@ import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { useSelector } from "react-redux";
 
 function ProfileButton() {
-  const user = useSelector(state => state.session.user)
+  const user = useSelector(state => state.session?.user?.user)
   const ulRef = useRef();
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
@@ -54,8 +54,8 @@ function ProfileButton() {
         {user ? (
           <>
 
-            <li> Hello, {user.user.firstName}</li>
-            <li>{user.user.email}</li>
+            <li> Hello, {user.firstName}</li>
+            <li>{user.email}</li>
             <li>
             <Link to='spots/current'>Manage Spots</Link>
             </li>
