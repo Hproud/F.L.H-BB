@@ -9,11 +9,11 @@ import { useModal } from "../../context/Modal";
 
 export default function SignUpModal() {
   const dispatch = useDispatch();
-  const [userName, setUserName] = useState("");
+  const [username, setUserName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [password1, setPassword1] = useState("");
+  const [password, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [errors, setErrors] = useState({});
   // const navigate = useNavigate();
@@ -36,26 +36,26 @@ const {closeModal} = useModal();
     //   errs.email = "Valid email is required";
     // }
 
-    if (password1.length < 6 || password1.length < 1 ) {
+    if (password.length < 6 || password.length < 1 ) {
       errs.password = "Password must be at least 6 characters";
 
-    } if (password1.length < 1) {
+    } if (password.length < 1) {
       errs.password = "Password required";
     }
-    if(password1 !== password2){
+    if(password !== password2){
       errs.password= 'Passwords must match'
     }
 
-    if (userName.length < 1) {
-      errs.userName = "Username is required";
+    if (username.length < 1) {
+      errs.username = "Username is required";
     }
 
-    if (userName.includes("@")) {
-      errs.userName = "Username can not be an email";
+    if (username.includes("@")) {
+      errs.username = "Username can not be an email";
     }
 
     return setErrors(errs);
-  }, [firstName, lastName, email, userName, password1,password2]);
+  }, [firstName, lastName, email, username, password,password2]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,11 +64,11 @@ const {closeModal} = useModal();
       firstName,
       lastName,
       email,
-      userName,
-      password1,
+      username,
+      password,
     }
 
-   dispatch(sessionActions.signUp(newUser)).then(closeModal)
+     dispatch(sessionActions.signUp(newUser)).then(closeModal)
     // navigate("/");
   };
   return (
@@ -102,22 +102,22 @@ const {closeModal} = useModal();
           onChange={(e) => setEmail(e.target.value)}
         />
         <p>{errors.email}</p>
-        
+
         <label>Create a Username:</label>
 
 <br />
         <input
           type='text'
-          value={userName}
+          value={username}
           onChange={(e) => setUserName(e.target.value)}
         />
-        <p>{errors.userName}</p>
+        <p>{errors.username}</p>
   <p>{errors.password}</p>
         <label className='password'>Password: </label>
 <br />
         <input
           type='password'
-          value={password1}
+          value={password}
           onChange={(e) => setPassword1(e.target.value)}
           />
 <br />
@@ -129,9 +129,9 @@ const {closeModal} = useModal();
   value={password2}
   onChange={(e) => setPassword2(e.target.value)}
 />
-
-      </form>
+<br />
       <button type='submit' disabled={Object.values(errors).length}>Sign Up</button>
+      </form>
     </div>
   );
 }
