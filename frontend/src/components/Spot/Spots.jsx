@@ -12,12 +12,12 @@ export default function Spots() {
   const { spotId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
-  const spot = useSelector((state) => state?.spot.spot);
+  const spot = useSelector((state) => state?.spot?.spot);
   // const user = useState((state) =>
   //   state?.session?.user
   // );
   // const reviews = useSelector((state) => state?.reviews.reviews);
-const pics = useSelector(state => state?.spot.spot?.SpotImages)
+const pics = useSelector(state => state?.spot?.SpotImages)
 
   // const rating = (reviews) => {
   //   if (reviews) {
