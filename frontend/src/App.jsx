@@ -8,6 +8,7 @@ import Spots from "./components/Spot/Spots";
 import CreateSpotForm from './components/CreateSpotForm/CreateSpotForm'
 import OwnersSpots from "./components/OwnersSpots/OwnersSpots";
 import UpdateSpotForm from "./components/UpdateSpotForm";
+import UserReviews from "./components/UserReviews/UserReviews";
 
 const Layout = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -50,13 +51,20 @@ const router = createBrowserRouter([
             path: 'current',
             element: <OwnersSpots />
           },
+          {
+            path: ':spotId',
+            element: <Spots />
+          }
         ]
       },
       {
-        path: '/update',
+        path: 'update',
         element: <UpdateSpotForm />
+      },
+      {
+        path: 'reviews/current',
+        element: <UserReviews />
       }
-
     ],
   },
 ]);

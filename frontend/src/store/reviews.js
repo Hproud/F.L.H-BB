@@ -2,8 +2,9 @@ import { csrfFetch } from "./csrf";
 
 //?------------------------------Variables--------------------------------------
 const GET_ALL = 'reviews/getAll'
-const ADD_REVIEW = 'reviews/addReview'
-
+const EDIT_REVIEW = 'reviews/addReview'
+const GET_ONE = 'reviews/getOne'
+const OWNER_REVIEWS='reviews/ownerReviews'
 //& ------------------------------ACTIONS---------------------------------------
 
 const allReviews = (reviews) => ({
@@ -11,7 +12,21 @@ const allReviews = (reviews) => ({
     reviews
 })
 
+const editReview = ( review ) => ({
+    type: EDIT_REVIEW,
+    review
+})
 
+const getReview =(review) => ({
+    type: GET_ONE,
+    review
+})
+
+
+const myReviews = (reviews) =>({
+    type: OWNER_REVIEWS,
+    reviews
+})
 //! -------------------------------THUNKS----------------------------------------
 
 
@@ -53,6 +68,68 @@ console.log('start',payload)
 }
 
 
+
+export const changeReview = (payload) => async dispatch => {
+    const {reviewId, review, stars} = payload
+
+    const res = await csrfFetch(`/api/reviews/${reviewId}`,{
+        method: 'PUT',
+        body: JSON.stringify({
+             review,
+            stars
+        })
+    })
+
+    if(res.ok){
+        const review = await res.json()
+        console.log(review,'this is what the res is')
+        dispatch(editReview(review))
+        return review
+
+    }else{
+        const errors = await res.json()
+        console.log(errors,'errors from thunk')
+        // return errors
+    }
+
+}
+
+export const singleReview = (review) => dispatch => {
+    dispatch(getReview(review))
+}
+
+
+export const removeReview = (reviewId,spotId) => async dispatch =>{
+    const res = await csrfFetch(`/api/reviews/${reviewId}`,
+    {
+        method: 'DELETE'
+    })
+
+    if (res.ok){
+        dispatch(allReviews(spotId))
+    }else{
+        const errors = await res.json();
+        return errors
+      }
+}
+
+
+export const allMyReviews = () => async dispatch =>{
+    const res = await csrfFetch(`/api/reviews/current`)
+
+    if(res.ok){
+        const reviews = await res.json();
+        console.log(reviews.Reviews,'this is my reviews')
+        dispatch(myReviews(reviews.Reviews))
+        return reviews
+    }else{
+        const errors = await res.json();
+        return errors
+      }
+}
+
+
+
 //TODO-------------------------------REDUCER--------------------------------------
 
 
@@ -62,10 +139,14 @@ const reviewsReducer = (state={},action)=>{
 case GET_ALL:
     return {...state, reviews: action.reviews};
 
+case EDIT_REVIEW:
+        return {...state, review: action.review}
 
+case GET_ONE:
+    return { ...state, review: action.review}
 
-
-
+    case OWNER_REVIEWS:
+    return {...state, reviews: action.reviews}
 
         default: return state
     }
