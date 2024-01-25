@@ -4,6 +4,7 @@ import * as spotActions from "../../store/spot";
 import './CreateSpotForm.css'
 import { useNavigate } from "react-router-dom";
 import { addspotPic } from "../../store/pictures";
+// import { singleReview } from "../../store/reviews";
 
 export default function CreateSpotForm() {
   const [country, setCountry] = useState("");
@@ -50,9 +51,24 @@ const handleSubmit = (e) => {
     description,
     previewImage,
   };
-  dispatch(spotActions.addSpot(newSpot)).then(res => res.json()).then(res => dispatch( spotActions.singleSpot(res.id))).then((res) => {
-    console.log(res, ' this is the last res')
-  })
+  // dispatch(spotActions.addSpot(newSpot)).then(res => res.json()).then(res => dispatch( spotActions.singleSpot(res.id))).then((res) => {
+  //   console.log(res, ' this is the last res')
+  // })
+
+  dispatch(spotActions.addSpot(newSpot)).then((spot) =>{
+    const picArr=[pic1,pic2,pic3,pic4,pic5]
+picArr.map(pic => { dispatch(addspotPic({url:pic,preview:false},spot.id))})
+// for (let i=0; i < picArr.length;i++){
+//   const picture = picArr[i];
+  // const payload = {
+  //   url: picture,
+  //   preview: false
+  // }
+//   dispatch(addspotPic({url:picture,preview:false}),spot.id)
+// }
+
+  }).then(spot => navigate(`/spots/${(spot.id)}`))
+
   .catch(async (res) => {
     const data = await res.json()
     console.log(data,"this is the data in the error handler")
@@ -64,6 +80,8 @@ const handleSubmit = (e) => {
     }
 
   })
+
+
   // const spotId = spot.id+1;
 // console.log(spot, 'this is spot after')
 

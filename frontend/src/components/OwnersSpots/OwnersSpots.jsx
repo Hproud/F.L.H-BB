@@ -44,7 +44,7 @@ const onClickUpdate = (spotId) => {
 {spots && spots.map((spot) => (
   <li key={spot.id}>
     <div>
-      <img src={spot.previewImage} style={{height: "400px"}} />
+      <img src={spot.previewImage} style={{height: "400px"}} onClick={() => navigate(`/spots/${spot.id}`)}/>
       <p>{spot.city}, {spot.state}</p>
       <p>${spot.price} night</p>
       <div>

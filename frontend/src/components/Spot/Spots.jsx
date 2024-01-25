@@ -77,7 +77,7 @@ if (!isLoading) {
       {pics &&
        pics.map((image) =>
 
-         <img key={image.id} src={image.url} style={{height:'200px',width:'250px'}}/>
+         <img key={image.id} src={image.url} style={{height:'200px',width:'250px'}} hidden={image.preview}/>
 
          )}
       <div>
