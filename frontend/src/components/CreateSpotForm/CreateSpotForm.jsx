@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as spotActions from "../../store/spot";
 import './CreateSpotForm.css'
 import { useNavigate } from "react-router-dom";
-
+import { addpicInput, addspotPic } from "../../store/pictures";
 
 export default function CreateSpotForm() {
   const [country, setCountry] = useState("");
@@ -15,51 +15,76 @@ export default function CreateSpotForm() {
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
+  const [pic1,setpic1] = useState('');
+  const [pic2,setpic2] = useState('');
+  const [pic3,setpic3] = useState('');
+  const [pic4,setpic4] = useState('');
+  const [pic5,setpic5] = useState('');
+
   // const [images,setImages] =useState([]);
   const [previewImage, setPreviewImage] = useState("");
   // const [isLoaded,setIsLoading] = useState(true)
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const navigate = useNavigate()
-const spot = useSelector(state => state.spot.spot)
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const spot = useSelector(state => state?.spot.spot)
+
+
+useEffect(()=>{},[dispatch])
+
+
+// console.log(spot,"spot befor everything")
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+
+  const newSpot = {
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    price,
+    description,
+    previewImage,
+  };
+  dispatch(spotActions.addSpot(newSpot)).then(res => res.json()).then(res => dispatch( potActions.singleSpot(res.id))).then((res) => {
+    console.log(res, ' this is the last res')
+  })
+  .catch(async (res) => {
+    const data = await res.json()
+    console.log(data,"this is the data in the error handler")
+    if(data.errors){
+      setErrors(data.errors)
+    }else
+    if(data.message){
+      setErrors(data)
+    }
+
+  })
+  // const spotId = spot.id+1;
+// console.log(spot, 'this is spot after')
 
 
 
-
-    const newSpot = {
-      address,
-      city,
-      state,
-      country,
-      lat,
-      lng,
-      name,
-      price,
-      description,
-      previewImage,
-    };
-     dispatch(spotActions.addSpot(newSpot))
-    .then(res => res.json())
-    .catch(async (res) => {
-      const data = await res.json()
-      console.log(data,"this is the data in the error handler")
-        if(data.errors){
-            setErrors(data.errors)
-        }else
-        if(data.message){
-            setErrors(data)
-        }
-
-    })
-console.log(spot.id, 'this is spot after')
-
+const picArr=[pic1,pic2,pic3,pic4,pic5]
+picArr.map(pic => { dispatch(addspotPic({url:pic,preview:false},spot.id))})
+// for (let i=0; i < picArr.length;i++){
+//   const picture = picArr[i];
+  // const payload = {
+  //   url: picture,
+  //   preview: false
+  // }
+//   dispatch(addspotPic({url:picture,preview:false}),spot.id)
+// }
 
 navigate(`/spots/${(spot.id)}`)
+
   };
 
-  console.log(errors, "this is the errors in the create spot form");
+  // console.log(errors, "this is the errors in the create spot form");
 
   // if(!isLoaded){
   return (
@@ -211,19 +236,32 @@ navigate(`/spots/${(spot.id)}`)
         />
         <br />
         <br />
-        <input type='url' placeholder='Image URL' />
+        <input
+        type='text'
+        placeholder='Image URL'
+        value={pic1}
+        onChange={e=> setpic1(e.target.value)}
+        />
+
         <br />
         <br />
-        <input type='url' placeholder='Image URL' />
+        <input type='text' placeholder='Image URL'value={pic2}
+        onChange={e=> setpic2(e.target.value)} />
         <br />
         <br />
-        <input type='url' placeholder='Image URL' />
+        <input type='text' placeholder='Image URL'
+        value={pic3}
+        onChange={e=> setpic3(e.target.value)} />
         <br />
         <br />
-        <input type='url' placeholder='Image URL' />
+        <input type='text' placeholder='Image URL'
+        value={pic4}
+        onChange={e=> setpic4(e.target.value)} />
         <br />
         <br />
-        <input type='url' placeholder='Image URL' />
+        <input type='text' placeholder='Image URL'
+        value={pic5}
+        onChange={e=> setpic5(e.target.value)} />
         <br />
         <br />
         <button type='submit'>Create Spot</button>

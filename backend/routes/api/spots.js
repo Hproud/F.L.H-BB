@@ -87,14 +87,14 @@ const validateSpot = [
     .exists({ checkFalsy: true })
     .isFloat({ min: 0 })
     .withMessage("Price per day must be a positive number"),
-    // check("previewImage")
-    // .exists({checkFalsy: true })
-    // .withMessage('At least one image is required'),
-    // check("previewImage")
-    // .custom((value) =>{
-    //   if(value.includes('png') || value.includes('jpg') || value.includes('jpeg') || value.includes('webp') ) return true
-    // })
-    // .withMessage("Image Url must end in .png, .jpg, or .jpeg"),
+    check("previewImage")
+    .exists({checkFalsy: true })
+    .withMessage('At least one image is required'),
+    check("previewImage")
+    .custom((value) =>{
+      if(value.includes('png') || value.includes('jpg') || value.includes('jpeg') || value.includes('webp') ) return true
+    })
+    .withMessage("Image Url must end in .png, .jpg, or .jpeg"),
   handleValidationErrors,
 ];
 
