@@ -156,7 +156,7 @@ const getAvg = async (id) => {
   let avg;
   const count = allReviews.length;
 
-  let sum = 0;
+  let sum = 0.0;
 
   allReviews.forEach((record) => {
     const rate = record.dataValues.stars;
@@ -165,7 +165,7 @@ const getAvg = async (id) => {
   });
 
   if (count > 0) {
-    avg = Math.ceil(sum / count);
+    avg = (sum / count);
   } else {
     avg = 0;
   }
