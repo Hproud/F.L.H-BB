@@ -13,22 +13,22 @@ export default function Review({spot}) {
   const [isloading, setIsLoading] = useState(true);
   const [posted,setPosted] = useState(false)
   const [owner,setOwner]= useState(false)
-console.log(spot.id,"this is the spot in review")
-  console.log(user.id, "this is what i am getting for user");
+// console.log(spot.id,"this is the spot in review")
+//   console.log(user.id, "this is what i am getting for user");
   useEffect(() => {
     dispatch(findReviews(spot.id)).then(() => setIsLoading(false));
-    if(spot.id === user.id){
+    if(user &&( spot.id === user.id)){
       setOwner(true)
     }
 
   }, [dispatch, spot]);
 
   // console.log(reviews, "this is the reviews");
-  console.log(posted,'posted')
+  // console.log(posted,'posted')
 useEffect(()=>{
 
      reviews.map(review => {
-      if(review.userId === user.id){
+      if(user && (review.userId === user.id)){
         // console.log(review.userId,'this is the userId for review')
         return setPosted(true)
       }
@@ -44,7 +44,7 @@ useEffect(()=>{
       <div>
         <h2>reviews</h2>
         <div>
-{!owner && !posted &&
+{user && !owner && !posted &&
 
 <OpenModalButton
   buttonText='Post Your Review'
@@ -65,7 +65,7 @@ useEffect(()=>{
                 <h3>{review.User.firstName}</h3>
                 <p>{review.createdAt}</p>
                 <p>{review.review}</p>
-                  {review.userId === user.id  && (
+                  {user && review.userId === user.id  && (
                     <OpenModalButton
                     buttonText='Update'
                     modalComponent={<ReviewUpdateModal />}
@@ -76,7 +76,7 @@ useEffect(()=>{
                       }}
                       />
                   )}
-                  {review.userId === user.id &&  (
+                  {user && review.userId === user.id &&  (
                     <OpenModalButton
                     buttonText='Delete'
                     modalComponent={<ReviewDeleteModal />}
