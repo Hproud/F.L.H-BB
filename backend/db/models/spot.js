@@ -110,7 +110,7 @@ ownerId:{
       }
     },
     avgRating: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       defaultValue: 0,
     },
     previewImage: {

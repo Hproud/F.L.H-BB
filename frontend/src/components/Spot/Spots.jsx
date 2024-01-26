@@ -16,7 +16,7 @@ export default function Spots() {
   // const user = useState((state) =>
   //   state?.session?.user
   // );
-  // const reviews = useSelector((state) => state?.reviews.reviews);
+  const reviews = useSelector((state) => state?.reviews.reviews);
 const pics = useSelector(state => state?.spot?.SpotImages)
 
   // const rating = (reviews) => {
@@ -38,7 +38,7 @@ const pics = useSelector(state => state?.spot?.SpotImages)
 
 
 
-  let finalRating;
+  // let finalRating;
 
   useEffect(() => {
     dispatch(singleSpot(spotId))
@@ -55,13 +55,13 @@ const pics = useSelector(state => state?.spot?.SpotImages)
   //   }
   // };
 
-  const reviewer = (review, user) => {
-    if (review.userId === user.id) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  // const reviewer = (review, user) => {
+  //   if (review.userId === user.id) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // };
 
 // const answer = allreviews(reviews);
 
@@ -87,13 +87,13 @@ if (!isLoading) {
         </h2>
         <p>{spot.description}</p>
 
-        {finalRating &&
-          reviewer(
+        {reviews &&
+          (
             <div>
               {spot.avgRating} Average Star Rating {spot.numReviews} Reviews
             </div>
           )}
-        {!finalRating && <div> new </div>}
+        {!reviews && <div> new </div>}
         <div>
           <ReserveButton spot={spot} />
         </div>
