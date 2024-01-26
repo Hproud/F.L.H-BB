@@ -57,7 +57,7 @@ const handleSubmit = (e) => {
 
   dispatch(spotActions.addSpot(newSpot)).then((spot) =>{
     const picArr=[pic1,pic2,pic3,pic4,pic5]
-picArr.map(pic => { dispatch(addspotPic({url:pic,preview:false},spot.id))})
+picArr.map(pic => {if(pic.url.length>0) dispatch(addspotPic({url:pic,preview:false},spot.id))})
 // for (let i=0; i < picArr.length;i++){
 //   const picture = picArr[i];
   // const payload = {
@@ -88,7 +88,7 @@ picArr.map(pic => { dispatch(addspotPic({url:pic,preview:false},spot.id))})
 
 
 const picArr=[pic1,pic2,pic3,pic4,pic5]
-picArr.map(pic => { dispatch(addspotPic({url:pic,preview:false},spot.id))})
+picArr.map(pic => {if(pic.url.length>0){ dispatch(addspotPic({url:pic,preview:false},spot.id))}})
 // for (let i=0; i < picArr.length;i++){
 //   const picture = picArr[i];
   // const payload = {
@@ -128,6 +128,7 @@ navigate(`/spots/${(spot.id)}`)
           value={country}
           onChange={(e) => setCountry(e.target.value)}
           placeholder='Country'
+          aria-required={true}
         />
         <br />
         <label>Street Address</label>
@@ -139,6 +140,8 @@ navigate(`/spots/${(spot.id)}`)
           placeholder='address'
           value={address}
           onChange={(e) => setAddress(e.target.value)}
+         
+
         />
         ,
         <br />
@@ -150,6 +153,7 @@ navigate(`/spots/${(spot.id)}`)
           type='text'
           value={city}
           onChange={(e) => setCity(e.target.value)}
+          aria-required={true}
         />
         <br />
         <label>State</label>
@@ -161,6 +165,7 @@ navigate(`/spots/${(spot.id)}`)
           placeholder='state'
           value={state}
           onChange={(e) => setState(e.target.value)}
+          aria-required={true}
         />
         <br />
         <label>Latitude</label>
@@ -172,6 +177,7 @@ navigate(`/spots/${(spot.id)}`)
           placeholder='latitude'
           value={lat}
           onChange={(e) => setLat(e.target.value)}
+          aria-required={true}
         />
         ,
         <br />
@@ -184,6 +190,7 @@ navigate(`/spots/${(spot.id)}`)
           placeholder='longitude'
           value={lng}
           onChange={(e) => setLng(e.target.value)}
+          aria-required={true}
         />
         <br />
         <h2>Describe your place to guests</h2>
@@ -198,6 +205,7 @@ navigate(`/spots/${(spot.id)}`)
           placeholder='Please write at least 30 characters'
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          aria-required={true}
           />
           {errors &&
           <p className='spot-form-error'>{errors.description}</p>
@@ -216,6 +224,7 @@ navigate(`/spots/${(spot.id)}`)
           placeholder='Name of your spot'
           value={name}
           onChange={(e) => setName(e.target.value)}
+          aria-required={true}
           />
           {errors &&
           <p className='spot-form-error'>{errors.name}</p>
@@ -236,6 +245,7 @@ navigate(`/spots/${(spot.id)}`)
           placeholder='Price per night (USD)'
           value={price}
           onChange={(e) => setPrice(e.target.value)}
+          aria-required={true}
           />
           {errors &&
           <p className='spot-form-error'>{errors.price}</p>
@@ -251,6 +261,7 @@ navigate(`/spots/${(spot.id)}`)
           placeholder='Preview Image URL'
           value={previewImage}
           onChange={(e) => setPreviewImage(e.target.value)}
+          aria-required={true}
         />
         <br />
         <br />
