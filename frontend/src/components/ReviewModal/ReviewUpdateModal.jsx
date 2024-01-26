@@ -28,7 +28,7 @@ useEffect(()=>{},[Review,review,stars])
     stars
     }
      dispatch(reviewsActions.changeReview(data))
-     .then(()=> {dispatch(reviewsActions.findReviews(spotId))})
+     .then(()=> {dispatch(reviewsActions.findReviews(spot.id))})
      .then(()=>closeModal)
 
      .catch( async (res) => {

@@ -20,13 +20,15 @@ function ProfileButton() {
     // user = dispatch(logout())
    navigate("/", { replace: true });
   };
-  console.log(user,'im the userrrrrrrrrr')
+  // console.log(user,'im the userrrrrrrrrr')
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep click from bubbling up to document and triggering closeMenu
     // if (!showMenu) setShowMenu(true);
     setShowMenu(!showMenu);
   };
+
+
 
   useEffect(() => {
     if (!showMenu) return;
@@ -59,9 +61,9 @@ function ProfileButton() {
             <li>
             <Link to='spots/current'>Manage Spots</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to='reviews/current'>Manage Reviews</Link>
-            </li>
+            </li> */}
             <br/>
             <button onClick={handleLogout}>LogOut</button>
           </>

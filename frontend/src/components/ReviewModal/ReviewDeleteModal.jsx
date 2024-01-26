@@ -10,15 +10,15 @@ export default function ReviewDeleteModal() {
     const dispatch= useDispatch()
     const yes = (e) =>{
         e.preventDefault()
-        // console.log('you said  yes')
+        console.log('you said  yes')
         console.log(spot.id,'this is the spot')
-        console.log(review.id,'this is the review')
+        console.log(review,'this is the review')
             dispatch(reviewsActions.removeReview(review.id,spot.id))
-    .then(closeModal)
-    window.location.reload();
-        // return closeModal
-    }
+    // .then(()=>closeModal)
 
+        // return closeModal
+        window.location.reload();
+    }
     // const no =(e)=>{
     // e.preventDefault()
     // console.log('you pushed no')
