@@ -11,26 +11,53 @@ export default function Review({spot}) {
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const [isloading, setIsLoading] = useState(true);
-// console.log(spot,"this is the spot in review")
-//   console.log(user, "this is what i am getting for user");
+  const [posted,setPosted] = useState(false)
+  const [owner,setOwner]= useState(false)
+console.log(spot.id,"this is the spot in review")
+  console.log(user.id, "this is what i am getting for user");
   useEffect(() => {
     dispatch(findReviews(spot.id)).then(() => setIsLoading(false));
+    if(spot.id === user.id){
+      setOwner(true)
+    }
+
   }, [dispatch, spot]);
 
   // console.log(reviews, "this is the reviews");
+  console.log(posted,'posted')
+useEffect(()=>{
+
+     reviews.map(review => {
+      if(review.userId === user.id){
+        // console.log(review.userId,'this is the userId for review')
+        return setPosted(true)
+      }
+    })
+
+
+
+},[reviews])
+
 
   if (!isloading) {
     return (
       <div>
         <h2>reviews</h2>
         <div>
-          <OpenModalButton
-            buttonText='Post Your Review'
-            modalComponent={<ReviewModal />}
-            onButtonClick={() => {
-              <ReviewModal />;
-            }}
-          />
+{!owner && !posted &&
+
+<OpenModalButton
+  buttonText='Post Your Review'
+  modalComponent={<ReviewModal />}
+  onButtonClick={() => {
+    <ReviewModal />;
+  }}
+/>
+
+
+}
+
+
 
           {reviews.length > 0 &&
             reviews.map((review) => (

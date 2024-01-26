@@ -26,7 +26,7 @@ function LoginFormModal() {
         }
       })
       // console.log(errors, 'this is the errors')
-      window.location.reload();
+      // window.location.reload();
   };
 
   return (

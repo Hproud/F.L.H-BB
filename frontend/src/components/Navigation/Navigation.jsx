@@ -16,7 +16,7 @@ export default function Navigation({isLoaded}) {
     const user = useSelector(state => state.session.user)
 // const navigate = useNavigate()
 
-console.log(user,'my user')
+// console.log(user,'my user')
   return (
     <div className='navContainer'>
       <Link to='/'>

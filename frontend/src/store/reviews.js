@@ -104,7 +104,7 @@ export const removeReview = (reviewId,spotId) => async dispatch =>{
     {
         method: 'DELETE'
     })
-
+console.log('hit')
     if (res.ok){
         dispatch(allReviews(spotId))
     }else{
@@ -119,7 +119,7 @@ export const allMyReviews = () => async dispatch =>{
 
     if(res.ok){
         const reviews = await res.json();
-        console.log(reviews.Reviews,'this is my reviews')
+        // console.log(reviews.Reviews,'this is my reviews')
         dispatch(myReviews(reviews.Reviews))
         return reviews
     }else{
