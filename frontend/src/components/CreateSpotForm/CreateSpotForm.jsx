@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as spotActions from "../../store/spot";
-import './CreateSpotForm.css'
+import "./CreateSpotForm.css";
 import { useNavigate } from "react-router-dom";
 import { addspotPic } from "../../store/pictures";
 // import { singleReview } from "../../store/reviews";
@@ -16,102 +16,70 @@ export default function CreateSpotForm() {
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [pic1,setpic1] = useState();
-  const [pic2,setpic2] = useState();
-  const [pic3,setpic3] = useState();
-  const [pic4,setpic4] = useState();
-  const [pic5,setpic5] = useState();
+  const [pic1, setpic1] = useState();
+  const [pic2, setpic2] = useState();
+  const [pic3, setpic3] = useState();
+  const [pic4, setpic4] = useState();
+  const [pic5, setpic5] = useState();
 
   // const [images,setImages] =useState([]);
   const [previewImage, setPreviewImage] = useState("");
   // const [isLoaded,setIsLoading] = useState(true)
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate()
-const spot = useSelector(state => state?.spot?.spot)
+  const navigate = useNavigate();
+  // const spot = useSelector((state) => state.spot.spot);
 
+  useEffect(() => {}, [dispatch]);
 
-useEffect(()=>{},[dispatch])
+  // console.log(spot,"spot befor everything")
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
+    const newSpot = {
+      address,
+      city,
+      state,
+      country,
+      lat,
+      lng,
+      name,
+      price,
+      description,
+      previewImage,
+    };
 
-// console.log(spot,"spot befor everything")
-const handleSubmit = (e) => {
-  e.preventDefault();
+    dispatch(spotActions.addSpot(newSpot))
+      .then((spot) => {
+        const picArr = [pic1, pic2, pic3, pic4, pic5];
+        picArr.map((pic) => {
 
+             if (pic) {dispatch(addspotPic({ url: pic, preview: false }, spot.id));
 
-  const newSpot = {
-    address,
-    city,
-    state,
-    country,
-    lat,
-    lng,
-    name,
-    price,
-    description,
-    previewImage,
-  };
-  // dispatch(spotActions.addSpot(newSpot)).then(res => res.json()).then(res => dispatch( spotActions.singleSpot(res.id))).then((res) => {
-  //   console.log(res, ' this is the last res')
-  // })
+          }})
+     dispatch(spotActions.singleSpot(spot.id))
+     navigate(`/spots/${spot.id}`)
+      })
 
-  dispatch(spotActions.addSpot(newSpot)).then((spot) =>{
-    const picArr=[pic1,pic2,pic3,pic4,pic5]
-picArr.map(pic => dispatch(addspotPic({url:pic,preview:false},spot.id)))
-// for (let i=0; i < picArr.length;i++){
-//   const picture = picArr[i];
-  // const payload = {
-  //   url: picture,
-  //   preview: false
-  // }
-//   dispatch(addspotPic({url:picture,preview:false}),spot.id)
-// }
+      .catch(async (res) => {
+        console.log(res,'this is the res we are looking at')
+        const data = await res.json();
+        console.log(data, "this is the data in the error handler");
+        if (data.errors) {
+          setErrors(data.errors);
+        } else if (data.message) {
+          setErrors(data);
+        }
+      })
 
-  }).then( spot => dispatch(spotActions.singleSpot(spot.id))).the(navigate(`/spots/${(spot.id +1)}`))
-
-  .catch(async (res) => {
-    const data = await res.json()
-    console.log(data,"this is the data in the error handler")
-    if(data.errors){
-      setErrors(data.errors)
-    }else
-    if(data.message){
-      setErrors(data)
-    }
-
-  })
-
-
-  // const spotId = spot.id+1;
-// console.log(spot, 'this is spot after')
-
-
-
-// const picArr=[pic1,pic2,pic3,pic4,pic5]
-// picArr.map(pic => {if(pic.url.length>0){ dispatch(addspotPic({url:pic,preview:false},spot.id))}})
-// for (let i=0; i < picArr.length;i++){
-//   const picture = picArr[i];
-  // const payload = {
-  //   url: picture,
-  //   preview: false
-  // }
-//   dispatch(addspotPic({url:picture,preview:false}),spot.id)
-// }
-
-navigate(`/spots/${(spot.id)}`)
-
+    // navigate(`/spots/${spot.id }`);
   };
 
-  // console.log(errors, "this is the errors in the create spot form");
-
-  // if(!isLoaded){
   return (
     <div>
       <h1>Create a new Spot</h1>
-      <form className="createSpotForm" onSubmit={handleSubmit}>
-        {errors.message &&
-        <p className='spot-form-error'>{errors.message}</p>
-        }
+      <form className='createSpotForm' onSubmit={handleSubmit}>
+        {errors.message && <p className='spot-form-error'>{errors.message}</p>}
         <h2>Where`s your place located?</h2>
         <p>
           Guests will only get your exact address once they booked a
@@ -119,9 +87,7 @@ navigate(`/spots/${(spot.id)}`)
         </p>
         <label>
           Country
-          {errors &&
-          <p className='spot-form-error'>{errors.country}</p>
-          }
+          {errors && <p className='spot-form-error'>{errors.country}</p>}
         </label>
         <input
           type='text'
@@ -132,23 +98,17 @@ navigate(`/spots/${(spot.id)}`)
         />
         <br />
         <label>Street Address</label>
-        {errors &&
-        <p className="spot-form-error">{errors.address}</p>
-        }
+        {errors && <p className='spot-form-error'>{errors.address}</p>}
         <input
           type='text'
           placeholder='address'
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-
-
         />
         ,
         <br />
         <label>City</label>
-        {errors &&
-        <p className='spot-form-error'>{errors.city}</p>
-        }
+        {errors && <p className='spot-form-error'>{errors.city}</p>}
         <input
           type='text'
           value={city}
@@ -157,9 +117,7 @@ navigate(`/spots/${(spot.id)}`)
         />
         <br />
         <label>State</label>
-        {errors &&
-        <p  className='spot-form-error'>{errors.state}</p>
-        }
+        {errors && <p className='spot-form-error'>{errors.state}</p>}
         <input
           type='text'
           placeholder='state'
@@ -169,9 +127,7 @@ navigate(`/spots/${(spot.id)}`)
         />
         <br />
         <label>Latitude</label>
-        {errors &&
-        <p className='spot-form-error'>{errors.lat}</p>
-        }
+        {errors && <p className='spot-form-error'>{errors.lat}</p>}
         <input
           type='number'
           placeholder='latitude'
@@ -182,9 +138,7 @@ navigate(`/spots/${(spot.id)}`)
         ,
         <br />
         <label>Longitude</label>
-        {errors &&
-        <p className='spot-form-error'>{errors.lng}</p>
-        }
+        {errors && <p className='spot-form-error'>{errors.lng}</p>}
         <input
           type='number'
           placeholder='longitude'
@@ -206,18 +160,16 @@ navigate(`/spots/${(spot.id)}`)
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           aria-required={true}
-          />
-          {errors &&
-          <p className='spot-form-error'>{errors.description}</p>
-          }
+        />
+        {errors && <p className='spot-form-error'>{errors.description}</p>}
         <br />
         <br />
         <h2>Create a title for your Spot</h2>
         <label>
           Catch guests` attention with a spot title that highlights what makes
           your place special
-        <br />
-        <br />
+          <br />
+          <br />
         </label>
         <input
           type='text'
@@ -225,10 +177,8 @@ navigate(`/spots/${(spot.id)}`)
           value={name}
           onChange={(e) => setName(e.target.value)}
           aria-required={true}
-          />
-          {errors &&
-          <p className='spot-form-error'>{errors.name}</p>
-          }
+        />
+        {errors && <p className='spot-form-error'>{errors.name}</p>}
         <br />
         <br />
         <h2>Set a base price for your spot</h2>
@@ -236,8 +186,7 @@ navigate(`/spots/${(spot.id)}`)
         <label>
           Competitive pricing can help your listing stand out and rank higher in
           search results.
-
-        <br />
+          <br />
           <br />$
         </label>
         <input
@@ -246,16 +195,12 @@ navigate(`/spots/${(spot.id)}`)
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           aria-required={true}
-          />
-          {errors &&
-          <p className='spot-form-error'>{errors.price}</p>
-          }
+        />
+        {errors && <p className='spot-form-error'>{errors.price}</p>}
         <br />
         <h2>Liven up your spot with photos</h2>
         <label>Submit a link to at least one photo to publish your spot.</label>
-        {errors &&
-        <p className='spot-form-error'>{errors.previewImage}</p>
-        }
+        {errors && <p className='spot-form-error'>{errors.previewImage}</p>}
         <input
           type='text'
           placeholder='Preview Image URL'
@@ -266,39 +211,47 @@ navigate(`/spots/${(spot.id)}`)
         <br />
         <br />
         <input
-        type='text'
-        placeholder='Image URL'
-        value={pic1}
-        onChange={e=> setpic1(e.target.value)}
+          type='text'
+          placeholder='Image URL'
+          value={pic1}
+          onChange={(e) => setpic1(e.target.value)}
         />
-
         <br />
         <br />
-        <input type='text' placeholder='Image URL'value={pic2}
-        onChange={e=> setpic2(e.target.value)} />
+        <input
+          type='text'
+          placeholder='Image URL'
+          value={pic2}
+          onChange={(e) => setpic2(e.target.value)}
+        />
         <br />
         <br />
-        <input type='text' placeholder='Image URL'
-        value={pic3}
-        onChange={e=> setpic3(e.target.value)} />
+        <input
+          type='text'
+          placeholder='Image URL'
+          value={pic3}
+          onChange={(e) => setpic3(e.target.value)}
+        />
         <br />
         <br />
-        <input type='text' placeholder='Image URL'
-        value={pic4}
-        onChange={e=> setpic4(e.target.value)} />
+        <input
+          type='text'
+          placeholder='Image URL'
+          value={pic4}
+          onChange={(e) => setpic4(e.target.value)}
+        />
         <br />
         <br />
-        <input type='text' placeholder='Image URL'
-        value={pic5}
-        onChange={e=> setpic5(e.target.value)} />
+        <input
+          type='text'
+          placeholder='Image URL'
+          value={pic5}
+          onChange={(e) => setpic5(e.target.value)}
+        />
         <br />
         <br />
         <button type='submit'>Create Spot</button>
       </form>
     </div>
   );
-
-  // }else{
-  //     return (<div>Loading...</div>)
-  // }
 }

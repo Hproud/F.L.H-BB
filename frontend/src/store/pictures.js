@@ -11,15 +11,6 @@ const spotPictures = (data) => ({
     data
 })
 
-// const reviewPictures = (data) => ({
-//     type: GET_REVIEW_PICS,
-//     data
-// })
-// const addSpotImages = (data) =>({
-//     type: ADD_SPOT_IMAGES,
-//     data
-// })
-
 const placeHolder = (data) =>({
     type: PLACE_HOLDER,
     data
