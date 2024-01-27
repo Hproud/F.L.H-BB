@@ -17,7 +17,7 @@ export default function Spots() {
   //   state?.session?.user
   // );
   const reviews = useSelector((state) => state?.reviews.reviews);
-const pics = useSelector(state => state?.spot?.spot.SpotImages)
+const pics = useSelector(state => state?.spot?.spot?.SpotImages)
 
   // const rating = (reviews) => {
   //   if (reviews) {
