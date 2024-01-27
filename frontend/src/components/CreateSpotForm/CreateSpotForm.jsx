@@ -28,7 +28,7 @@ export default function CreateSpotForm() {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const navigate = useNavigate()
-const spot = useSelector(state => state?.spot.spot)
+const spot = useSelector(state => state?.spot?.spot)
 
 
 useEffect(()=>{},[dispatch])
