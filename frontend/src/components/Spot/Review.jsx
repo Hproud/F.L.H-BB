@@ -17,8 +17,10 @@ export default function Review({spot}) {
 //   console.log(user.id, "this is what i am getting for user");
   useEffect(() => {
     dispatch(findReviews(spot.id)).then(() => setIsLoading(false));
-    if(user &&( spot.id === user.id)){
+    if(user &&( spot.Owner.id === user.id)){
       setOwner(true)
+    }else{
+      return
     }
 
   }, [dispatch, spot]);
