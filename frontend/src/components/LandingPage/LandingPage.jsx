@@ -5,7 +5,7 @@ import { useEffect,useState } from 'react'
 import { allSpots } from '../../store/spot';
 import './LandingPage.css'
 import { useNavigate } from "react-router-dom";
-
+import { Tooltip } from "@material-ui/core";
 export default function LandingPage() {
     const dispatch = useDispatch()
 const [isLoading,setIsLoading] = useState(true);
@@ -30,12 +30,13 @@ if(!isLoading) {
   return (
     <div className='spotList'>
       <h2>All spots</h2>
-      <ul className='listings' >
+      <ul className='listings'>
 {spots && spots.map((spot) =>(
   <li key={spot.id}>
-    <div className='spot' onClick={() => navigate(`spots/${spot.id}`)} >
-
+<Tooltip title={spot.name}>
+    <div className='spot' onClick={() => navigate(`spots/${spot.id}`)}  >
      <img className='spotImage' src={`${spot.previewImage}`} />
+
      <div className='spotInfo'>
    <p id='spotAddress'>{spot.city}, {spot.state}</p>
    <p id='spotPrice'>${spot.price} per night</p>
@@ -43,6 +44,7 @@ if(!isLoading) {
      </div>
 
     </div>
+    </Tooltip>
   </li>
 ))}
       </ul>

@@ -18,19 +18,18 @@ export default function Navigation({isLoaded}) {
 
 // console.log(user,'my user')
   return (
-    <div className='navContainer'>
+    <div className='navContainer' >
       <Link to='/'>
-      <img src='https://res.cloudinary.com/dxbirmmv1/image/upload/v1705641036/Design_ktv1os.png' className='logo' style={{height: '120px',
-    width: '275px', flex: 'start'}}  />
+      <img src='https://res-console.cloudinary.com/dxbirmmv1/thumbnails/transform/v1/image/upload//v1706376134/RGVzaWduX2t0djFvcw==/drilldown' className='logo' style={{height: '6em', width: '6em', float: 'left'}}  />
     </Link>
     <nav >
-<ul className='navlist'>
-
+<ul className='navlist' style={{float: 'left'}} id={'dropdown'} >
+{/*
     <li key='homeButton'>
         <NavLink to='/'>Home</NavLink>
-    </li>
+    </li> */}
 
-    <li key='createSpotLink' hidden={!user}>
+    <li key='createSpotLink' className={'createSpotLink'} hidden={!user} style={{alignSelf:'center'}} >
 <NavLink to='/spots/new'>Create a New Spot</NavLink>
     </li>
 
