@@ -24,7 +24,7 @@ spotId: spot.id,
 review,
 stars
 }
- dispatch(reviewsActions.writeReview(data)).then(dispatch(reviewsActions.findReviews(spot.id))).then(closeModal).catch( async (res) => {
+ dispatch(reviewsActions.writeReview(data)).then(dispatch(reviewsActions.findReviews(spot.id))).then(closeModal).then(window.location.reload()).catch( async (res) => {
 const data= await res.json()
   if (data ) {
     console.log(data,'this is in your modal!')

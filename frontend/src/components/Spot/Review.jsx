@@ -26,13 +26,15 @@ export default function Review({spot}) {
   // console.log(reviews, "this is the reviews");
   // console.log(posted,'posted')
 useEffect(()=>{
+if(reviews.length > 0){
+  reviews.map(review => {
+   if(user && (review.userId === user.id)){
+     // console.log(review.userId,'this is the userId for review')
+     return setPosted(true)
+   }
+ })
 
-     reviews.map(review => {
-      if(user && (review.userId === user.id)){
-        // console.log(review.userId,'this is the userId for review')
-        return setPosted(true)
-      }
-    })
+}
 
 
 
@@ -81,9 +83,9 @@ useEffect(()=>{
                     buttonText='Delete'
                     modalComponent={<ReviewDeleteModal />}
                     onButtonClick={() => {
-                      dispatch(singleReview(review)).then(
+                      dispatch(singleReview(review));
                         <ReviewDeleteModal />
-                        );
+
                       }}
                       />
                   )}
