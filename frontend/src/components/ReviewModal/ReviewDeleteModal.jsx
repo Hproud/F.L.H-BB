@@ -13,11 +13,11 @@ export default function ReviewDeleteModal() {
         console.log('you said  yes')
         console.log(spot.id,'this is the spot')
         console.log(review,'this is the review')
-            dispatch(reviewsActions.removeReview(review.id,spot.id))
+            dispatch(reviewsActions.removeReview(review.id,spot.id)).then(closeModal).then(window.location.reload())
     // .then(()=>closeModal)
 
         // return closeModal
-        window.location.reload();
+        // window.location.reload();
     }
     // const no =(e)=>{
     // e.preventDefault()
