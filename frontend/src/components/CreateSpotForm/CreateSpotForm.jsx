@@ -16,11 +16,11 @@ export default function CreateSpotForm() {
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [pic1,setpic1] = useState('');
-  const [pic2,setpic2] = useState('');
-  const [pic3,setpic3] = useState('');
-  const [pic4,setpic4] = useState('');
-  const [pic5,setpic5] = useState('');
+  const [pic1,setpic1] = useState();
+  const [pic2,setpic2] = useState();
+  const [pic3,setpic3] = useState();
+  const [pic4,setpic4] = useState();
+  const [pic5,setpic5] = useState();
 
   // const [images,setImages] =useState([]);
   const [previewImage, setPreviewImage] = useState("");
@@ -57,7 +57,7 @@ const handleSubmit = (e) => {
 
   dispatch(spotActions.addSpot(newSpot)).then((spot) =>{
     const picArr=[pic1,pic2,pic3,pic4,pic5]
-picArr.map(pic => {if(pic.url.length>0) dispatch(addspotPic({url:pic,preview:false},spot.id))})
+picArr.map(pic => dispatch(addspotPic({url:pic,preview:false},spot.id)))
 // for (let i=0; i < picArr.length;i++){
 //   const picture = picArr[i];
   // const payload = {
@@ -67,7 +67,7 @@ picArr.map(pic => {if(pic.url.length>0) dispatch(addspotPic({url:pic,preview:fal
 //   dispatch(addspotPic({url:picture,preview:false}),spot.id)
 // }
 
-  }).then(spot => navigate(`/spots/${(spot.id)}`))
+  }).then( spot => dispatch(spotActions.singleSpot(spot.id))).the(navigate(`/spots/${(spot.id +1)}`))
 
   .catch(async (res) => {
     const data = await res.json()
@@ -87,8 +87,8 @@ picArr.map(pic => {if(pic.url.length>0) dispatch(addspotPic({url:pic,preview:fal
 
 
 
-const picArr=[pic1,pic2,pic3,pic4,pic5]
-picArr.map(pic => {if(pic.url.length>0){ dispatch(addspotPic({url:pic,preview:false},spot.id))}})
+// const picArr=[pic1,pic2,pic3,pic4,pic5]
+// picArr.map(pic => {if(pic.url.length>0){ dispatch(addspotPic({url:pic,preview:false},spot.id))}})
 // for (let i=0; i < picArr.length;i++){
 //   const picture = picArr[i];
   // const payload = {
@@ -140,7 +140,7 @@ navigate(`/spots/${(spot.id)}`)
           placeholder='address'
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-         
+
 
         />
         ,

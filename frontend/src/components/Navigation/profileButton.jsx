@@ -7,6 +7,9 @@ import LoginFormModal from '../LoginFormModal/LoginFormModal'
 import SignUpModal from '../signUpForm/SignUpModal'
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { useSelector } from "react-redux";
+import { RecentActorsRounded } from "@material-ui/icons";
+
+
 
 function ProfileButton() {
   const user = useSelector(state => state.session.user)
@@ -49,8 +52,8 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <i className='fas fa-user-circle' />
+      <button onClick={toggleMenu}style={{borderRadius: '12px'}} className={'profileButton' }>
+        <RecentActorsRounded  />
       </button>
       <ul className={ulClassName} hidden={!showMenu} ref={ulRef}>
         {user ? (
