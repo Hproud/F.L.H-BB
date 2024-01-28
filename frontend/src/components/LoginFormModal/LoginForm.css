@@ -1,10 +1,99 @@
 
 .LoginForm{
-    background-color: aqua;
+    background-color: rgba(212, 216, 216, 0.938);
     display: grid;
     flex-direction: column;
-justify-content: center;
-row-gap: 10px;
+    /* grid-template-rows: 60px 40px 40px 40px 60px auto; */
+    grid-column: auto;
+justify-items: center;
+height: auto;
+width: 500px;
+border-radius: 5%;
+}
+
+#modal-content{
+    border-radius: 5%;
+}
+
+.loginTitle{
+    position:fixed;
+    position: relative;
+    justify-self: center;
+    grid-row:1;
+    height: auto;
+    width: auto;
+}
+
+.credentiallabel{
+    position:fixed;
+    position: relative;
+    grid-row:2;
+    height: 20px;
+}
+
+.credentialbox{
+    grid-row:3;
+    width: 450px;
+    height: 20px;
+    background-color: lightblue;
+
+}
+
+.passwordInput{
+    width: 450px;
+    height: 20px;
+    background-color: lightblue;
+
+}
+
+.loginbutton{
+    grid-row: 4;
+    position:fixed;
+    position: relative;
+    background-color: rgba(238, 123, 16, 0.801);
+    color:white;
+    left:-2px;
+    bottom: 60px;
+    height: 50px;
+    width: 450px;
+    box-shadow: 3px 3px black ;
+    font-size: medium;
+
+}
+
+.demo {
+    position:fixed;
+    background:none;
+    border: none;
+    font-size: medium;
+    text-decoration-line: underline;
+    color: blueviolet;
+    position: relative;
+    left: 177px;
+    top: -40px;
 
 
+
+}
+
+.loginerror{
+    color:red;
+    font-weight: Bolder;
+    width: 450px ;
+    font-size: 16pt;
+    position: relative;
+    bottom: 30px;
+    left:50px;
+}
+
+.credentials{
+    position:fixed;
+    position: relative;
+    bottom:30px
+}
+
+.password{
+    position:fixed;
+    position: relative;
+    bottom:45px
 }

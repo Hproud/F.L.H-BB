@@ -1,65 +1,67 @@
-.propertyInfo{
+.spotsPage{
     display: grid;
-    grid-template-columns:1fr 1fr 1fr 1fr;
-    grid-template-rows: 100px 100px 100px 100px 100px;
-
-    .description{
-        grid-column: 1;
-        grid-row: 1;
-    }
-
-    .divider{
-grid-row: 3;
-color:black
-    }
-
-    .infoBlock{
-        display: grid;
-        grid-template-rows:100px 100px 100px;
-        grid-template-columns: 300px 300px ;
-
-.host{
-    grid-row: 1;
-    flex-direction: row;
+    margin-left: 50px;
+    height:auto;
+    max-width: 1000px;
+   flex-wrap: wrap;
 }
 
-        .description{
-            grid-row: 2;
-            grid-column: span 3;
-            grid-column-start: 1;
-            grid-column-end: 4;
-         }
+.infoBlock{
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 2fr 1fr auto;
+}
 
-        }
+.description{
+position: relative;
+height:60px;
+    grid-row:2;
+    left: 8px;
+    bottom:60px
 
-        .ressetup{
-            grid-row: span 2;
-            grid-row-start: 2;
-            grid-column: span 2;
-            grid-column-start: 4;
-            justify-self: start;
-            align-self: flex-start;
-        }
+}
 
-        .spotrate{
-            height: 50px;
+.new{
+    position: relative;
+    grid-row:3;
+  bottom: -2px;
+    left: 10px;
+}
 
 
-        }
-
-.reservedbutton{
-    grid-column: span 2;
-    grid-row: 2;
-    grid-column-start: 4;
-    grid-column-end: 5;
+.reviewofspot{
+  font-weight: bold;
 }
 
 .reviews{
-    grid-row: span 4;
-    grid-row-start: 3;
-    grid-column: span all;
-grid-column-start: 1;
-height:300px
+  margin-bottom: 60px;
 }
 
+hr{
+  background-color:black;
+  height: 1px;
+}
+
+.previewimage{
+  height: 500px;
+  width: 400px;
+}
+
+.theImages{
+  display: grid;
+  grid-template-columns: 400px auto;
+  grid-template-rows: 400px;
+  max-width: 1000px;
+}
+
+.pictures{
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.piclist{
+  display: flex;
+  align-self: center;
+  flex-wrap: wrap;
 }

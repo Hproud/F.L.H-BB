@@ -51,7 +51,7 @@ export const singleSpot = (spotId) => async (dispatch) => {
   const res = await csrfFetch(`/api/spots/${spotId}`);
   if (res.ok) {
     const data = await res.json();
-    console.log(data, "this is my dataaaaaaa");
+    // console.log(data, "this is my dataaaaaaa");
     dispatch(oneSpot(data));
   }
 };

@@ -1,12 +1,12 @@
 
 import './reserveButton.css'
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {FaStar} from 'react-icons/fa'
 import { GoDotFill } from "react-icons/go"
 
 export default function ReserveButton() {
 const spot = useSelector(state => state.spot.spot);
-console.log(spot,'this is the spot')
+// console.log(spot,'this is the spot')
 // const dispatch = useDispatch()
 
 

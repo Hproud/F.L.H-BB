@@ -32,8 +32,9 @@ if(reviews.length > 0){
   reviews.map(review => {
    if(user && (review.userId === user.id)){
      // console.log(review.userId,'this is the userId for review')
-     return setPosted(true)
+     setPosted(true)
    }
+
  })
 
 }
@@ -43,10 +44,39 @@ if(reviews.length > 0){
 },[reviews])
 
 
+if(reviews.length){
+  reviews.forEach(review =>{
+   const dates=review.createdAt.split('-')
+   const year = dates[0];
+   let month= dates[1];
+
+switch (dates[1]){
+  case '01':  month = 'January';break;
+  case '02':  month = 'February';break;
+  case '03':  month = 'March';break;
+  case '04':  month = 'April';break;
+  case '05':  month = 'May';break;
+  case '06':  month = 'June';break;
+  case '07':  month = 'July';break;
+  case '08':  month = 'August';break;
+  case '09':  month = 'September';break;
+  case '10':  month = 'October';break;
+  case '11':  month = 'November';break;
+  case '12':  month = 'December';break;
+
+}
+
+review.reviewdate= month+' '+year
+
+  })
+}
+
+
+
   if (!isloading) {
     return (
       <div>
-        <h2>reviews</h2>
+
         <div id={'clickable'}>
 {user && !owner && !posted &&
 
@@ -65,10 +95,10 @@ if(reviews.length > 0){
 
           {reviews.length > 0 &&
             reviews.map((review) => (
-              <div key={review.id}>
-                <h3>{review.User.firstName}</h3>
-                <p>{review.createdAt}</p>
-                <p>{review.review}</p>
+              <div key={review.id} >
+                <h3 style={{fontSize:'20pt',margin:'5px'}}>{review.User.firstName}</h3>
+                <p style={{color:'grey',fontSize:'14pt',margin:'2px'}}>{review.reviewdate}</p>
+                <p className="reviewofspot">{review.review}</p>
                   {user && review.userId === user.id  && (
                     <OpenModalButton
                     id={'clickable'}
@@ -80,7 +110,9 @@ if(reviews.length > 0){
                         ));
                       }}
                       />
-                  )}
+                      )}
+
+                        <div   style={{position:'relative',left:'70px',bottom:'20px'}}>
                   {user && review.userId === user.id &&  (
                     <OpenModalButton
                     id={'clickable'}
@@ -92,7 +124,8 @@ if(reviews.length > 0){
 
                       }}
                       />
-                  )}
+                      )}
+                      </div>
                       <div>
                 </div>
               </div>

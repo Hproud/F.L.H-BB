@@ -6,8 +6,9 @@ import { findReviews } from "../../store/reviews";
 import ReserveButton from "../ReserveButton";
 import Review from './Review'
 import { FaStar } from "react-icons/fa";
-import Divider from '@mui/material/Divider';
+
 import './Spots.css'
+
 
 export default function Spots() {
   const { spotId } = useParams();
@@ -30,38 +31,41 @@ const pics = useSelector(state => state.spot.spot?.SpotImages)
 if (!isLoading) {
   return (
     <div className="spotsPage">
-      <h2>{spot.name}</h2>
-      <p>
-        {spot.city}, {spot.state} {spot.country}
+      <h2 style={{position: 'relative',left:'10px',fontSize:'24pt',top:'30px',left:'-6px'}}>{spot.name}</h2>
+      <p style={{fontSize:'16pt'}}>
+        {spot.city}, {spot.state}, {spot.country}
       </p>
-      <img src={spot.previewImage} style={{height:'400px'}} />
+      <div className="theImages">
+      <img src={spot.previewImage} style={{height:'400px'}}  className="previewimage"/>
+      <div className="piclist" >
       {pics &&
        pics.map((image) =>
 
-         <img key={image.id} src={image.url} style={{height:'200px',width:'250px'}} hidden={image.preview}/>
+         <img  key={image.id} src={image.url} style={{height:'200px',width:'200px'}} hidden={image.preview}/>
 
          )}
+      </div>
+      </div>
       <div className="propertyInfo">
         <div className="infoBlock">
-        <h2 className="host">
+        <h2 className="host" style={{fontSize:'24pt', margin:'3px',height:'60px'}}>
           Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
         </h2>
         <p className="description">{spot.description}</p>
+
+
+        {!reviews.length  && <div className="new"> new </div>}
+        <div >
+          <ReserveButton spot={spot} />
+        </div>
+</div>
+<hr></hr>
         {reviews.length > 0 &&
-            <div className="spotrate">
+            <div className="spotRate" style={{gridRow:'3', position:'relative',top:'0px'}}>
 
              <FaStar/> {spot.avgRating} Average Star Rating {spot.numReviews} Reviews
             </div>
           }
-<div className="ressetup">
-        </div>
-<Divider className="divider"/>
-        {!reviews.length  && <div> new </div>}
-        <div className="reservedbutton">
-          <ReserveButton spot={spot} />
-        </div>
-
-</div>
         <div className="reviews">
           {<Review spot={spot} />}
         </div>

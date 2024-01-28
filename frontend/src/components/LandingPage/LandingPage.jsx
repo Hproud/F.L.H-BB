@@ -6,6 +6,7 @@ import { allSpots } from '../../store/spot';
 import './LandingPage.css'
 import { useNavigate } from "react-router-dom";
 import { Tooltip } from "@material-ui/core";
+import { FaStar } from "react-icons/fa";
 export default function LandingPage() {
     const dispatch = useDispatch()
 const [isLoading,setIsLoading] = useState(true);
@@ -29,18 +30,20 @@ if(!isLoading) {
   // console.log(spots,'this is alllllll spotttsssss')
   return (
     <div className='spotList'>
-      <h2>All spots</h2>
+
       <ul className='listings'>
 {spots && spots.map((spot) =>(
   <li key={spot.id} style={{cursor: 'pointer'}}>
-<Tooltip title={spot.name} showTipPointer='middle' >
+<Tooltip title={spot.name}  placement="top" >
     <div className='spot' onClick={() => navigate(`spots/${spot.id}`)}  >
      <img className='spotImage' src={`${spot.previewImage}`} />
 
      <div className='spotInfo'>
    <p id='spotAddress'>{spot.city}, {spot.state}</p>
-   <p id='spotPrice'>${spot.price} per night</p>
-   <p id='spotDescription'>{spot.description}</p>
+   <div className="listinfo">
+    <p id='spotPrice'>${spot.price}</p> <p className="pernight"> night</p>
+    </div>
+<div className="listedstarrating"><FaStar />{spot.avgRating}</div>
      </div>
 
     </div>

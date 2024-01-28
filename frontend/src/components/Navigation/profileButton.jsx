@@ -68,7 +68,7 @@ function ProfileButton() {
               <Link to='reviews/current'>Manage Reviews</Link>
             </li> */}
             <br/>
-            <button onClick={handleLogout} id={'clickable'}>LogOut</button>
+            <button onClick={handleLogout} className="logoutbutton" id={'clickable'}>LogOut</button>
           </>
         ): (<>
           <li id={'clickable'}>
