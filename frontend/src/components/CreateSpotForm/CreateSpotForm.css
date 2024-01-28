@@ -1,9 +1,343 @@
 .spot-form-error{
    color: red;
    font-weight: bold;
+   margin:2px;
 }
 
 .createSpotForm{
-   display: flex;
+   /* display: grid; */
    flex-direction: column;
+   align-self: center;
+   width: 600px;
+   height: 1850px;
+
+}
+
+.fullForm{
+justify-content: start;
+   display: grid;
+   grid-column: 2;
+margin-left: 200px;
+margin-right: 200px;
+font-weight: 800;
+}
+
+.location{
+   position: fixed;
+   position: relative;
+   bottom: -10px;
+}
+
+.newspotheading{
+   position: fixed;
+   justify-items: start;
+   position: relative;
+   margin-left: 10px;
+
+}
+
+.country{
+   position: fixed;
+   width: 600px;
+   border-style: solid;
+   border-color: black;
+   background-color: lightblue;
+   position: relative;
+bottom: 15px;
+height: 20px;
+
+}
+.addressdiv{
+   position: relative;
+   bottom: 20px;
+}
+.addresslabel{
+   position: fixed;
+position: relative;
+bottom: -5px;
+
+}
+
+.address{
+   width: 600px;
+   border-style: solid;
+   border-color: black;
+   position: fixed;
+   background-color: lightblue;
+   position: relative;
+   height: 20px;
+   bottom: 12px;
+}
+
+.city{
+   width: 350px;
+   position: fixed;
+   background-color: lightblue;
+   position: relative;
+   border-style: solid;
+   border-color: black;
+   height: 20px;
+   bottom:10px;
+
+}
+.citylabel{
+   position: fixed;
+   position: relative;
+   bottom: -5px;
+}
+
+.citydiv{
+   position: relative;
+   bottom: 50px;
+}
+
+.statediv{
+   position: relative;
+   bottom: 140px;
+   left: 370px;
+}
+
+.statelabel{
+   position: fixed;
+   position: relative;
+   top: 16px;
+}
+
+.state{
+   position: fixed;
+position: relative;
+   width: 233px;
+   border-style: solid;
+   background-color: lightblue;
+   border-color: black;
+   height: 20px;
+
+}
+
+
+.lat{
+   width: 300px;
+   background-color: lightblue;
+   border-style: solid;
+   position: fixed;
+   height: 20px;
+   position: relative;
+   bottom: 18px;;
+   border-color: black;
+}
+
+
+.latdiv{
+   position: relative;
+   bottom:150px;
+}
+
+
+.lng{
+   border-color: black;
+   border-style: solid;
+   background-color: lightblue;
+   height: 20px;
+   position: fixed;
+   position: relative;
+   bottom: 15px;
+   width: 283px;
+
+}
+
+.lngdiv{
+   position: relative;
+   left:320px;
+   bottom: 233px;
+}
+
+
+.line{
+   position: fixed;
+   position: relative;
+   bottom:245px;
+   right: 35px;
+   /* border-radius: 5px; */
+   height: 2px;
+width: 600px;
+left:0px
+}
+
+.desctitle{
+   position: fixed;
+   position: relative;
+   bottom: 250px;
+   font-size:xx-large;
+}
+
+.desclabel{
+   position: fixed;
+   position: relative;
+   bottom:260px;
+   font-size: large;
+}
+
+
+.signupdescription{
+   background-color: lightblue;
+   border-style: solid;
+   border-color: black;
+   height: 300px;
+   width: 600px;
+   position: fixed;
+   position: relative;
+   display: flex;
+   -ms-flex-align: start;
+   bottom:260px;
+   text-align:left;
+   text-justify:distribute
+
+
+
+
+}
+
+input::placeholder{
+   position: relative;
+   bottom: 125px;
+
+}
+
+
+.line2{
+   position: fixed;
+   position: relative;
+bottom: 250px;
+width: 600px;
+right: 35px;
+height: 2px;
+left:0px
+
+}
+
+.spottitletitle{
+   font-size: xx-large;
+   position: fixed;
+   position: relative;
+bottom: 260px;
+}
+
+.spotlabel{
+   font-size: large;
+   position: fixed;
+   position: relative;
+   bottom: 270px;
+   width: 600px;
+   flex-wrap: wrap;
+}
+
+
+.spotname{
+   width: 600px;
+   border-color: black;
+   border-style: solid;
+   background-color: lightblue;
+   position: fixed;
+   position: relative;
+   bottom: 250px;
+height: 20px;
+
+}
+
+.line3{
+   position: fixed;
+   position: relative;
+   bottom: 250px;
+   width: 600px;
+   right: 35px;
+   height: 2px;
+left:0px
+
+}
+
+.spotpricetitle{
+   font-size: x-large;
+   position: fixed;
+   position: relative;
+   bottom: 250px;
+   left:12px
+}
+
+.spotpricediv{
+   position: relative;
+   bottom:270px
+}
+
+.spotPriceInput{
+   width: 600px;
+   border-color: black;
+   border-style: solid;
+   background-color: lightblue;
+   position: fixed;
+   position: relative;
+height: 20px;
+}
+
+.line4{
+   position: fixed;
+   position: relative;
+   bottom: 275px;
+   width: 600px;
+   right: 35px;
+   height: 2px;
+left:0px
+
+}
+
+.phototitle{
+   position: fixed;
+   position: relative;
+   bottom: 05px;
+}
+
+.photolabel{
+   position: fixed;
+   position: relative;
+   bottom: 0px;;
+}
+
+.photo{
+   position: fixed;
+position: relative;
+   width: 600px;
+   height: 20px;
+   border-style: solid;
+   border-color: black;
+   background-color: lightblue;
+}
+
+.allpics{
+   position: relative;
+   bottom: 280px;
+}
+
+.createspotbutton{
+   width:150px;
+   height: 30px;
+position: relative;
+left:200px;
+bottom: 250px;
+background-color: rgba(238, 123, 16, 0.801);
+color: white;
+font-size: large;
+text-align: center;
+box-shadow: 5px 5px 5px black;
+}
+
+#countryerror{
+   position: fixed;
+   position: relative;
+   bottom: 20px;
+   left: 60px
+}
+
+#addresserror{
+   position: relative;
+   bottom: 16px;
+   left:100px
 }

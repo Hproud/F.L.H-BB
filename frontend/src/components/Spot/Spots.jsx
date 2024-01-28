@@ -31,7 +31,7 @@ const pics = useSelector(state => state.spot.spot?.SpotImages)
 if (!isLoading) {
   return (
     <div className="spotsPage">
-      <h2 style={{position: 'relative',left:'10px',fontSize:'24pt',top:'30px',left:'-6px'}}>{spot.name}</h2>
+      <h2 style={{position: 'relative',fontSize:'24pt',top:'30px',left:'-6px'}}>{spot.name}</h2>
       <p style={{fontSize:'16pt'}}>
         {spot.city}, {spot.state}, {spot.country}
       </p>
