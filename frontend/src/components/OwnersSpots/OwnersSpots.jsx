@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { ownerSpots,singleSpot } from "../../store/spot"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
 import ConfirmDeleteModal from '../ConfirmDeleteModal/ConfirmDeleteModal'
-
+import './OwnersSpots.css'
 
 export default function OwnersSpots() {
 const navigate= useNavigate()
@@ -40,7 +40,7 @@ const onClickUpdate = (spotId) => {
       <h1>Manage Your Spots</h1>
       <button type='button' onClick={() => navigate('/spots/new')}>Create a New spot</button>
 
-      <ul>
+      <ul className="ownedSpots">
 {spots && spots.map((spot) => (
   <li key={spot.id}>
     <div>

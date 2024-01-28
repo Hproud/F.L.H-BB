@@ -20,9 +20,14 @@ function LoginFormModal() {
 .then(() => dispatch(sessionActions.restoreUser()))
      .then(closeModal)
      .catch(async (res) => {
+      console.log('hit3')
        const data = await res.json()
+       console.log(data,'..............')
        if (data && data.errors) {
          setErrors(data.errors);
+        }else if (data && data.message){
+          setErrors(data.message)
+
         }
       })
       // console.log(errors, 'this is the errors')
@@ -32,12 +37,10 @@ function LoginFormModal() {
   return (
     <div className='LoginForm'>
       <h1>Log In</h1>
-      {errors && (
-        <p>The Provided credentials were invalid</p>
-      )}
+
       <form onSubmit={handleSubmit} >
         {errors && (
-          <p>{errors}</p>
+          <p id='error'>{errors}</p>
         )}
         <label>
           Username or Email

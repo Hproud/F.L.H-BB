@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 import { findReviews } from "../../store/reviews";
 import ReserveButton from "../ReserveButton";
 import Review from './Review'
-
-
+import { FaStar } from "react-icons/fa";
+import Divider from '@mui/material/Divider';
+import './Spots.css'
 
 export default function Spots() {
   const { spotId } = useParams();
@@ -28,7 +29,7 @@ const pics = useSelector(state => state.spot.spot?.SpotImages)
 
 if (!isLoading) {
   return (
-    <div>
+    <div className="spotsPage">
       <h2>{spot.name}</h2>
       <p>
         {spot.city}, {spot.state} {spot.country}
@@ -40,24 +41,28 @@ if (!isLoading) {
          <img key={image.id} src={image.url} style={{height:'200px',width:'250px'}} hidden={image.preview}/>
 
          )}
-      <div>
-        <h2>
-
+      <div className="propertyInfo">
+        <div className="infoBlock">
+        <h2 className="host">
           Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
         </h2>
-        <p>{spot.description}</p>
+        <p className="description">{spot.description}</p>
+        {reviews.length > 0 &&
+            <div className="spotrate">
 
-        {reviews &&
-          (
-            <div>
-              {spot.avgRating} Average Star Rating {spot.numReviews} Reviews
+             <FaStar/> {spot.avgRating} Average Star Rating {spot.numReviews} Reviews
             </div>
-          )}
-        {!reviews && <div> new </div>}
-        <div>
+          }
+<div className="ressetup">
+        </div>
+<Divider className="divider"/>
+        {!reviews.length  && <div> new </div>}
+        <div className="reservedbutton">
           <ReserveButton spot={spot} />
         </div>
-        <div>
+
+</div>
+        <div className="reviews">
           {<Review spot={spot} />}
         </div>
 

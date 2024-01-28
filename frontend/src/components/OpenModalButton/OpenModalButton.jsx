@@ -22,8 +22,8 @@ function OpenModalButton({
 
 
 
-  
-  return <button onClick={onClick}>{buttonText}</button>;
+
+  return <button onClick={onClick} id={'clickable'}>{buttonText}</button>;
 }
 
 export default OpenModalButton;

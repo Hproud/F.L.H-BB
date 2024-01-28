@@ -74,7 +74,7 @@ const {closeModal} = useModal();
         setErrors(data.errors);
        }
      })
-     console.log(errors, 'this is the errors')
+    //  console.log(errors, 'this is the errors')
     // navigate("/");
   };
   return (
@@ -98,7 +98,7 @@ const {closeModal} = useModal();
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
-        <p>{errors.lastName}</p>
+        <p id='error'>{errors.lastName}</p>
         <label>Email: </label>
 
 <br />
@@ -107,7 +107,7 @@ const {closeModal} = useModal();
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <p>{errors.email}</p>
+        <p id='error'>{errors.email}</p>
 
         <label>Create a Username:</label>
 
@@ -118,7 +118,7 @@ const {closeModal} = useModal();
           onChange={(e) => setUserName(e.target.value)}
         />
         <p>{errors.username}</p>
-  <p>{errors.password}</p>
+  <p id='error'>{errors.password}</p>
         <label className='password'>Password: </label>
 <br />
         <input
@@ -136,7 +136,7 @@ const {closeModal} = useModal();
   onChange={(e) => setPassword2(e.target.value)}
 />
 <br />
-      <button type='submit' disabled={Object.values(errors).length}>Sign Up</button>
+      <button type='submit' disabled={Object.values(errors).length } id={'clickable'}>Sign Up</button>
       </form>
     </div>
   );

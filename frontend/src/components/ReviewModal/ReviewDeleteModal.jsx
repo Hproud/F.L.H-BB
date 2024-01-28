@@ -32,8 +32,8 @@ export default function ReviewDeleteModal() {
         <div>
             <h2>Confirm Delete</h2>
             <p>Are you sure you want to remove this review from the listings?</p>
-            <button onClick={yes }>Yes(Delete Review)</button>
-            <button onClick={closeModal }>No(Keep Review)</button>
+            <button onClick={yes } id={'clickable'}>Yes(Delete Review)</button>
+            <button onClick={closeModal } id={'clickable'}>No(Keep Review)</button>
         </div>
       )
 

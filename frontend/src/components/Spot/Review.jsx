@@ -47,7 +47,7 @@ if(reviews.length > 0){
     return (
       <div>
         <h2>reviews</h2>
-        <div>
+        <div id={'clickable'}>
 {user && !owner && !posted &&
 
 <OpenModalButton
@@ -71,6 +71,7 @@ if(reviews.length > 0){
                 <p>{review.review}</p>
                   {user && review.userId === user.id  && (
                     <OpenModalButton
+                    id={'clickable'}
                     buttonText='Update'
                     modalComponent={<ReviewUpdateModal />}
                     onButtonClick={() => {
@@ -82,6 +83,7 @@ if(reviews.length > 0){
                   )}
                   {user && review.userId === user.id &&  (
                     <OpenModalButton
+                    id={'clickable'}
                     buttonText='Delete'
                     modalComponent={<ReviewDeleteModal />}
                     onButtonClick={() => {

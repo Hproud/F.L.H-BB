@@ -2,13 +2,14 @@
     grid-row: 1/2;
     display: grid;
     background-color: bisque;
-flex-direction: row;
-height: auto;
-border-color: aquamarine;
-border-width: auto;
-/* grid-template-columns: auto 4fr auto; */
+    flex-direction: row;
+    height: auto;
+    border-color: aquamarine;
+    border-width: auto;
+    /* grid-template-columns: auto 4fr auto; */
 }
 nav{
+    
     grid-column: 3;
     display: grid;
     grid-template-rows: auto auto auto;

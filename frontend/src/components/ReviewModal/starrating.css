@@ -1,0 +1,61 @@
+
+.create-review{
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 45px auto 1fr;
+
+}
+
+.reviewHeading{
+    grid-row: 1;
+    justify-self: center;
+    /* display: flexbox; */
+}
+
+.commentBox{
+    grid-row: 2;
+    width: 250px;
+    justify-self: center;
+}
+
+.commentBox{
+    grid-row: 3;
+    height: 50px;
+
+}
+
+
+.starrating{
+    grid-row: 4;
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
+
+
+    .starlabel{
+        grid-row: 1;
+        justify-self: center;
+        font-size:xx-large;
+    }
+
+    .stars{
+       justify-self: center;
+       grid-row: 2;
+
+       .favstar{
+        width: 58px
+       }
+    }
+
+    .slider {
+        justify-self: center;
+        width: 250px;
+        grid-row: 3;
+    }
+
+}
+
+.subbutton{
+    width: 150px;
+    justify-self: center;
+    margin-bottom: 5px;
+}

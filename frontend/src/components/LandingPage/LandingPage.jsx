@@ -32,8 +32,8 @@ if(!isLoading) {
       <h2>All spots</h2>
       <ul className='listings'>
 {spots && spots.map((spot) =>(
-  <li key={spot.id}>
-<Tooltip title={spot.name}>
+  <li key={spot.id} style={{cursor: 'pointer'}}>
+<Tooltip title={spot.name} showTipPointer='middle' >
     <div className='spot' onClick={() => navigate(`spots/${spot.id}`)}  >
      <img className='spotImage' src={`${spot.previewImage}`} />
 
