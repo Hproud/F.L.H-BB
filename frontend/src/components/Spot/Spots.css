@@ -4,6 +4,7 @@
     height:auto;
     max-width: 1000px;
    flex-wrap: wrap;
+   justify-content: center;
 }
 
 .infoBlock{
@@ -19,10 +20,17 @@
 
 .description{
 position: relative;
+display:inline-block;
+inline-size: 400px;
+word-wrap: break-word;
+flex-wrap: wrap;
+text-overflow:clip ;
 height:60px;
     grid-row:2;
     left: 8px;
-    bottom:40px
+    bottom:40px;
+    width:400px;
+
 
 }
 
@@ -66,9 +74,9 @@ hr{
 }
 
 .piclist{
-  display: flex;
-  align-self: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50% 50%;
 }
 
 .modalbutton {
@@ -80,3 +88,4 @@ box-shadow: 3px 3px  black;
 .modalbutton:hover{
   cursor: pointer;
 }
+

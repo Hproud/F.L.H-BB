@@ -6,6 +6,7 @@ import { findReviews } from "../../store/reviews";
 import ReserveButton from "../ReserveButton";
 import Review from './Review'
 import { FaStar } from "react-icons/fa";
+import { GoDotFill } from "react-icons/go"
 
 import './Spots.css'
 
@@ -43,7 +44,7 @@ if (!isLoading) {
       {pics &&
        pics.map((image) =>
 
-         <img  key={image.id} src={image.url} style={{height:'200px',width:'200px'}} hidden={image.preview}/>
+         <img  key={image.id} src={image.url} style={{height:'200px',width:'300px'}} hidden={image.preview}/>
 
          )}
       </div>
@@ -53,28 +54,34 @@ if (!isLoading) {
         <h2 className="host" style={{fontSize:'24pt', margin:'3px',height:'60px'}}>
           Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
         </h2>
-        <p className="description">{spot.description}</p>
+
+        <p className="description" style={{width:'400px'}}>{spot.description}</p>
+
 
 
         {!reviews.length  && <div className="new"> new </div>}
+        {reviews.length === 1 && <div className="revrating">
+  <FaStar/> {spot.avgRating}.0 Average Star Rating <GoDotFill className="dot"/> {spot.numReviews} Review
+  </div>}
         <div >
           <ReserveButton spot={spot} />
         </div>
 </div>
-<hr></hr>
-        {reviews.length > 0 &&
+<hr className="sep"></hr>
+        {reviews.length > 1 &&
   <div className="spotRate" style={{gridRow:'3', position:'relative',top:'0px'}}>
-{spot && pop &&(
+{spot && pop &&
 <div>
   <FaStar/> {spot.avgRating}.0 Average Star Rating {spot.numReviews} Reviews
-  </div>)
+  </div>
 }
 
 {spot && !pop && (
 <div>
-  <FaStar/> {spot.avgRating} Average Star Rating {spot.numReviews} Reviews
+  <FaStar/> {spot.avgRating} Average Stars
 </div>
 )}
+
             </div>
           }
         <div className="reviews">

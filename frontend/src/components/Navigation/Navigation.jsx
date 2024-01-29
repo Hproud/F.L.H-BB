@@ -1,7 +1,7 @@
 
 
 import {  useSelector } from 'react-redux'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 // import LoginFormModal from '../LoginFormModal/LoginFormModal'
 // import OpenModalButton from '../OpenModalButton/OpenModalButton'
 import ProfileButton from './profileButton'
@@ -30,7 +30,7 @@ export default function Navigation({isLoaded}) {
     </li> */}
 
     <li key='createSpotLink' className={'createSpotLink'} hidden={!user} style={{alignSelf:'center'}} id={'clickable'} >
-<NavLink to='/spots/new'>Create a New Spot</NavLink>
+<Link to='/spots/new' >Create a New Spot</Link>
     </li>
 
 

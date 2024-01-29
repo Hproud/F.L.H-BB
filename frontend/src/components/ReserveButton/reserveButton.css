@@ -48,6 +48,13 @@ bottom: -15px;
     align-self: center;
 }
 
+.norevs{
+    margin:0px;
+    width: 200px;
+    position: relative;
+    top: 25px;
+    left: 30px
+}
 
 .reservebutton{
     position:relative;

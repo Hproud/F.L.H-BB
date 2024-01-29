@@ -1,17 +1,17 @@
 .navContainer{
+/* position:sticky; */
 position: fixed;
-/* position: absolute; */
 position: relative;
+width: 100%;
 /* position: relative; */
     grid-row: 1/2;
     display: grid;
     background-color: bisque;
-    flex-direction: row;
-    height: auto;
-    border-color: aquamarine;
-    border-width: auto;
-    width: 1000px;
-    height:100px
+    flex-direction: row-reverse;
+    height:100px;
+    border-bottom-style:solid ;
+    border-bottom-width: 1px;
+    border-bottom-color:black ;top: 0; left: 0; z-index: 9999;
 
     /* grid-template-columns: auto 4fr auto; */
     /* position:absolute; */
@@ -19,7 +19,7 @@ position: relative;
 
 .logo{
 position: relative;
-
+justify-content: start;
     float: left;
     margin-left: 20px;
     margin-top: 2px;
@@ -28,6 +28,7 @@ position: relative;
 nav{
 float:right;
     grid-column: 3;
+    justify-content: end;
     display: grid;
     grid-template-rows: auto auto auto;
     /* position: fixed; */

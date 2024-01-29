@@ -16,12 +16,19 @@ const pop= Number.isInteger(spot.avgRating)
 
           <p className='price'>${spot.price}</p><p className='night'> night</p>
           </div>
-          {pop && (
-            <p className='avgrating'><FaStar/>{spot.avgRating}.0  <GoDotFill className='dot'/>  {spot.numReviews}  Reviews</p>
+          {pop && spot.numReviews > 1 && (
+            <p
+            className='avgrating'><FaStar/>{spot.avgRating}.0  <GoDotFill className='dot'/>  {spot.numReviews}  Reviews</p>
           ) }
-          {!pop && (
-            <p className='avgrating'><FaStar/>{spot.avgRating}  <GoDotFill className='dot'/>  {spot.numReviews}  Reviews</p>
-          )}
+          {!pop && spot.numReviews > 1 && (
+            <p className='avgrating'><FaStar/>{spot.avgRating.toFixed(1)}  <GoDotFill className='dot'/>  {spot.numReviews}  Reviews</p>
+            )}
+            {spot.numReviews === 1 && (
+              <p className='avgrating'><FaStar/>{spot.avgRating}  <GoDotFill className='dot'/>  {spot.numReviews}  Review</p>
+            )}
+            {!spot.numReviews &&
+               <p className='norevs' ><FaStar/>{spot.avgRating}.0 Average Star Rating</p>
+            }
         <button className='reservebutton' type='button' style={{cursor: 'pointer'}} onClick={()=> alert("Feature Coming Soon!")} id={'clickable'}>Reserve</button>
     </div>
   )

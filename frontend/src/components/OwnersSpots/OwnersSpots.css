@@ -5,12 +5,15 @@ ul{
 
 .buttonscontainer{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     width:120px
 }
 
 .thisspots{
-    margin-top: 30px;
+    display: grid;
+    column-count: 4;
+    margin: 10px;
 }
 .newspotbutton{
     position: relative;
@@ -41,4 +44,13 @@ box-shadow: 3px 3px black;
 
 .updatebutton:hover{
     cursor: pointer;
+}
+
+.ownedSpots{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* justify-content: space-evenly; */
+    max-width: 1000px;
+    margin: 30px 30px 30px 30px
 }
