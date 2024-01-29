@@ -10,7 +10,7 @@ import { FaStar } from "react-icons/fa";
 export default function LandingPage() {
     const dispatch = useDispatch()
 const [isLoading,setIsLoading] = useState(true);
-const spots = useSelector(state => state.spot.spots)
+const spots = useSelector(state => state.spot?.spots)
 const navigate =useNavigate()
 
 useEffect(() => {
@@ -22,7 +22,11 @@ useEffect(() => {
 
 },[dispatch])
 
-
+spots && spots.forEach(spot =>{
+  if(Number.isInteger(spot.avgRating)){
+    spot.avgRating = Number(`${spot.avgRating}.0`)
+  }
+})
 
 
 
@@ -43,7 +47,10 @@ if(!isLoading) {
    <div className="listinfo">
     <p id='spotPrice'>${spot.price}</p> <p className="pernight"> night</p>
     </div>
-<div className="listedstarrating"><FaStar />{spot.avgRating}</div>
+
+<div className="listedstarrating"><FaStar />{(spot.avgRating).toFixed(1)}</div>
+
+
      </div>
 
     </div>

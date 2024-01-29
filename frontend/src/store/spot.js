@@ -53,6 +53,7 @@ export const singleSpot = (spotId) => async (dispatch) => {
     const data = await res.json();
     // console.log(data, "this is my dataaaaaaa");
     dispatch(oneSpot(data));
+    dispatch(allSpots)
   }
 };
 

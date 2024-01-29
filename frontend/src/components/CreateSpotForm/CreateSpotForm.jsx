@@ -82,8 +82,8 @@ export default function CreateSpotForm() {
 
         {errors.message && <p className='spot-form-error'>{errors.message}</p>}
         <div className='location'>
-          <h2>Where`s your place located?</h2>
-          <p>
+          <h2 className="startheader">Where`s your place located?</h2>
+          <p className="disco">
             Guests will only get your exact address once they booked a
             reservation.
           </p>
@@ -93,11 +93,10 @@ export default function CreateSpotForm() {
           </label>
           <input
             className='country'
-            type='text'
+            type='textarea'
             value={country}
             onChange={(e) => setCountry(e.target.value)}
             placeholder='Country'
-            aria-required={true}
           />
         </div>
         <br />
@@ -116,54 +115,57 @@ export default function CreateSpotForm() {
         <br />
         <div className='citydiv'>
           <label className='citylabel'>City</label>
-          {errors && <p className='spot-form-error'>{errors.city}</p>}
+          {errors && <p id="cityerror" className='spot-form-error'>{errors.city}</p>}
           <input
             className='city'
             type='text'
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            aria-required={true}
-          />
-          ,
+
+
+          /> ,
         </div>
         <br />
         <div className='statediv'>
           <label className='statelabel'>State</label>
-          {errors && <p className='spot-form-error'>{errors.state}</p>}
+          {errors && <p id='stateerror' className='spot-form-error'>{errors.state}</p>}
           <input
             className='state'
             type='text'
             placeholder='state'
             value={state}
             onChange={(e) => setState(e.target.value)}
-            aria-required={true}
+
+
           />
         </div>
         <br />
         <div className="latdiv">
           <label>Latitude</label>
-          {errors && <p className='spot-form-error'>{errors.lat}</p>}
+          {errors && <p id='laterror' className='spot-form-error'>{errors.lat}</p>}
           <input
           className="lat"
             type='number'
             placeholder='latitude'
             value={lat}
             onChange={(e) => setLat(e.target.value)}
-            aria-required={true}
+
+
           />,
         </div>
 
         <br />
         <div className="lngdiv">
-          <label>Longitude</label>
-          {errors && <p className='spot-form-error'>{errors.lng}</p>}
+          <label className="lnglabel">Longitude</label>
+          {errors && <p id='lngerror' className='spot-form-error'>{errors.lng}</p>}
           <input
           className="lng"
             type='number'
             placeholder='longitude'
             value={lng}
             onChange={(e) => setLng(e.target.value)}
-            aria-required={true}
+
+
           />
         </div>
         <br />
@@ -183,9 +185,10 @@ export default function CreateSpotForm() {
             placeholder='Please write at least 30 characters'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            aria-required={true}
+
+
           />
-          {errors && <p className='spot-form-error'>{errors.description}</p>}
+          {errors && <p id='descerror' className='spot-form-error'>{errors.description}</p>}
         </div>
         <br />
         <br />
@@ -204,9 +207,9 @@ export default function CreateSpotForm() {
             placeholder='Name of your spot'
             value={name}
             onChange={(e) => setName(e.target.value)}
-            aria-required={true}
+
           />
-          {errors && <p className='spot-form-error'>{errors.name}</p>}
+          {errors.name && <p id='nameerror' className='spot-form-error'>Name is required</p>}
         </div>
         <br />
         <br />
@@ -227,9 +230,10 @@ export default function CreateSpotForm() {
             placeholder='Price per night (USD)'
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            aria-required={true}
+
+
           />
-          {errors && <p className='spot-form-error'>{errors.price}</p>}
+          {errors && <p id='priceerror' className='spot-form-error'>{errors.price}</p>}
           </div>
         </div>
         <br />
@@ -240,14 +244,14 @@ export default function CreateSpotForm() {
           <label className="photolabel">
             Submit a link to at least one photo to publish your spot.
           </label>
-          {errors && <p className='spot-form-error'>{errors.previewImage}</p>}
+          {errors && <p id='previewerror' className='spot-form-error'>{errors.previewImage}</p>}
           <input
           className="photo"
-            type='text'
-            placeholder='Preview Image URL'
-            value={previewImage}
-            onChange={(e) => setPreviewImage(e.target.value)}
-            aria-required={true}
+          type='text'
+          placeholder='Preview Image URL'
+          value={previewImage}
+          onChange={(e) => setPreviewImage(e.target.value)}
+          // required
           />
           <br />
           <br />

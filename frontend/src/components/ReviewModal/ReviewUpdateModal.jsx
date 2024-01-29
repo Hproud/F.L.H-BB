@@ -3,6 +3,8 @@ import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import *  as reviewsActions from '../../store/reviews'
 
+import './starrating.css'
+
 export default function ReviewUpdateModal() {
 const Review = useSelector(state => state.reviews.review)
   const [review,setReview] = useState(Review.review);
@@ -16,7 +18,6 @@ console.log(Review,'this is the review')
 const spot = Review.spotId;
 console.log(spot,'this is my spot')
 
-
 useEffect(()=>{},[Review,review,stars])
 
 
@@ -26,22 +27,21 @@ useEffect(()=>{},[Review,review,stars])
     reviewId: Review.id,
     review,
     stars
-    }
+    };
      dispatch(reviewsActions.changeReview(data))
-     .then(()=> {dispatch(reviewsActions.findReviews(spot.id))})
-     .then(()=>closeModal)
-
+closeModal
+    //  .then(()=> {() => dispatch(reviewsActions.findReviews(spot.id))})
+    //  .then(()=>closeModal)
      .catch( async (res) => {
     const data= await res.json()
       if (data ) {
         // console.log(data,'this is in your modal!')
        setErrors(data);
-      }else{
-        closeModal
       }
     })
-    window.location.reload();
+    // window.location.reload();
 
+return closeModal
     }
     // console.log(errors,'this is the errors in the review update')
 
@@ -50,7 +50,7 @@ useEffect(()=>{},[Review,review,stars])
 
   return (
    <div>
-        <form className="update-review" onSubmit={handleSubmit }>
+        <form className="update-review" onSubmit={handleSubmit}>
         <h1>How was your stay at {spot.name}?</h1>
         {errors && (
           <p>{errors.message}</p>

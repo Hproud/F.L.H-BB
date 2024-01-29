@@ -55,7 +55,9 @@ align-self: center;
     bottom: 13px;;
 }
 
-
+.profileButton:hover{
+    cursor: pointer;
+}
 
 .profile-dropdown{
 position: relative;
@@ -77,4 +79,12 @@ bottom: 13px;
 .logoutbutton{
     position: relative;
     bottom:10px;
+    background-color: grey;
+    color:white;
+    width: 80px;
+    height: 20px;
+    border-radius: 20px;
+}
+.logoutbutton:hover{
+    cursor: pointer;
 }

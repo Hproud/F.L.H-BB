@@ -1,8 +1,16 @@
 
+
+.reviewform{
+    background-color: lightblue;
+    border-style: solid;
+    border-radius: 10px;
+}
+
 .create-review{
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: 45px auto 1fr;
+border-radius: 20px;
 
 }
 
@@ -16,6 +24,7 @@
     grid-row: 2;
     width: 250px;
     justify-self: center;
+    background-color: rgb(152, 213, 233);
 }
 
 .commentBox{
@@ -42,7 +51,9 @@
        grid-row: 2;
 
        .favstar{
+
         width: 58px
+
        }
     }
 
@@ -50,12 +61,16 @@
         justify-self: center;
         width: 250px;
         grid-row: 3;
+        height:20px
     }
 
 }
 
 .subbutton{
-    width: 150px;
+    width: 250px;
+    height: 40px;
     justify-self: center;
     margin-bottom: 5px;
+    box-shadow: 5px 5px grey;
+    margin-bottom: 15px;
 }

@@ -38,17 +38,17 @@ const onClickUpdate = (spotId) => {
   return (
     <div>
       <h1>Manage Your Spots</h1>
-      <button type='button' onClick={() => navigate('/spots/new')}>Create a New spot</button>
+      <button className="newspotbutton" type='button' onClick={() => navigate('/spots/new')}>Create a New spot</button>
 
       <ul className="ownedSpots">
 {spots && spots.map((spot) => (
   <li key={spot.id}>
-    <div>
-      <img src={spot.previewImage} style={{height: "400px"}} onClick={() => navigate(`/spots/${spot.id}`)}/>
+    <div className="thisspots">
+      <img className='mainpic' src={spot.previewImage} style={{height: "200px"}} onClick={() => navigate(`/spots/${spot.id}`)}/>
       <p>{spot.city}, {spot.state}</p>
       <p>${spot.price} night</p>
-      <div>
-        <button type='button' onClick={e => { e.preventDefault(); onClickUpdate(spot.id)}} >Update</button>
+      <div className="buttonscontainer">
+        <button className="updatebutton" type='button' onClick={e => { e.preventDefault(); onClickUpdate(spot.id)}} >Update</button>
         <OpenModalButton
               buttonText="Delete"
               modalComponent={<ConfirmDeleteModal />}

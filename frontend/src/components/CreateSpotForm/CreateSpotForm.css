@@ -1,7 +1,6 @@
 .spot-form-error{
    color: red;
    font-weight: bold;
-   margin:2px;
 }
 
 .createSpotForm{
@@ -14,14 +13,27 @@
 }
 
 .fullForm{
-justify-content: start;
+   position: fixed;
+   position: relative;
+   justify-content: start;
    display: grid;
+   row-gap: 10px;
    grid-column: 2;
 margin-left: 200px;
 margin-right: 200px;
 font-weight: 800;
 }
 
+.startheader{
+   position: relative;
+   margin:0px;
+   bottom: 20px;
+}
+.disco{
+   position: relative;
+   margin: 0px;
+   bottom: 20px;
+}
 .location{
    position: fixed;
    position: relative;
@@ -34,6 +46,10 @@ font-weight: 800;
    position: relative;
    margin-left: 10px;
 
+}
+.countrylabel{
+   position: relative;
+   bottom: 15px;
 }
 
 .country{
@@ -302,7 +318,6 @@ left:0px
 }
 
 .photo{
-   position: fixed;
 position: relative;
    width: 600px;
    height: 20px;
@@ -329,15 +344,80 @@ text-align: center;
 box-shadow: 5px 5px 5px black;
 }
 
-#countryerror{
-   position: fixed;
-   position: relative;
+
+ #countryerror{
+
+   /* position: relative; */
    bottom: 20px;
-   left: 60px
+      margin: 0px;
+      left: 62px
 }
 
-#addresserror{
+
+/* #addresserror{
+
    position: relative;
-   bottom: 16px;
-   left:100px
-}
+   bottom: 14px;
+      margin: 0px;
+      left:102px;
+} */
+
+/*
+
+#cityerror{
+
+      position: relative;
+   bottom: 14px;
+      margin: 0px;
+      left: 35px;
+   } */
+
+
+   /*
+   #stateerror{
+
+         position: relative;
+      margin: 0px;
+         bottom: 3px;
+      left: 36px;
+      }
+      */
+
+      /*
+       #laterror{
+
+            position: relative;
+         bottom: 17px;
+         font-size: 10pt;
+         left: 62px;
+      margin: 0px;
+
+         }
+         */
+         /*
+         #lngerror{
+
+               position: relative;
+            bottom: 17px;
+            font-size: 10pt;
+            left: 62px;
+      margin: 0px;
+
+            }
+             */
+            /*
+             #descerror{
+
+                  position: relative;
+               bottom: 230px;
+               font-size: 10pt;
+               left: -3px;
+               font-size: large;
+               margin: 0px;
+               } */
+               /* #nameerror{
+
+                  position: relative;
+                  bottom: 230px;
+                  margin: 0px;
+               } */

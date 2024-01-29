@@ -64,14 +64,12 @@ function ProfileButton() {
             <li>
             <Link to='spots/current' id={'clickable'}>Manage Spots</Link>
             </li>
-            {/* <li>
-              <Link to='reviews/current'>Manage Reviews</Link>
-            </li> */}
+
             <br/>
             <button onClick={handleLogout} className="logoutbutton" id={'clickable'}>LogOut</button>
           </>
         ): (<>
-          <li id={'clickable'}>
+          <li>
             <OpenModalButton
 
               buttonText="Log In"

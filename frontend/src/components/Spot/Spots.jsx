@@ -10,23 +10,25 @@ import { FaStar } from "react-icons/fa";
 import './Spots.css'
 
 
+
 export default function Spots() {
   const { spotId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const spot = useSelector((state) => state.spot.spot);
-
   const reviews = useSelector((state) => state?.reviews.reviews);
 const pics = useSelector(state => state.spot.spot?.SpotImages)
+const rating = useSelector(state => state.spot.spot?.avgRating)
 
 
+const pop =Number.isInteger(rating)
+useEffect(() => {
+  dispatch(singleSpot(spotId))
+  .then(() => dispatch(findReviews(spotId)))
+  .then(() => setIsLoading(false));
 
-  useEffect(() => {
-    dispatch(singleSpot(spotId))
-      .then(() => dispatch(findReviews(spotId)))
-      .then(() => setIsLoading(false));
 
-  }, [dispatch, spotId]);
+  }, [dispatch,spotId]);
 
 if (!isLoading) {
   return (
@@ -61,9 +63,18 @@ if (!isLoading) {
 </div>
 <hr></hr>
         {reviews.length > 0 &&
-            <div className="spotRate" style={{gridRow:'3', position:'relative',top:'0px'}}>
+  <div className="spotRate" style={{gridRow:'3', position:'relative',top:'0px'}}>
+{spot && pop &&(
+<div>
+  <FaStar/> {spot.avgRating}.0 Average Star Rating {spot.numReviews} Reviews
+  </div>)
+}
 
-             <FaStar/> {spot.avgRating} Average Star Rating {spot.numReviews} Reviews
+{spot && !pop && (
+<div>
+  <FaStar/> {spot.avgRating} Average Star Rating {spot.numReviews} Reviews
+</div>
+)}
             </div>
           }
         <div className="reviews">

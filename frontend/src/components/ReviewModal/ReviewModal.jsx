@@ -6,6 +6,7 @@ import *  as reviewsActions from '../../store/reviews'
 import {FaStar} from 'react-icons/fa'
 import './starrating.css'
 
+
 export default function ReviewModal() {
 const [review,setReview] = useState('');
 const [stars,setStars] = useState(1)
@@ -25,13 +26,11 @@ spotId: spot.id,
 review,
 stars
 }
- dispatch(reviewsActions.writeReview(data)).then(dispatch(reviewsActions.findReviews(spot.id))).then(closeModal).then(window.location.reload()).catch( async (res) => {
+ dispatch(reviewsActions.writeReview(data)).then(closeModal).then(location.reload()).catch( async (res) => {
 const data= await res.json()
   if (data ) {
     console.log(data,'this is in your modal!')
    setErrors(data);
-  }else{
-    closeModal
   }
 });
 
@@ -44,7 +43,7 @@ console.log(errors,'this is the errors')
         <form className="create-review" onSubmit={handleSubmit }>
         <h1 className="reviewHeading">How was your stay?</h1>
         {errors && (
-          <p>{errors.message}</p>
+          <p style={{color: 'red',fontWeight:'bold',justifySelf:'center'}}>{errors.message}</p>
         )}
         <input
         className="commentBox"

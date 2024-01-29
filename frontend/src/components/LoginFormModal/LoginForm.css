@@ -60,7 +60,9 @@ border-radius: 5%;
     font-size: medium;
 
 }
-
+.loginbutton:disabled{
+    background-color: lightslategray;
+}
 .demo {
     position:fixed;
     background:none;

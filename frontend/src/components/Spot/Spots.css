@@ -12,12 +12,17 @@
     grid-template-columns: 2fr 1fr auto;
 }
 
+.host{
+  position: relative;
+  top: 25px;
+}
+
 .description{
 position: relative;
 height:60px;
     grid-row:2;
     left: 8px;
-    bottom:60px
+    bottom:40px
 
 }
 
@@ -64,4 +69,14 @@ hr{
   display: flex;
   align-self: center;
   flex-wrap: wrap;
+}
+
+.modalbutton {
+background-color: grey;
+color:white;
+box-shadow: 3px 3px  black;
+}
+
+.modalbutton:hover{
+  cursor: pointer;
 }

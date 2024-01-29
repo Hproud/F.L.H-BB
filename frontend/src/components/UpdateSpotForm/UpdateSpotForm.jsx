@@ -76,12 +76,13 @@ setPreviewImage(spot.previewImage)
 
 },[spot.address,spot.country,spot.city,spot.state,spot.description,spot.lat,spot.lng,spot.name,spot.price,spot.previewImage])
   return (
-    <div>
-    <h1>Update your spot</h1>
+    <div className='fullForm'>
+    <h1 className='newspotheading'>Update your spot</h1>
     <form className="createSpotForm" onSubmit={handleSubmit}>
       {errors.message &&
       <p className='spot-form-error'>{errors.message}</p>
       }
+      <div>
       <h2>Where`s your place located?</h2>
       <p>
         Guests will only get your exact address once they booked a
@@ -97,8 +98,8 @@ setPreviewImage(spot.previewImage)
         type='text'
         value={country}
         onChange={(e) => setCountry(e.target.value)}
-
       />
+      </div>
       <br />
       <label>Street Address</label>
       {errors &&

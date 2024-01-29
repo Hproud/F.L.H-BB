@@ -25,7 +25,7 @@ export default function UserReviews() {
   return (
     <div>
       <h1>Manage Reviews</h1>
-      {reviews && reviews.length > 0 &&
+      {reviews && reviews > 0 &&
         reviews.map((review) => (
           <div key={review.id}>
             <h3>{review.Spot.name}</h3>

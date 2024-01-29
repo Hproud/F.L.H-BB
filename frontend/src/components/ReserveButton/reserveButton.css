@@ -34,8 +34,13 @@ position: relative;
     justify-self:center;
 bottom: -15px;
 
+}
 
-
+.newplace{
+    grid-column: 3;
+    position: relative;
+    bottom: -25px;
+    right: 10px;
 }
 
 .dot{
