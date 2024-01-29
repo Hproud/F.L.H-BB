@@ -45,7 +45,7 @@ console.log(errors,'this is the errors')
         {errors && (
           <p style={{color: 'red',fontWeight:'bold',justifySelf:'center'}}>{errors.message}</p>
         )}
-        <input
+        <textarea
         className="commentBox"
         type="text"
         style={{ flexDirection: 'start'}}
@@ -55,11 +55,11 @@ console.log(errors,'this is the errors')
         />
         <div className="starrating">
           <div className="stars">
-          <FaStar className="favstar" />
-          <FaStar className="favstar" />
-          <FaStar className="favstar" />
-          <FaStar className="favstar" />
-          <FaStar className="favstar" />
+          <FaStar   onClick={() => setStars(1)} className="favstar" />
+          <FaStar   onClick={()=> setStars(2)} className="favstar" />
+          <FaStar   onClick={() => setStars(3)} className="favstar" />
+          <FaStar   onClick={() => setStars(4)} className="favstar" />
+          <FaStar   onClick={() => setStars(5)} className="favstar" />
           </div>
         <label className="starlabel">Stars</label>
         <input

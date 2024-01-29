@@ -25,17 +25,16 @@
 .listings {
     /* position: static; */
     list-style: none;
-display: flex;
-    gap: 40px;
-flex-wrap:wrap;
-flex-direction: row;
-
-
+display: -webkit-inline-flex;
+flex-wrap: wrap-reverse;
 }
 
 .spot{
     /* display: flex; */
     flex-direction: column;
+    margin: 10px 10px 10px 10px;
+flex-direction: row;
+background-color: rgb(230, 229, 229);
 
 }
 
@@ -64,4 +63,23 @@ bottom:25px
     align-self: center;
     left:160px;
     bottom: 70px;
+}
+
+.dot{
+    height: 8px;
+    align-self: center;
+}
+
+.sep{
+    position: relative;
+    bottom: 40px;
+}
+
+.revrating{
+    width:310px;
+    position:relative;
+    top: 168px;
+    right: 384px;
+    font-size: large;
+    font-weight: bold;
 }
