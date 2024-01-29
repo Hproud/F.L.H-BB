@@ -25,17 +25,20 @@ const newUser = (user) => ({
 
 export const login = (payload) => async (dispatch) => {
   // const {credential, password} = payload
-  console.log("hit1");
+  // console.log("hit1",payload);
 
-  const data = await csrfFetch("/api/session", {
+  const data = await csrfFetch("/api/session",{
     method: "POST",
     body: JSON.stringify(payload)
-  });
-  console.log(data,'data');
+  })
+
+
 if(data.ok){
-  const user = await data.json();
-  dispatch(updateSession(user))}else{
-    const errors=data.json();
+  const user = await data.json()
+  dispatch(updateSession(user))
+}else{
+  // console.log('hit2')
+    const errors= await data.json();
     return errors
   }
 };

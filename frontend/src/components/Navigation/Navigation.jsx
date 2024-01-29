@@ -19,8 +19,8 @@ export default function Navigation({isLoaded}) {
 // console.log(user,'my user')
   return (
     <div className='navContainer' >
-      <Link to='/'>
-      <img src='https://res-console.cloudinary.com/dxbirmmv1/thumbnails/transform/v1/image/upload//v1706376134/RGVzaWduX2t0djFvcw==/drilldown' className='logo' style={{height: '6em', width: '6em', float: 'left'}}  />
+      <Link to='/' id={'clickable'}>
+      <img src='https://res-console.cloudinary.com/dxbirmmv1/thumbnails/v1/image/upload/v1706376134/RGVzaWduX2t0djFvcw==/preview' className='logo' style={{height: '6em', width: '6em', float: 'left'}}  />
     </Link>
     <nav >
 <ul className='navlist' style={{float: 'left'}} id={'dropdown'} >
@@ -29,7 +29,7 @@ export default function Navigation({isLoaded}) {
         <NavLink to='/'>Home</NavLink>
     </li> */}
 
-    <li key='createSpotLink' className={'createSpotLink'} hidden={!user} style={{alignSelf:'center'}} >
+    <li key='createSpotLink' className={'createSpotLink'} hidden={!user} style={{alignSelf:'center'}} id={'clickable'} >
 <NavLink to='/spots/new'>Create a New Spot</NavLink>
     </li>
 

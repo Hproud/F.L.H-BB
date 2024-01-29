@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf";
+import { allSpots} from "./spot";
 
 //?------------------------------Variables--------------------------------------
 const GET_ALL = 'reviews/getAll'
@@ -35,8 +36,8 @@ export const findReviews = (spotId) => async dispatch => {
 
     if (res.ok){
         const data = await res.json()
-
         dispatch(allReviews(data.Reviews))
+
     }else{
         console.log('failed to load reviews')
     }
@@ -58,7 +59,9 @@ console.log('start',payload)
     if(res.ok){
         const review = await res.json()
         console.log(review,'this is what the res is')
+        dispatch(allSpots())
         dispatch(findReviews(spotId))
+        return review
 
     }else{
         const errors = await res.json()
@@ -83,7 +86,9 @@ console.log(data, 'this is what i have from my thunk')
     if(res.ok){
         const review = await res.json()
         console.log(review,'this is what the res is')
+        dispatch(allSpots())
         dispatch(editReview(review))
+
         return review
 
     }else{
@@ -104,9 +109,11 @@ export const removeReview = (reviewId,spotId) => async dispatch =>{
     {
         method: 'DELETE'
     })
-console.log('hit')
+// console.log('hit')
     if (res.ok){
+        dispatch(allSpots())
         dispatch(allReviews(spotId))
+
     }else{
         const errors = await res.json();
         return errors

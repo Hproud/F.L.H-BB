@@ -3,6 +3,8 @@ import { useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import *  as reviewsActions from '../../store/reviews'
 // import { useNavigate } from "react-router-dom";
+import {FaStar} from 'react-icons/fa'
+import './starrating.css'
 
 
 export default function ReviewModal() {
@@ -24,13 +26,11 @@ spotId: spot.id,
 review,
 stars
 }
- dispatch(reviewsActions.writeReview(data)).then(dispatch(reviewsActions.findReviews(spot.id))).then(closeModal).then(window.location.reload()).catch( async (res) => {
+ dispatch(reviewsActions.writeReview(data)).then(closeModal).then(location.reload()).catch( async (res) => {
 const data= await res.json()
   if (data ) {
     console.log(data,'this is in your modal!')
    setErrors(data);
-  }else{
-    closeModal
   }
 });
 
@@ -39,26 +39,41 @@ console.log(errors,'this is the errors')
 
 
   return (
-    <div>
+    <div className="reviewform">
         <form className="create-review" onSubmit={handleSubmit }>
-        <h1>How was your stay?</h1>
+        <h1 className="reviewHeading">How was your stay?</h1>
         {errors && (
-          <p>{errors.message}</p>
+          <p style={{color: 'red',fontWeight:'bold',justifySelf:'center'}}>{errors.message}</p>
         )}
         <input
+        className="commentBox"
         type="text"
+        style={{ flexDirection: 'start'}}
         placeholder="Leave your review here..."
         value={review}
         onChange={e => setReview(e.target.value)}
         />
-        <label>Stars</label>
-        <input type='range'
+        <div className="starrating">
+          <div className="stars">
+          <FaStar className="favstar" />
+          <FaStar className="favstar" />
+          <FaStar className="favstar" />
+          <FaStar className="favstar" />
+          <FaStar className="favstar" />
+          </div>
+        <label className="starlabel">Stars</label>
+        <input
+        className="slider"
+        type='range'
         min={1}
         max={5}
-    value={stars}
-    onChange={e => setStars(e.target.value)}
-        />
-        <button type='submit' disabled={review.length < 10}>Submit Your Review</button>
+        value={stars}
+        onChange={e => setStars(e.target.value)}
+        style={{justifyself: 'center'}}
+/>
+        </div>
+<br />
+        <button className="subbutton" type='submit' disabled={review.length < 10}>Submit Your Review</button>
 
         </form>
     </div>

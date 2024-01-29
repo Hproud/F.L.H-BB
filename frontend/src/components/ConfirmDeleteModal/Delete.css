@@ -1,0 +1,58 @@
+#modal-content{
+    margin: 0px;;
+    border-radius: 30px;
+    background-color: azure;
+}
+
+
+.mike{
+    border-radius: 20px;
+    height:320px;
+    width: 400px;
+    background-color: azure;
+    display: grid;
+    border-style: solid;
+    border-color: black;
+    border-width: 5px;
+}
+
+.deleteheading{
+    justify-self: center;
+    font-size: 28pt;
+    font-weight: 20;
+}
+
+.deletemessage{
+    justify-self: start;
+    position: relative;
+    bottom:50px;
+    top:-30px;
+    width:380px;
+margin-left: 15px;
+}
+
+.yes{
+    background-color: darkorange;
+    color:white;
+    font-size: 12pt;
+    box-shadow: 3px 3px black;
+    width: 370px;
+    height:70px;
+    justify-self: center;
+    margin-bottom: 20px;
+    position: relative;
+    bottom:35px;
+}
+
+.no{
+    background-color: grey;
+    color:white;
+    height:70px;
+    font-size: 12pt;
+    box-shadow: 3px 3px black;
+width:370px;
+justify-self: center;
+margin-bottom: 20px;
+position: relative;
+bottom:35px;
+}

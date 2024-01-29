@@ -52,7 +52,7 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}style={{borderRadius: '12px'}} className={'profileButton' }>
+      <button onClick={toggleMenu}style={{borderRadius: '12px'}} className={'profileButton' } id={'clickable'}>
         <RecentActorsRounded  />
       </button>
       <ul className={ulClassName} hidden={!showMenu} ref={ulRef}>
@@ -62,17 +62,16 @@ function ProfileButton() {
             <li> Hello, {user.firstName}</li>
             <li>{user.email}</li>
             <li>
-            <Link to='spots/current'>Manage Spots</Link>
+            <Link to='spots/current' id={'clickable'}>Manage Spots</Link>
             </li>
-            {/* <li>
-              <Link to='reviews/current'>Manage Reviews</Link>
-            </li> */}
+
             <br/>
-            <button onClick={handleLogout}>LogOut</button>
+            <button onClick={handleLogout} className="logoutbutton" id={'clickable'}>LogOut</button>
           </>
         ): (<>
           <li>
             <OpenModalButton
+
               buttonText="Log In"
               modalComponent={<LoginFormModal />}
                 onButtonClick={() =>{<LoginFormModal /> }}
@@ -80,8 +79,9 @@ function ProfileButton() {
   />
             {/* <NavLink to="/login">Log In</NavLink> */}
           </li>
-          <li>
+          <li id={'clickable'}>
             <OpenModalButton
+
               buttonText="Sign Up"
               modalComponent={<SignUpModal />}
             />
