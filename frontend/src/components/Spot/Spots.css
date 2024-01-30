@@ -1,10 +1,12 @@
 .spotsPage{
+  margin-top: 100px;
     display: grid;
     margin-left: 50px;
     height:auto;
     max-width: 1000px;
    flex-wrap: wrap;
    justify-content: center;
+   overflow:unset;
 }
 
 .infoBlock{
@@ -77,6 +79,7 @@ hr{
   display: grid;
   grid-template-columns: 50% 50%;
   grid-template-rows: 50% 50%;
+  overflow: hidden;
 }
 
 .modalbutton {
@@ -88,4 +91,3 @@ box-shadow: 3px 3px  black;
 .modalbutton:hover{
   cursor: pointer;
 }
-

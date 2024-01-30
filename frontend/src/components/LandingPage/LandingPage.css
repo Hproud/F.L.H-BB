@@ -23,7 +23,10 @@
 }
 
 .listings {
-    /* position: static; */
+    position: relative;
+    margin-top: 50px;
+   justify-content:space-evenly;
+top:80px;
     list-style: none;
 display: -webkit-inline-flex;
 flex-wrap: wrap-reverse;
