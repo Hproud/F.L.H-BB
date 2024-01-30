@@ -60,7 +60,7 @@ if (!isLoading) {
 
 
         {!reviews.length  && <div className="new"> new </div>}
-        {reviews.length === 1 && <div className="revrating">
+        {reviews.length === 1 && <div className="revrating" >
   <FaStar/> {spot.avgRating}.0 Average Star Rating <GoDotFill className="dot"/> {spot.numReviews} Review
   </div>}
         <div >
@@ -71,7 +71,7 @@ if (!isLoading) {
         {reviews.length > 1 &&
   <div className="spotRate" style={{gridRow:'3', position:'relative',top:'0px'}}>
 {spot && pop &&
-<div>
+<div style={{position:'relative',bottom:'40px'}}>
   <FaStar/> {spot.avgRating}.0 Average Star Rating {spot.numReviews} Reviews
   </div>
 }

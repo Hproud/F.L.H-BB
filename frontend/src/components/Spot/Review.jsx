@@ -7,7 +7,7 @@ import ReviewUpdateModal from "../ReviewModal/ReviewUpdateModal";
 import ReviewDeleteModal from "../ReviewModal/ReviewDeleteModal";
 
 export default function Review({spot}) {
-  const reviews = useSelector((state) => state.reviews.reviews);
+  const reviews = useSelector((state) => state.reviews?.reviews);
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const [isloading, setIsLoading] = useState(true);
