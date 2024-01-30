@@ -29,7 +29,8 @@ useEffect(()=>{},[Review,review,stars])
     review,
     stars
     };
-     dispatch(reviewsActions.changeReview(data)).then(closeModal).then(location.reload())
+     dispatch(reviewsActions.changeReview(data)).then(closeModal)
+    //  .then(location.reload())
 
     //  .then(()=> {() => dispatch(reviewsActions.findReviews(spot.id))})
     //  .then(()=>closeModal)

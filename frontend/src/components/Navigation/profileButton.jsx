@@ -69,7 +69,7 @@ function ProfileButton() {
             <button onClick={handleLogout} className="logoutbutton" id={'clickable'}>LogOut</button>
           </>
         ): (<>
-          <li>
+          <li style={{marginBottom:'5px',justifySelf:'center'}}>
             <OpenModalButton
 
               buttonText="Log In"

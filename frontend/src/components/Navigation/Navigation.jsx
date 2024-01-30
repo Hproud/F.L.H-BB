@@ -18,7 +18,7 @@ export default function Navigation({isLoaded}) {
 
 // console.log(user,'my user')
   return (
-    <div className='navContainer' >
+    <div className='navContainer' style={{position:'fixed'}} >
       <Link to='/' id={'clickable'}>
       <img src='https://res-console.cloudinary.com/dxbirmmv1/thumbnails/v1/image/upload/v1706376134/RGVzaWduX2t0djFvcw==/preview' className='logo' style={{height: '6em', width: '6em', float: 'left'}}  />
     </Link>

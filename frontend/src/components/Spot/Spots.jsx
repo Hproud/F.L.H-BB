@@ -17,7 +17,7 @@ export default function Spots() {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const spot = useSelector((state) => state.spot.spot);
-  const reviews = useSelector((state) => state?.reviews.reviews);
+  const reviews = useSelector((state) => state?.reviews?.reviews);
 const pics = useSelector(state => state.spot.spot?.SpotImages)
 const rating = useSelector(state => state.spot.spot?.avgRating)
 
@@ -77,8 +77,8 @@ if (!isLoading) {
 }
 
 {spot && !pop && (
-<div>
-  <FaStar/> {spot.avgRating} Average Stars
+<div style={{position:'relative',bottom:'40px'}}>
+  <FaStar/> {spot.avgRating.toFixed(1)} Average Stars
 </div>
 )}
 
