@@ -63,9 +63,9 @@ export default function CreateSpotForm() {
       })
 
       .catch(async (res) => {
-        console.log(res, "this is the res we are looking at");
+        // console.log(res, "this is the res we are looking at");
         const data = await res.json();
-        console.log(data, "this is the data in the error handler");
+        // console.log(data, "this is the data in the error handler");
         if (data.errors) {
           setErrors(data.errors)
 
