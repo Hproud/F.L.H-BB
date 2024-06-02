@@ -35,7 +35,7 @@ dispatch(deleteSpot(spot.id))
     <div className="mike">
         <h2 className="deleteheading">Confirm Delete</h2>
         <p className="deletemessage">Are you sure you want to remove this spot from the listings?</p>
-        <button className='yes' onClick={yes }>Yes  (Delete Spot)</button>
+        <button className='yes' onClick={yes}>Yes  (Delete Spot)</button>
         <button
        className="no" onClick={closeModal }>No  (Keep Spot)</button>
     </div>
