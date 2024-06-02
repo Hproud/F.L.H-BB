@@ -14,8 +14,8 @@ const {closeModal} = useModal()
 const dispatch= useDispatch()
 const yes = (e) =>{
     e.preventDefault()
-    console.log('you said  yes')
-    console.log(spot.id,'this is the spot')
+    // console.log('you said  yes')
+    // console.log(spot.id,'this is the spot')
 dispatch(deleteSpot(spot.id))
 .then(closeModal)
 

@@ -50,7 +50,7 @@ if(imageInQ.spotImages.ownerId !== req.user.id){
     place.previewImage = false
  }
  await place.save();
-        console.log(place,'this is final')
+        // console.log(place,'this is final')
     };
     imageInQ.destroy();
 
