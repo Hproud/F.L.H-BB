@@ -121,7 +121,7 @@ router.put(
     currBooking = currBooking.toJSON();
     // console.log(currBooking);
 
-    console.log(req.user.id);
+    // console.log(req.user.id);
     if (req.user.id === currBooking.userId) {
       const bookings = await Booking.findAll({
         where: { spotId: currBooking.spotId },
@@ -154,7 +154,7 @@ router.put(
               (begin < stay.startDate && stay.endDate < end) ||
               (stay.startDate < begin && end < stay.endDate)
             ) {
-              console.log("error for spots");
+              // console.log("error for spots");
               const err = new Error(
                 "Sorry, this spot is already booked for the specified dates"
               );
