@@ -20,7 +20,7 @@ export default function Navigation({isLoaded}) {
   return (
     <div className='navContainer' style={{position:'fixed'}} >
       <Link to='/' id={'clickable'}>
-      <img src='https://res-console.cloudinary.com/dxbirmmv1/thumbnails/v1/image/upload/v1706376134/RGVzaWduX2t0djFvcw==/preview' className='logo' style={{height: '6em', width: '6em', float: 'left'}}  />
+      <img src='public/Design_ktv1os.jpeg' className='logo' style={{height: '6em', width: '6em', float: 'left',borderRadius:'50px'}}  />
     </Link>
     <nav >
 <ul className='navlist' style={{float: 'left'}} id={'dropdown'} >
