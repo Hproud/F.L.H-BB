@@ -7,7 +7,9 @@ const [checkOutDate,setCheckOutDate] = useState()
 const [guests,setGuests]=useState(1)
 
 
-console.log(checkInDate)
+console.log(checkInDate,"check in")
+console.log(checkOutDate,)
+console.log(checkOutDate)
 console.log(checkOutDate)
 
 
