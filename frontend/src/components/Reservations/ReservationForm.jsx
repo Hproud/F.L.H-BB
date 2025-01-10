@@ -47,7 +47,7 @@ return (
     />
 <br/>
 <br/>
-    <label>Guests: </label>
+    <label style={{fontSize:'18px', fontWeight:'bold',textDecoration:'underline'}}>Guests: </label>
     <br/>
     <label>Adults: </label>
     <input
@@ -66,8 +66,8 @@ min={1}
 style={{width:'35px'}}
 onChange={(e)=> setKids(e.target.value)}
 value={kids}
-
 />
+<br/>
 <br/>
 <button>Reserve</button>
 </form>
