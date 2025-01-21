@@ -43,7 +43,7 @@ return (
     type='date'
     onChange={(e) => setCheckOutDate(e.target.value)}
     value={checkOutDate}
-
+//this is checking the checkout date
     />
 <br/>
 <br/>
