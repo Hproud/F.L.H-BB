@@ -56,7 +56,7 @@ min={1}
 style={{width:'35px'}}
 onChange={(e)=> setAdults(e.target.value)}
 value={adults}
- 
+ // this is setting the amount of adults
 />
 <br/>
 <label>Children: </label>
