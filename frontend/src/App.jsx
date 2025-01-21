@@ -8,6 +8,7 @@ import Spots from "./components/Spot/Spots";
 import CreateSpotForm from './components/CreateSpotForm/CreateSpotForm'
 import OwnersSpots from "./components/OwnersSpots/OwnersSpots";
 import UpdateSpotForm from "./components/UpdateSpotForm";
+import ReservationForm from "./components/Reservations/ReservationForm";
 // import UserReviews from "./components/UserReviews/UserReviews";
 
 const Layout = () => {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: 'update',
         element: <UpdateSpotForm />
+      },
+      {
+        path: 'reserve',
+        element: <ReservationForm />
       },
       // {
       //   path: 'reviews/current',
