@@ -1,5 +1,7 @@
-import React from 'react'
-import { useState } from 'react'
+
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { singleSpot } from '../../store/spot'
 
 export default function ReservationForm() {
 const today = new Date()
@@ -11,15 +13,18 @@ const [checkInDate,setCheckInDate] = useState(tdy)
 const [checkOutDate,setCheckOutDate] = useState(Date)
 const [adults,setAdults]=useState(1)
 const [kids,setKids]=useState(0)
-
-
-console.log(checkInDate,"check in")
-console.log(checkOutDate,"check out")
+const dispatch = useDispatch()
+const spotId = 60 //! will need to change this to pull state when we are ready to connect this to the button.
+useEffect(()=>{
+dispatch(singleSpot(spotId))
+},[])
+// console.log(checkInDate,"check in")
+// console.log(checkOutDate,"check out")
 // console.log(guests,'guests')
-console.log(day,'day')
-console.log(mnth,'month')
-console.log(yr,'year')
-
+// console.log(day,'day')
+// console.log(mnth,'month')
+// console.log(yr,'year')
+console.log(spotId, 'this is my spotId')
 
 
 
