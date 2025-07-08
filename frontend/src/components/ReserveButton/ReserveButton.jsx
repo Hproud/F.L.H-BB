@@ -3,13 +3,14 @@ import './reserveButton.css'
 import { useSelector } from "react-redux";
 import {FaStar} from 'react-icons/fa'
 import { GoDotFill } from "react-icons/go"
+import { useNavigate } from 'react-router-dom';
 
 export default function ReserveButton() {
 const spot = useSelector(state => state.spot.spot);
 // console.log(spot,'this is the spot')
 // const dispatch = useDispatch()
 const pop= Number.isInteger(spot.avgRating)
-
+const navigate = useNavigate()
   return (
     <div className="reservationButton">
         <div style={{display:'flex'}}>
@@ -29,7 +30,10 @@ const pop= Number.isInteger(spot.avgRating)
             {!spot.numReviews &&
                <p className='norevs' ><FaStar/>{spot.avgRating}.0 Average Star Rating</p>
             }
-        <button className='reservebutton' type='button' style={{cursor: 'pointer'}} onClick={()=> alert("Feature Coming Soon!")} id={'clickable'}>Reserve</button>
+        {
+        /* <button className='reservebutton' type='button' style={{cursor: 'pointer'}} onClick={()=> alert("Feature Coming Soon!")} id={'clickable'}>Reserve</button> */
+         <button className='reservebutton' type='button' style={{cursor: 'pointer'}} onClick={()=> navigate('../../reserve')} id={'clickable'}>Reserve</button>
+         }
     </div>
   )
 }
