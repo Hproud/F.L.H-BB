@@ -37,6 +37,7 @@ console.log(spot,'this is the spot on the reserve page')
 return (
     <div>
 <h1>Reserve This Location</h1>
+        <img src={spot.previewImage}/>
 <form>
     <label>Check-in Date</label>
     <br/>
@@ -82,7 +83,7 @@ value={kids}
 />
 <br/>
 <br/>
-<button>Reserve</button>
+<button onClick={()=> alert("You clicked me")}>Reserve</button>
 </form>
         </div>
   )
