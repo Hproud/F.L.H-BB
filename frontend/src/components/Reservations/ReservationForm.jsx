@@ -54,6 +54,7 @@ return (
 <br/>
     <label style={{fontSize:'18px', fontWeight:'bold',textDecoration:'underline'}}>Guests: </label>
     <br/>
+<br/>
     <label>Adults: </label>
     <input
 type='number'
@@ -64,10 +65,11 @@ value={adults}
  // this is setting the amount of adults
 />
 <br/>
+<br/>
 <label>Children: </label>
 <input
 type='number'
-min={1}
+min={0}
 style={{width:'35px'}}
 onChange={(e)=> setKids(e.target.value)}
 value={kids}
